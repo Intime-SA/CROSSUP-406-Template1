@@ -6,9 +6,7 @@
     "dev": "next dev",
     "build": "next build || exit 0",
     "start": "next start",
-    "lint": "next lint",
-    "test": "jest",
-    "test:watch": "jest --watchAll"
+    "lint": "next lint"
   },
   "dependencies": {
     "@fontsource/montserrat": "^5.1.0",
@@ -33,14 +31,10 @@
     "sweetalert2": "^11.14.4",
     "sweetalert2-react-content": "^5.0.7",
     "tailwind-merge": "^2.5.4",
-    "tailwindcss-animate": "^1.0.7",
-    "ts-jest": "^29.2.5"
+    "tailwindcss-animate": "^1.0.7"
   },
   "devDependencies": {
     "@testing-library/dom": "^10.4.0",
-    "@testing-library/jest-dom": "^6.6.2",
-    "@testing-library/react": "^16.0.1",
-    "@types/jest": "^29.5.14",
     "@types/node": "^20",
     "@types/react": "^18.3.11",
     "@types/react-dom": "^18.3.1",
