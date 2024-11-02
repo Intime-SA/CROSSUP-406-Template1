@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Image from "next/image";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
@@ -6,16 +6,39 @@ import { X } from "lucide-react";
 import { handleAddToCart } from "@/lib/protocolFunctions/functions";
 import { ViewProductProps } from "@/domain/definitions";
 import { formatPrice } from "@/lib/utils";
+import QuantitySelector from "./QuantitySelector";
+import ColorSelector from "./ColorSelector";
+import SizeSelector from "./SizeSelector";
 
 export const ProductView: React.FC<ViewProductProps> = ({
   product,
   isOpen,
   onClose,
 }) => {
+  // funcion Agregar al Carrito y Cerrar Modal
   const handleAddToCartAndClose = () => {
     handleAddToCart(product.id);
     onClose();
   };
+
+  // Filtros:
+  const [quantity, setQuantity] = useState(1);
+  const [selectedColor, setSelectedColor] = useState(1);
+
+  // Funciones para manejar aumento y disminucion de unidades de producto
+  const handleIncrease = () => setQuantity((prev) => prev + 1);
+  const handleDecrease = () => setQuantity((prev) => Math.max(1, prev - 1));
+
+  // Colores mokeados para renderizar
+  const colorOptions = [
+    { id: 1, color: "#1078ff" },
+    { id: 2, color: "#ff4136" },
+    { id: 3, color: "#2ecc40" },
+  ];
+
+  // Sizes mokeadas para seleccionar
+  const sizes = ["XS", "S", "M", "L", "XL"];
+  const [selectedSize, setSelectedSize] = useState(sizes[0]);
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
@@ -53,70 +76,24 @@ export const ProductView: React.FC<ViewProductProps> = ({
                   {formatPrice(product.price)}
                 </div>
 
-                <div className="justify-start items-center gap-2 flex">
-                  <div className="h-[30px] px-2 py-1 bg-background border border-border justify-start items-center gap-4 inline-flex">
-                    <Button
-                      variant="ghost"
-                      size="sm"
-                      className="flex-col justify-center items-start p-0 hover:bg-transparent dark:hover:bg-transparent"
-                    >
-                      <Image
-                        src="/bottomRest.svg"
-                        alt="Decrease quantity"
-                        width={16}
-                        height={16}
-                        className="w-4 h-4"
-                      />
-                    </Button>
-                    <span className="text-foreground text-xs font-semibold uppercase tracking-wide">
-                      1
-                    </span>
-                    <Button
-                      variant="ghost"
-                      size="sm"
-                      className="flex-col justify-center items-start p-0 hover:bg-transparent dark:hover:bg-transparent"
-                    >
-                      <Image
-                        src="/bottomMore.svg"
-                        alt="Increase quantity"
-                        width={12}
-                        height={12}
-                        className="w-3 h-3"
-                      />
-                    </Button>
-                  </div>
-                </div>
+                <QuantitySelector
+                  quantity={quantity}
+                  onIncrease={handleIncrease}
+                  onDecrease={handleDecrease}
+                />
               </div>
 
-              <div className="self-stretch justify-between items-center inline-flex">
-                <div className="text-sm font-medium text-foreground">Color</div>
-                <div className="justify-start items-center gap-2 flex">
-                  {[1, 2, 3].map((i) => (
-                    <div
-                      key={i}
-                      className="w-[30px] h-[30px] px-2 py-1 bg-background border border-border flex justify-center items-center"
-                    >
-                      <div className="w-3 h-3 bg-[#1078ff]" />
-                    </div>
-                  ))}
-                </div>
-              </div>
+              <ColorSelector
+                colors={colorOptions}
+                selectedColor={selectedColor}
+                onColorSelect={setSelectedColor}
+              />
 
-              <div className="self-stretch justify-between items-center inline-flex">
-                <div className="text-sm font-medium text-foreground">Talle</div>
-                <div className="justify-start items-center gap-2 flex">
-                  {["Option", "Option", "Option"].map((option, i) => (
-                    <div
-                      key={i}
-                      className="px-2 py-1 bg-background border border-border flex justify-start items-center gap-1"
-                    >
-                      <div className="text-foreground text-xs font-semibold uppercase tracking-wide">
-                        {option}
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
+              <SizeSelector
+                sizes={sizes}
+                selectedSize={selectedSize}
+                onSizeSelect={setSelectedSize}
+              />
             </div>
           </div>
         </div>

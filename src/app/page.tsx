@@ -10,7 +10,13 @@ import {
 } from "@/lib/protocolFunctions/functions";
 import RecommendedProducts from "@/components/template1/RecomendedProducts";
 import { Button } from "@/components/ui/button";
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import {
+  Sheet,
+  SheetContent,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet";
 import ProductView from "@/components/template1/ProductView";
 import { RecommendedProduct } from "@/domain/definitions";
 import Image from "next/image";
@@ -62,6 +68,9 @@ const TemplateMobile = () => {
               </Button>
             </SheetTrigger>
             <SheetContent className="w-full sm:max-w-md flex flex-col p-0 bg-background text-foreground">
+              <SheetHeader>
+                <SheetTitle></SheetTitle>
+              </SheetHeader>
               <div className="flex-grow overflow-auto h-full">
                 <div className="w-full h-full max-w-md mx-auto bg-background flex flex-col">
                   <ProductAdded
