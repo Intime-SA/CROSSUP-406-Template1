@@ -29,6 +29,7 @@ const TemplateMobile = () => {
   const handleClose = () => {
     onClosePopUp("closeModal");
     setIsOpen(false);
+    setSelectedProduct(null);
   };
 
   return (
@@ -100,7 +101,7 @@ const TemplateMobile = () => {
           <ProductView
             product={selectedProduct}
             isOpen={!!selectedProduct}
-            onClose={() => setSelectedProduct(null)}
+            onClose={() => handleClose()}
           />
         )}
       </div>
