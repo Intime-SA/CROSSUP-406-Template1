@@ -6,7 +6,7 @@ import AddButton from "./AddButtom";
 
 interface RecommendedProductsProps {
   products: RecommendedProduct[];
-  addToCart: (id: number) => Promise<void>;
+  addToCart: (id: number) => void;
   openModalViewProduct: (product: RecommendedProduct) => void;
   onClose: () => void;
 }
