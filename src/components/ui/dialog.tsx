@@ -103,21 +103,20 @@ const DialogFooter = ({
 );
 DialogFooter.displayName = "DialogFooter";
 
-// Eliminar el DialogTitle
-// const DialogTitle = React.forwardRef<
-//   React.ElementRef<typeof DialogPrimitive.Title>,
-//   React.ComponentPropsWithoutRef<typeof DialogPrimitive.Title>
-// >(({ className, ...props }, ref) => (
-//   <DialogPrimitive.Title
-//     ref={ref}
-//     className={cn(
-//       "text-lg font-semibold leading-none tracking-tight",
-//       className
-//     )}
-//     {...props}
-//   />
-// ));
-// DialogTitle.displayName = DialogPrimitive.Title.displayName;
+const DialogTitle = React.forwardRef<
+  React.ElementRef<typeof DialogPrimitive.Title>,
+  React.ComponentPropsWithoutRef<typeof DialogPrimitive.Title>
+>(({ className, ...props }, ref) => (
+  <DialogPrimitive.Title
+    ref={ref}
+    className={cn(
+      "text-lg font-semibold leading-none tracking-tight",
+      className
+    )}
+    {...props}
+  />
+));
+DialogTitle.displayName = DialogPrimitive.Title.displayName;
 
 const DialogDescription = React.forwardRef<
   React.ElementRef<typeof DialogPrimitive.Description>,
@@ -140,6 +139,6 @@ export {
   DialogContent,
   DialogHeader,
   DialogFooter,
-  // DialogTitle, // También quita esta línea
+  DialogTitle,
   DialogDescription,
 };
