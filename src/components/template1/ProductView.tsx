@@ -19,21 +19,21 @@ export const ProductView: React.FC<ViewProductProps> = ({
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="w-full mt-[10vh] h-[80vh] max-h-[80vh] md:!mt-0 md:h-full md:w-[430px] p-0 bg-white max-w-full  flex flex-col">
+      <DialogContent className="w-full mt-[10vh] h-[80vh] max-h-[80vh] md:!mt-0 md:h-full md:w-[430px] p-0 bg-background text-foreground max-w-full flex flex-col">
         <Button
           variant="outline"
           size="icon"
-          className="absolute right-2 -top-4 p-2 rounded-full border border-[#e3e3e3] bg-white z-50 hover:bg-gray-50"
+          className="absolute right-2 -top-4 p-2 rounded-full border border-border bg-background z-50 hover:bg-secondary"
           onClick={onClose}
         >
-          <X className="h-4 w-4 text-black" />
+          <X className="h-4 w-4 text-foreground" />
         </Button>
 
         <div className="flex-grow overflow-y-auto">
           <div className="p-6 flex flex-col justify-start items-start gap-6">
             <div className="self-stretch flex justify-center">
               <Image
-                className="border border-[#e3e3e3] w-382 h-382 md:w-[382px] md:h-[382px] object-cover"
+                className="border border-border w-382 h-382 md:w-[382px] md:h-[382px] object-cover"
                 src={"/backImage.png"}
                 alt={product.name}
                 width={382}
@@ -43,25 +43,22 @@ export const ProductView: React.FC<ViewProductProps> = ({
 
             <div className="self-stretch flex-col justify-start items-start gap-4 flex">
               <div className="self-stretch flex-col justify-start items-start gap-2 flex">
-                <div
-                  className="self-stretch text-base font-semibold"
-                  style={{ color: "var(--primary-text)" }}
-                >
+                <div className="self-stretch font-semibold text-foreground">
                   {product.name}
                 </div>
               </div>
 
               <div className="self-stretch justify-between items-center inline-flex">
-                <div className=" text-lg font-semibold">
+                <div className="text-lg font-semibold text-foreground">
                   {formatPrice(product.price)}
                 </div>
 
                 <div className="justify-start items-center gap-2 flex">
-                  <div className="h-[30px] px-2 py-1 bg-white border border-[#d1d1d1] justify-start items-center gap-4 inline-flex">
+                  <div className="h-[30px] px-2 py-1 bg-background border border-border justify-start items-center gap-4 inline-flex">
                     <Button
                       variant="ghost"
                       size="sm"
-                      className="flex-col justify-center items-start p-0 hover:bg-transparent"
+                      className="flex-col justify-center items-start p-0 hover:bg-transparent dark:hover:bg-transparent"
                     >
                       <Image
                         src="/bottomRest.svg"
@@ -71,13 +68,13 @@ export const ProductView: React.FC<ViewProductProps> = ({
                         className="w-4 h-4"
                       />
                     </Button>
-                    <span className="text-black text-xs font-semibold uppercase tracking-wide">
+                    <span className="text-foreground text-xs font-semibold uppercase tracking-wide">
                       1
                     </span>
                     <Button
                       variant="ghost"
                       size="sm"
-                      className="flex-col justify-center items-start p-0 hover:bg-transparent"
+                      className="flex-col justify-center items-start p-0 hover:bg-transparent dark:hover:bg-transparent"
                     >
                       <Image
                         src="/bottomMore.svg"
@@ -92,13 +89,12 @@ export const ProductView: React.FC<ViewProductProps> = ({
               </div>
 
               <div className="self-stretch justify-between items-center inline-flex">
-                <div className=" text-sm font-medium">Color</div>
+                <div className="text-sm font-medium text-foreground">Color</div>
                 <div className="justify-start items-center gap-2 flex">
                   {[1, 2, 3].map((i) => (
                     <div
                       key={i}
-                      className="w-[30px] h-[30px] px-2 py-1 bg-white border  flex justify-center items-center"
-                      style={{ border: "1px solid var(--primary-text)" }}
+                      className="w-[30px] h-[30px] px-2 py-1 bg-background border border-border flex justify-center items-center"
                     >
                       <div className="w-3 h-3 bg-[#1078ff]" />
                     </div>
@@ -107,15 +103,14 @@ export const ProductView: React.FC<ViewProductProps> = ({
               </div>
 
               <div className="self-stretch justify-between items-center inline-flex">
-                <div className=" text-sm font-medium">Talle</div>
+                <div className="text-sm font-medium text-foreground">Talle</div>
                 <div className="justify-start items-center gap-2 flex">
                   {["Option", "Option", "Option"].map((option, i) => (
                     <div
                       key={i}
-                      className="px-2 py-1 bg-white border  flex justify-start items-center gap-1"
-                      style={{ border: "1px solid var(--primary-text)" }}
+                      className="px-2 py-1 bg-background border border-border flex justify-start items-center gap-1"
                     >
-                      <div className="text-black text-xs font-semibold uppercase tracking-wide">
+                      <div className="text-foreground text-xs font-semibold uppercase tracking-wide">
                         {option}
                       </div>
                     </div>
@@ -125,19 +120,12 @@ export const ProductView: React.FC<ViewProductProps> = ({
             </div>
           </div>
         </div>
-        <div className="flex-shrink-0 p-4 border-t border-gray-200">
+        <div className="flex-shrink-0 p-4 border-t border-gray-200 dark:border-gray-700">
           <Button
-            className="w-full h-10 text-white font-medium"
+            className="w-full h-10 text-primary-foreground font-medium bg-primary hover:bg-primary/90"
             onClick={handleAddToCartAndClose}
-            style={{
-              backgroundColor: "var(--components-bg)",
-              transition: "background-color 0.3s ease, opacity 0.3s ease",
-              opacity: 1,
-            }}
-            onMouseEnter={(e) => (e.currentTarget.style.opacity = "0.9")}
-            onMouseLeave={(e) => (e.currentTarget.style.opacity = "1")}
           >
-            <h3 className="text-base ">Agregar al carrito</h3>
+            <h3 className="text-base">Agregar al carrito</h3>
           </Button>
         </div>
       </DialogContent>

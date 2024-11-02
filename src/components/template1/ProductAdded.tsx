@@ -23,7 +23,7 @@ export const ProductAdded: React.FC<ProductAddedProps> = ({
       <div className="px-4 sm:px-6 py-4 flex justify-between items-center border-b border-gray-100">
         <div className="flex items-center gap-2">
           <Image src={checkIconSrc} alt="Check Icon" width={24} height={24} />
-          <span className="text-black text-base font-semibold">
+          <span className="text-base font-semibold">
             Producto añadido al carrito
           </span>
         </div>

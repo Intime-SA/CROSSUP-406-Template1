@@ -7,8 +7,8 @@ import { ThemeProvider } from "@/components/providers/providers";
 import { montserrat } from "./fonts/fonts";
 
 export const metadata: Metadata = {
-  title: "Challenge CROSS up",
-  description: "Prueba Tecnica Semi Señor - Ramiro Arce",
+  title: "CrossUp-406 Template 1",
+  description: "Desarrollo en codigo de templates para tienda nube",
 };
 
 export default function RootLayout({

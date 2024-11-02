@@ -43,11 +43,15 @@ export default function RecommendedProducts({
           <div className="flex-1 flex flex-col gap-2">
             <button
               onClick={() => openModalViewProduct(product)}
-              className="text-left text-[#2a2742] text-sm font-medium focus:outline-none transition-colors duration-200 ease-in-out hover:text-[#4a4760]"
+              className="text-left text-sm font-medium focus:outline-none transition-colors duration-200 ease-in-out hover:text-[#4a4760]"
+              style={{ color: "var(--primary-text)" }}
             >
               {product.name}
             </button>
-            <div className="text-[#2a2742] text-sm font-semibold">
+            <div
+              className="text-sm font-semibold"
+              style={{ color: "var(--primary-text)" }}
+            >
               {formatPrice(product.price)}
             </div>
           </div>

@@ -72,6 +72,11 @@ body {
     --chart-3: 30 80% 55%;
     --chart-4: 280 65% 60%;
     --chart-5: 340 75% 55%;
+    /* Modo oscuro */
+    --primary-text: #eaeaea; /* Texto claro para fondo oscuro */
+    --neutrals-disabled: #4a4a4a; /* Desactivado con tono oscuro */
+    --neutrals-white: #1a1a1a; /* Fondo oscuro en lugar de blanco */
+    --components-bg: #005244;
   }
 }
 
