@@ -27,11 +27,11 @@ export default function ColorSelector({
             className={`
               w-[30px] h-[30px] p-2
               flex justify-center items-center
-              bg-white border
+              border
               transition-all duration-200
               ${
                 selectedColor === colorOption.id
-                  ? "bg-[#00806e] bg-opacity-20 border-[var(--primary-text)]"
+                  ? "bg-[var(--components-bg)] border-[var(--primary-text)]"
                   : "border-border hover:opacity-80"
               }
             `}

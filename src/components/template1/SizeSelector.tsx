@@ -22,11 +22,11 @@ export default function SizeSelector({
             className={`
               px-2 py-1
               flex justify-center items-center
-              bg-background border
+               border
               transition-all duration-200
               ${
                 selectedSize === size
-                  ? "bg-[#00806e] bg-opacity-20 border-[var(--primary-text)]"
+                  ? "bg-[var(--components-bg)]   border-[var(--primary-text)]"
                   : "border-border hover:opacity-80"
               }
             `}

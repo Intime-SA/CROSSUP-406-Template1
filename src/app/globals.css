@@ -43,8 +43,7 @@ body {
     --primary-text: #2a2742;
     --neutrals-disabled: #d1d1d1;
     --neutrals-white: #ffffff;
-
-    --components-bg: #00806e;
+    --components-bg: rgba(0, 128, 110, 0.2);
   }
 
   .dark {
