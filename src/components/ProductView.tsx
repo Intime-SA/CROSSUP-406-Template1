@@ -54,7 +54,7 @@ export const ProductView: React.FC<ViewProductProps> = ({
 
         <div className="flex-grow overflow-y-auto">
           <div className="p-6 flex flex-col justify-start items-start gap-6">
-            <div className="self-stretch flex justify-center">
+            <div className="self-stretch flex justify-start">
               <Image
                 className="border border-border w-382 h-382 md:w-[382px] md:h-[382px] object-cover"
                 src={"/backImage.png"}
@@ -97,9 +97,9 @@ export const ProductView: React.FC<ViewProductProps> = ({
             </div>
           </div>
         </div>
-        <div className="absolute bottom-0 left-0 right-0 p-4 bg-background border-t border-border">
+        <div className="absolute bottom-0 left-0 right-0 p-4">
           <Button
-            className="w-full h-10 bg-[#00806e] hover:bg-[#00806e]/90 text-white"
+            className="w-full h-10 bg-[#00806e] hover:bg-[#00806e]/90 text-white rounded-none"
             onClick={handleAddToCartAndClose}
           >
             <span className="text-base font-medium">Agregar al carrito</span>
