@@ -132,17 +132,24 @@ export default function RecommendedProducts({
               </div>
             )}
             <div className="flex items-center gap-2">
-              {offUnidad && (
-                <span className="text-[#00806e] font-semibold text-sm">
-                  {offQuantity}% OFF
-                </span>
-              )}
               <div
                 className="text-sm font-semibold"
                 style={{ color: "var(--primary-text)" }}
               >
                 {formatPrice(product.price)}
               </div>
+              {offUnidad && (
+                <div className="text-[#d1d1d1] text-xs font-medium line-through">
+                  {formatPrice(product.price)}
+                </div>
+              )}
+            </div>
+            <div className="flex items-center gap-2">
+              {offUnidad && (
+                <span className="text-[#00806e] font-semibold text-sm">
+                  {offQuantity}% OFF
+                </span>
+              )}
             </div>
           </div>
 

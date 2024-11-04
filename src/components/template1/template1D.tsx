@@ -95,7 +95,7 @@ const Template1D = () => {
             }}
             onClick={handleInitializeTiendaNube}
           >
-            Inicializador TiendaNube 1C°
+            Inicializador TiendaNube 1D°
           </Button>
         </SheetTrigger>
         <SheetContent className="w-full sm:max-w-md flex flex-col p-0 bg-background text-foreground">
