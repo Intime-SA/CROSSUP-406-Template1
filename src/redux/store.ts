@@ -1,13 +1,16 @@
 import { Action, configureStore } from "@reduxjs/toolkit";
 import cartReducer from "./features/cartSlice";
 import timerReducer from "./features/timerSlice";
+import tiendaNubeReducer from "./features/tiendaNubeSlice"; // Añade esta línea
 import { thunk, ThunkAction } from "redux-thunk";
 
 // Store, reducers y middleware para thunk
+
 export const store = configureStore({
   reducer: {
     cart: cartReducer,
     timer: timerReducer,
+    tiendaNube: tiendaNubeReducer,
   },
   middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(thunk), // Añadir thunk
 });

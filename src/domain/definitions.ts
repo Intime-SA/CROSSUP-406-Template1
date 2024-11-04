@@ -102,3 +102,21 @@ export interface ViewProductProps {
   isOpen: boolean; // Indica si el modal está abierto
   onClose: () => void; // Función para cerrar el modal
 }
+
+export interface MainProduct2 {
+  id: number;
+  name: string;
+  description: string;
+  price: number;
+  image: string;
+  quantity: number;
+}
+
+// Define RecommendedProduct interface
+export interface RecommendedProduct2 {
+  id: number;
+  name: string;
+  description: string;
+  price: number;
+  image: string;
+}
