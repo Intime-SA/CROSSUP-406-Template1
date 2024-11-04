@@ -125,11 +125,18 @@ export const ProductView: React.FC<ViewProductProps> = ({
               onColorSelect={setSelectedColor}
             />
 
-            <SizeSelector
-              sizes={sizes}
-              selectedSize={selectedSize}
-              onSizeSelect={setSelectedSize}
-            />
+            {offUnidad && (
+              <>
+                {[...Array(5)].map((_, index) => (
+                  <SizeSelector
+                    key={index}
+                    sizes={sizes}
+                    selectedSize={selectedSize}
+                    onSizeSelect={setSelectedSize}
+                  />
+                ))}
+              </>
+            )}
           </div>
         </div>
 
