@@ -3,13 +3,13 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { productsTemplate2 } from "@/data/templates1/products2";
-import ProductAdded from "@/components/ProductAdded";
+import ProductAdded from "@/components/ui-templates/ProductAdded";
 import {
   customText,
   handleAddToCart,
   onClosePopUp,
 } from "@/lib/protocolFunctions/functions";
-import RecommendedProducts from "@/components/RecomendedProducts";
+import RecommendedProducts from "@/components/ui-templates/RecomendedProducts";
 import { Button } from "@/components/ui/button";
 import {
   Sheet,
@@ -18,7 +18,7 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
-import ProductView from "@/components/ProductView";
+import ProductView from "@/components/ui-templates/ProductView";
 import { RecommendedProduct2 } from "@/domain/definitions";
 import Image from "next/image";
 import Link from "next/link";

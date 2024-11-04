@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import { ThemeToggle } from "@/components/ThemeToggle";
+import { ThemeToggle } from "@/components/ui-templates/ThemeToggle";
 import CartComponent from "@/components/cart/CartComponent";
 import { ReduxProvider } from "@/redux/ReduxProvider";
 import { ThemeProvider } from "@/components/providers/providers";

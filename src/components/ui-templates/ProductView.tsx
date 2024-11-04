@@ -137,6 +137,14 @@ export const ProductView: React.FC<ViewProductProps> = ({
                 ))}
               </>
             )}
+
+            {!offUnidad && (
+              <SizeSelector
+                sizes={sizes}
+                selectedSize={selectedSize}
+                onSizeSelect={setSelectedSize}
+              />
+            )}
           </div>
         </div>
 
