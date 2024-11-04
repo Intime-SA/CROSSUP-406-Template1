@@ -19,7 +19,7 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import ProductView from "@/components/ProductView";
-import { RecommendedProduct } from "@/domain/definitions";
+import { RecommendedProduct2 } from "@/domain/definitions";
 import Image from "next/image";
 import Link from "next/link";
 import {
@@ -39,11 +39,11 @@ const Template1D = () => {
   const [mainProduct, ...recommendedProducts] = productsTemplate2;
   const [isOpen, setIsOpen] = useState(false);
   const [selectedProduct, setSelectedProduct] =
-    useState<RecommendedProduct | null>(null);
+    useState<RecommendedProduct2 | null>(null);
 
   const dispatch = useDispatch();
 
-  const handleOpenModalViewProduct = (product: RecommendedProduct) => {
+  const handleOpenModalViewProduct = (product: RecommendedProduct2) => {
     setSelectedProduct(product);
   };
 

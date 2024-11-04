@@ -98,7 +98,7 @@ export interface RecommendedProduct {
 }
 
 export interface ViewProductProps {
-  product: RecommendedProduct;
+  product: RecommendedProduct2;
   isOpen: boolean; // Indica si el modal está abierto
   onClose: () => void; // Función para cerrar el modal
 }
