@@ -5,15 +5,15 @@ interface Shortage {
 
 interface Discount {
   isActive: boolean;
-  isfixeddiscount: boolean;
+  isFixedDiscount: boolean;
   amount: number;
   designType: string | null;
-  promotionid: string;
+  promotionId: string | null;
 }
 
 interface Timer {
   hasTimer: boolean;
-  amountoftime: number;
+  amountOfTime: number;
   designType: string;
   text: string;
 }
@@ -21,19 +21,20 @@ interface Timer {
 interface AutoManagement {
   isEnabled: boolean;
   updatedAt: string;
+  history: null;
 }
 
 interface HeaderProps {
-  hasheader: boolean;
+  hasHeader: boolean;
   src: Record<string, unknown>;
   location: string;
-  relativetop: string;
+  relativeTop: string;
   height: string;
 }
 
 interface BorderProps {
-  hasborders: boolean;
-  maincolor: string;
+  hasBorders: boolean;
+  mainColor: string;
   src: Record<string, unknown>;
 }
 
@@ -42,28 +43,28 @@ interface FrameProps {
   header: HeaderProps;
   borders: BorderProps;
   state: boolean;
-  previewurl: Record<string, unknown>;
-  createdat: string;
+  previewUrl: Record<string, unknown>;
+  createdAt: string;
+  updatedAt: string;
 }
 
 interface Frame {
-  hasframe: boolean;
+  hasFrame: boolean;
   id: string | null;
   props: FrameProps;
-  updatedat: string;
 }
 
 interface Range {
-  hasrange: boolean;
-  startrange: number | null;
-  endrange: number | null;
+  hasRange: boolean;
+  startRange: number | null;
+  endRange: number | null;
 }
 
 interface Text {
   title: string;
   description: string;
-  buttonaccept: string;
-  buttonignore: string;
+  buttonAccept: string;
+  buttonIgnore: string;
   type: string;
 }
 
@@ -78,7 +79,6 @@ export interface PromotionData {
   discount: Discount;
   timer: Timer;
   autoManagement: AutoManagement;
-  history: null;
   updatedAt: string;
   storeId: string;
   frame: Frame;

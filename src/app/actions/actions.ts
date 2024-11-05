@@ -1,47 +1,24 @@
 "use server";
 
-import fs from "fs/promises";
-import path from "path";
+import { getMockOfferData } from "@/data/data";
+import { getMockOfferData2 } from "@/data/data2";
+import { getMockOfferData3 } from "@/data/data3";
 
 export async function fetchDataFromJson(typeTemplate: string) {
-  if (typeTemplate === "template1A") {
-    try {
-      const filePath = path.join(process.cwd(), "public", "data.json");
-      const jsonData = await fs.readFile(filePath, "utf8");
-      return JSON.parse(jsonData);
-    } catch (error) {
-      console.error("Error al leer el archivo JSON:", error);
-      throw new Error("No se pudo leer el archivo de datos");
+  try {
+    switch (typeTemplate) {
+      case "template1A":
+        return getMockOfferData();
+      case "template1B":
+        return getMockOfferData2();
+      case "template1C":
+      case "template1D":
+        return getMockOfferData3();
+      default:
+        throw new Error("Invalid template type");
     }
-  }
-  if (typeTemplate === "template1B") {
-    try {
-      const filePath = path.join(process.cwd(), "public", "data2.json");
-      const jsonData = await fs.readFile(filePath, "utf8");
-      return JSON.parse(jsonData);
-    } catch (error) {
-      console.error("Error al leer el archivo JSON:", error);
-      throw new Error("No se pudo leer el archivo de datos");
-    }
-  }
-  if (typeTemplate === "template1C") {
-    try {
-      const filePath = path.join(process.cwd(), "public", "data3.json");
-      const jsonData = await fs.readFile(filePath, "utf8");
-      return JSON.parse(jsonData);
-    } catch (error) {
-      console.error("Error al leer el archivo JSON:", error);
-      throw new Error("No se pudo leer el archivo de datos");
-    }
-  }
-  if (typeTemplate === "template1D") {
-    try {
-      const filePath = path.join(process.cwd(), "public", "data3.json");
-      const jsonData = await fs.readFile(filePath, "utf8");
-      return JSON.parse(jsonData);
-    } catch (error) {
-      console.error("Error al leer el archivo JSON:", error);
-      throw new Error("No se pudo leer el archivo de datos");
-    }
+  } catch (error) {
+    console.error("Error fetching data:", error);
+    throw new Error("Failed to fetch data");
   }
 }
