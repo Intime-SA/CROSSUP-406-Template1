@@ -1,6 +1,5 @@
 "use client";
 
-import React from "react";
 import Template1A from "@/components/template1/template1A";
 
 const TemplateMobilePage = () => {

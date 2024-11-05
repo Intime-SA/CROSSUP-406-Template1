@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import { useState } from "react";
 import { useDispatch } from "react-redux";
 import ProductAdded from "@/components/ui-templates/ProductAdded";
 import {
@@ -39,6 +39,7 @@ import { MainProduct2, PromotionData } from "@/domain/definitionsTypes";
 
 const Template1A = () => {
   const [mainProduct, setMainProduct] = useState<MainProduct2 | null>(null);
+  const [error, setError] = useState<string | null>(null);
   const [recommendedProducts, setRecommendedProducts] = useState<
     RecommendedProduct2[] | null
   >(null);
@@ -112,25 +113,47 @@ const Template1A = () => {
 
   const handleInitializeTiendaNube = async (typeTemplate: string) => {
     try {
+      setError(null);
       const data = await fetchDataFromJson(typeTemplate);
+      console.log(data);
       processData(data);
-      if (typeTemplate === "template1A") {
-        dispatch(setVisibilityDescription(false));
-      } else if (typeTemplate === "template1B") {
-        dispatch(setVisibilityDescription(false));
-      } else if (typeTemplate === "template1C") {
-        dispatch(setLastUnidadGlobal(false));
-      } else if (typeTemplate === "template1D") {
-        dispatch(setLastUnidad(false));
+
+      switch (typeTemplate) {
+        case "template1A":
+        case "template1B":
+          dispatch(setVisibilityDescription(false));
+          break;
+        case "template1C":
+          dispatch(setLastUnidadGlobal(false));
+          break;
+        case "template1D":
+          dispatch(setLastUnidad(false));
+          break;
+        default:
+          throw new Error(`Tipo de plantilla no manejado: ${typeTemplate}`);
       }
     } catch (error) {
       console.error("Error al inicializar Tienda Nube:", error);
+      setError(
+        error instanceof Error
+          ? error.message
+          : "Error desconocido al inicializar Tienda Nube"
+      );
     }
   };
 
   return (
     <div className="flex flex-col items-center justify-center w-full h-full m-0 p-10 text-primaryText">
       <h2>Template 1</h2>
+      {error && (
+        <div
+          className="error-message bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative"
+          role="alert"
+        >
+          <strong className="font-bold">Error: </strong>
+          <span className="block sm:inline">{error}</span>
+        </div>
+      )}
       <Link
         href="https://www.figma.com/design/fT9qXiepXWJoxgsvchAIYp/Flowy-CrossUp-%F0%9F%9A%80-(con-modo-dev)?node-id=8298-36178&m=dev"
         target="_blank"
