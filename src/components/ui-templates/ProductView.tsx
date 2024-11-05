@@ -52,7 +52,7 @@ export const ProductView: React.FC<ViewProductProps> = ({
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="w-full mt-[10vh] h-[80vh] max-h-[888px] md:max-h-[808px] md:!mt-0 md:h-full md:w-[430px] p-0 bg-background text-foreground max-w-full flex flex-col">
+      <DialogContent className="w-full mt-[10vh] h-[80vh] max-h-[888px] md:max-h-[808px] md:!mt-0 md:h-full md:w-[430px] m p-0 bg-background text-foreground max-w-full flex flex-col">
         <Button
           variant="outline"
           size="icon"
@@ -63,7 +63,7 @@ export const ProductView: React.FC<ViewProductProps> = ({
           <span className="sr-only">Close</span>
         </Button>
 
-        <div className="flex-grow overflow-y-auto">
+        <div className="flex-grow overflow-y-auto mb-20">
           <div className="p-4 flex flex-col justify-start items-start gap-4">
             <div className="self-stretch flex justify-start">
               <Image
@@ -101,7 +101,7 @@ export const ProductView: React.FC<ViewProductProps> = ({
                   </div>
                   {offUnidad && (
                     <span className="text-[#00806e] font-semibold text-sm">
-                      {offQuantity}% OFF
+                      {offQuantity * 100}% OFF
                     </span>
                   )}
                 </div>
