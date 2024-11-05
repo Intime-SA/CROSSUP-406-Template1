@@ -208,7 +208,7 @@ export default function ApiDocumentation() {
                       <TableCell>string</TableCell>
                       <TableCell>
                         Momento de la compra en que se muestra la sugerencia
-                        (ej. "cart", "checkout")
+                        (ej. cart / checkout)
                       </TableCell>
                     </TableRow>
                     <TableRow>
@@ -345,7 +345,7 @@ export default function ApiDocumentation() {
                       </li>
                       <li>
                         <strong>type</strong>: string - El tipo de objetivo (ej.
-                        "category")
+                        category)
                       </li>
                       <li>
                         <strong>rank</strong>: number - El orden de
@@ -367,7 +367,7 @@ export default function ApiDocumentation() {
                       </li>
                       <li>
                         <strong>text</strong>: string - El mensaje de escasez
-                        (ej. "¡Solo quedan 5 unidades!")
+                        (ej. ¡Solo quedan 5 unidades!)
                       </li>
                     </ul>
 
@@ -494,7 +494,7 @@ export default function ApiDocumentation() {
                       </li>
                       <li>
                         <strong>type</strong>: string - El tipo de activador
-                        (ej. "product")
+                        (ej. product)
                       </li>
                     </ul>
 
@@ -539,9 +539,9 @@ export default function ApiDocumentation() {
         <CardContent>
           <ul className="list-disc list-inside space-y-2">
             <li>
-              El campo <code>showingPlace</code> actualmente admite "cart" y
-              "checkout", pero puede actualizarse para incluir "vertical",
-              "horizontal" e "history" en futuras versiones.
+              El campo <code>showingPlace</code> actualmente admite -cart y
+              -checkout, pero puede actualizarse para incluir vertical,
+              horizontal e history en futuras versiones.
             </li>
             <li>
               El campo <code>isUpsell</code> distingue entre técnicas de venta
