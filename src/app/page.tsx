@@ -12,9 +12,9 @@ const TemplateMobilePage = () => {
       <h1 className="text-3xl font-bold mb-4">Template 1</h1>
       <h2 className="text-sm mb-4">Variantes de template</h2>
       <Template1A />
-      <Template1B />
+      {/*       <Template1B />
       <Template1C />
-      <Template1D />
+      <Template1D /> */}
     </div>
   );
 };

@@ -2,7 +2,6 @@
 
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { productsTemplate2 } from "@/data/templates1/products2";
 import ProductAdded from "@/components/ui-templates/ProductAdded";
 import {
   customText,
@@ -27,21 +26,79 @@ import {
   setTimerUnidad,
   setOffUnidad,
   setOffQuantity,
-  setRestUnidad,
+  /* setRestUnidad, */
   setLastUnidadGlobal,
   setLastUnidad,
-  setCantidadFiltros,
+  /*   setCantidadFiltros, */
   setVisibilityDescription,
   setCantidadProducts,
+  setLastUnidadText,
 } from "@/redux/features/tiendaNubeSlice";
+import { fetchDataFromJson } from "@/app/actions/actions";
+import { MainProduct2, PromotionData } from "@/domain/definitionsTypes";
 
 const Template1A = () => {
-  const [mainProduct, ...recommendedProducts] = productsTemplate2;
+  const [mainProduct, setMainProduct] = useState<MainProduct2 | null>(null);
+  const [recommendedProducts, setRecommendedProducts] = useState<
+    RecommendedProduct2[] | null
+  >(null);
   const [isOpen, setIsOpen] = useState(false);
   const [selectedProduct, setSelectedProduct] =
     useState<RecommendedProduct2 | null>(null);
 
   const dispatch = useDispatch();
+
+  const processData = (data: PromotionData) => {
+    console.log(data);
+
+    // si existen varios disparadores, seleciona al primero como principal
+    if (data.shooters && data.shooters.length > 0) {
+      setMainProduct(data.shooters[0]);
+    }
+
+    // si existen recomendaciones, las guarda aca
+    if (data.targets) {
+      setRecommendedProducts(data.targets);
+    }
+
+    // si existe timer, define si es global y/o por unidad y renderiza en consecuencia
+    if (data.timer.hasTimer) {
+      if (data.timer.designType === "global") {
+        dispatch(setTimerGlobal(true));
+        dispatch(setTimerUnidad(false));
+      } else if (data.timer.designType === "unidad") {
+        dispatch(setTimerUnidad(true));
+        dispatch(setTimerGlobal(false));
+      }
+    } else {
+      dispatch(setTimerGlobal(false));
+      dispatch(setTimerUnidad(false));
+    }
+
+    // si existe descuentos activos para esta recomendacion
+    dispatch(setOffUnidad(data.discount.isActive));
+    dispatch(setOffQuantity(data.discount.amount));
+
+    // ver como implementar este metodo
+    /*     dispatch(setRestUnidad(data.shortage.hasShortage));
+    dispatch(setCantidadFiltros(data.targets.length)); */
+
+    // ultimas unidades global o local
+    dispatch(setLastUnidadGlobal(data.shortage.hasShortage));
+    dispatch(setLastUnidad(data.shortage.hasShortage));
+    dispatch(setLastUnidadText(data.shortage.text));
+
+    // visibilizar descripcion
+    dispatch(setVisibilityDescription(true));
+
+    // cantidad de productos recomendados
+    dispatch(setCantidadProducts(data.targets.length));
+
+    setIsOpen(true);
+  };
+
+  console.log(mainProduct);
+  console.log(recommendedProducts);
 
   const handleOpenModalViewProduct = (product: RecommendedProduct2) => {
     setSelectedProduct(product);
@@ -53,23 +110,27 @@ const Template1A = () => {
     setSelectedProduct(null);
   };
 
-  const handleInitializeTiendaNube = () => {
-    dispatch(setTimerGlobal(false));
-    dispatch(setTimerUnidad(false));
-    dispatch(setOffUnidad(false));
-    dispatch(setOffQuantity(0));
-    dispatch(setRestUnidad(false));
-    dispatch(setLastUnidadGlobal(false));
-    dispatch(setLastUnidad(false));
-    dispatch(setCantidadFiltros(0));
-    dispatch(setVisibilityDescription(false));
-    dispatch(setCantidadProducts(3));
-    setIsOpen(true);
+  const handleInitializeTiendaNube = async (typeTemplate: string) => {
+    try {
+      const data = await fetchDataFromJson(typeTemplate);
+      processData(data);
+      if (typeTemplate === "template1A") {
+        dispatch(setVisibilityDescription(false));
+      } else if (typeTemplate === "template1B") {
+        dispatch(setVisibilityDescription(false));
+      } else if (typeTemplate === "template1C") {
+        dispatch(setLastUnidadGlobal(false));
+      } else if (typeTemplate === "template1D") {
+        dispatch(setLastUnidad(false));
+      }
+    } catch (error) {
+      console.error("Error al inicializar Tienda Nube:", error);
+    }
   };
 
   return (
     <div className="flex flex-col items-center justify-center w-full h-full m-0 p-10 text-primaryText">
-      <h2>Template Sugerencias & Producto Especifico</h2>
+      <h2>Template 1</h2>
       <Link
         href="https://www.figma.com/design/fT9qXiepXWJoxgsvchAIYp/Flowy-CrossUp-%F0%9F%9A%80-(con-modo-dev)?node-id=8298-36178&m=dev"
         target="_blank"
@@ -93,9 +154,48 @@ const Template1A = () => {
               borderTopRightRadius: 0,
               marginTop: "10px",
             }}
-            onClick={handleInitializeTiendaNube}
+            onClick={() => handleInitializeTiendaNube("template1A")}
           >
-            Inicializador TiendaNube 1A°
+            Template sugerencias y Producto especifico (1A)
+          </Button>
+        </SheetTrigger>
+        <SheetTrigger asChild>
+          <Button
+            variant="outline"
+            style={{
+              borderTopLeftRadius: 0,
+              borderTopRightRadius: 0,
+              marginTop: "10px",
+            }}
+            onClick={() => handleInitializeTiendaNube("template1B")}
+          >
+            Con limites y maximos de textos (1B)
+          </Button>
+        </SheetTrigger>
+        <SheetTrigger asChild>
+          <Button
+            variant="outline"
+            style={{
+              borderTopLeftRadius: 0,
+              borderTopRightRadius: 0,
+              marginTop: "10px",
+            }}
+            onClick={() => handleInitializeTiendaNube("template1C")}
+          >
+            Con descuentos y widgets (1C°)
+          </Button>
+        </SheetTrigger>
+        <SheetTrigger asChild>
+          <Button
+            variant="outline"
+            style={{
+              borderTopLeftRadius: 0,
+              borderTopRightRadius: 0,
+              marginTop: "10px",
+            }}
+            onClick={() => handleInitializeTiendaNube("template1D")}
+          >
+            Con descuentos y widgets globales (1D°)
           </Button>
         </SheetTrigger>
         <SheetContent className="w-full sm:max-w-md flex flex-col p-0 bg-background text-foreground">
@@ -104,13 +204,15 @@ const Template1A = () => {
           </SheetHeader>
           <div className="flex-grow overflow-auto h-full">
             <div className="w-full h-full max-w-md mx-auto bg-background flex flex-col">
-              <ProductAdded
-                onClose={handleClose}
-                mainProduct={mainProduct}
-                openModalViewProduct={() =>
-                  handleOpenModalViewProduct(mainProduct)
-                }
-              />
+              {mainProduct && (
+                <ProductAdded
+                  onClose={handleClose}
+                  mainProduct={mainProduct}
+                  openModalViewProduct={() =>
+                    handleOpenModalViewProduct(mainProduct)
+                  }
+                />
+              )}
 
               <div className="flex flex-col gap-6 px-4 sm:px-6 flex-grow">
                 <div

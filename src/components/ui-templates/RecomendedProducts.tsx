@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import Image from "next/image";
-import { RecommendedProduct2 } from "@/domain/definitions";
+import { RecommendedProduct2 } from "@/domain/definitionsTypes";
 import { formatPrice } from "@/lib/utils";
 import AddButton from "./AddButtom";
 import { RootState } from "@/redux/store";
 
 interface RecommendedProductsProps {
-  products: RecommendedProduct2[];
-  addToCart: (id: number) => void;
+  products: RecommendedProduct2[] | null;
+  addToCart: (id: string) => void;
   openModalViewProduct: (product: RecommendedProduct2) => void;
   onClose: () => void;
 }
@@ -40,7 +40,7 @@ export default function RecommendedProducts({
   openModalViewProduct,
   onClose,
 }: RecommendedProductsProps) {
-  const [clickedProducts, setClickedProducts] = useState<Set<number>>(
+  const [clickedProducts, setClickedProducts] = useState<Set<string>>(
     new Set()
   );
 
@@ -65,43 +65,54 @@ export default function RecommendedProducts({
   const lastUnidad = useSelector(
     (state: RootState) => state.tiendaNube.lastUnidad
   );
+  const lastUnidadText = useSelector(
+    (state: RootState) => state.tiendaNube.lastUnidadText
+  );
   const lastUnidadGlobal = useSelector(
     (state: RootState) => state.tiendaNube.lastUnidadGlobal
   );
 
-  const handleAddToCartAndClose = async (id: number) => {
+  const handleAddToCartAndClose = async (id: string) => {
     setClickedProducts((prev) => new Set(prev).add(id));
     await addToCart(id);
     setTimeout(onClose, 500);
   };
 
-  const productsToShow = products.slice(0, cantidadProducts);
+  console.log(products);
+  const productsToShow =
+    products && products.length > 0 ? products.slice(0, cantidadProducts) : [];
+
+  console.log(lastUnidad);
+  console.log(lastUnidadText);
+
+  console.log(lastUnidad);
+
+  console.log(lastUnidadGlobal);
 
   return (
     <div className="flex flex-col gap-4">
-      {(timerGlobal || lastUnidadGlobal) && (
-        <div className="mb-4 flex items-center gap-2">
-          {timerGlobal && (
-            <div className="h-[30px] px-2 py-1 border border-[#00806e] justify-start items-center gap-1 inline-flex">
-              <CountdownTimer initialTime={600} />
+      <div className="mb-4 flex items-center gap-2">
+        {timerGlobal && (
+          <div className="h-[30px] px-2 py-1 border border-[#00806e] justify-start items-center gap-1 inline-flex">
+            <CountdownTimer initialTime={600} />
+          </div>
+        )}
+        {lastUnidadGlobal && (
+          <div className="h-[30px] px-2 py-1 border border-[#00806e] justify-start items-center gap-1 inline-flex">
+            <div className="text-[#00806e] text-xs font-semibold uppercase tracking-wide">
+              {lastUnidadText}
             </div>
-          )}
-          {lastUnidadGlobal && (
-            <div className="h-[30px] px-2 py-1 border border-[#00806e] justify-start items-center gap-1 inline-flex">
-              <div className="text-[#00806e] text-xs font-semibold uppercase tracking-wide">
-                ULTIMAS UNIDADES!
-              </div>
-            </div>
-          )}
-        </div>
-      )}
+          </div>
+        )}
+      </div>
+
       {productsToShow.map((product) => (
         <div key={product.id} className="flex items-center gap-4">
           <div className="w-[30%] max-w-[116px]">
             <Image
               className="border border-[#e3e3e3] rounded-sm w-full h-auto"
-              src={product.image}
-              alt={product.name}
+              src={product.images[0].src}
+              alt={product.name.es}
               width={116}
               height={116}
             />
@@ -119,15 +130,15 @@ export default function RecommendedProducts({
               }`}
               style={{ color: "var(--primary-text)" }}
             >
-              {product.name}
+              {product.name.es}
               {visibilityDescription &&
-                product.description &&
-                ` + ${product.description}`}
+                product.description.es &&
+                ` + ${product.description.es}`}
             </button>
             {lastUnidad && (
               <div className="inline-flex items-center px-1.5 py-0.5 border border-[#00806e] w-fit">
                 <div className="text-[#00806e] text-xs text-center font-semibold uppercase tracking-wide">
-                  ULTIMAS UNIDADES!
+                  {lastUnidadText}
                 </div>
               </div>
             )}
@@ -136,18 +147,18 @@ export default function RecommendedProducts({
                 className="text-sm font-semibold"
                 style={{ color: "var(--primary-text)" }}
               >
-                {formatPrice(product.price)}
+                {formatPrice(product.variants[0].price)}
               </div>
               {offUnidad && (
                 <div className="text-[#d1d1d1] text-xs font-medium line-through">
-                  {formatPrice(product.price)}
+                  {formatPrice(product.variants[0].price)}
                 </div>
               )}
             </div>
             <div className="flex items-center gap-2">
               {offUnidad && (
                 <span className="text-[#00806e] font-semibold text-sm">
-                  {offQuantity}% OFF
+                  {offQuantity * 100}% OFF
                 </span>
               )}
             </div>

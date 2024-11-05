@@ -80,22 +80,6 @@ export interface TimerState {
   timeLeft: number;
   isRunning: boolean;
 }
-// Define MainProduct interface
-export interface MainProduct {
-  id: number;
-  name: string;
-  price: number;
-  image: string;
-  quantity: number;
-}
-
-// Define RecommendedProduct interface
-export interface RecommendedProduct {
-  id: number;
-  name: string;
-  price: number;
-  image: string;
-}
 
 export interface ViewProductProps {
   product: RecommendedProduct2;
@@ -103,20 +87,60 @@ export interface ViewProductProps {
   onClose: () => void; // Función para cerrar el modal
 }
 
-export interface MainProduct2 {
+export interface Image {
   id: number;
-  name: string;
-  description: string;
-  price: number;
-  image: string;
-  quantity: number;
+  product_id: string;
+  src: string;
+  position: number;
+  alt: string[];
+  height: number;
+  width: number;
+  thumbnails_generated: number;
+  created_at: string;
+  updated_at: string;
 }
 
-// Define RecommendedProduct interface
-export interface RecommendedProduct2 {
-  id: number;
-  name: string;
-  description: string;
+export interface Variant {
+  id: string;
+  value: string;
+  attr: {
+    Color: string;
+    Talle: string;
+  };
+  stock: number;
+  stockManagement: boolean;
   price: number;
-  image: string;
+  promotionalPrice: number | null;
+  imageId: string;
+  productId: string;
+  sku: string | null;
+  ageGroup: string | null;
+  gender: string | null;
+  cost: number | null;
+}
+
+export interface MainProduct2 {
+  _id: string; // Se añadió el campo _id como string
+  id: string; // Se cambió id a string para coincidir con el ejemplo
+  name: {
+    es: string;
+  };
+  description: {
+    es: string;
+  };
+  images: Image[]; // Se añadió un array de imágenes
+  variants: Variant[]; // Se añadió un array de variantes
+}
+
+export interface RecommendedProduct2 {
+  _id: string; // Se añadió el campo _id como string
+  id: string; // Se cambió id a string para coincidir con el ejemplo
+  name: {
+    es: string;
+  };
+  description: {
+    es: string;
+  };
+  images: Image[]; // Se añadió un array de imágenes
+  variants: Variant[]; // Se añadió un array de variantes
 }

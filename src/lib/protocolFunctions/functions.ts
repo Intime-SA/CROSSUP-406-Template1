@@ -22,7 +22,7 @@ export const customText = (mensaje: string) => {
   return customTextHardcode;
 };
 
-export const handleAddToCart = (id: number): void => {
+export const handleAddToCart = (id: string): void => {
   console.log(
     "Aqui se va a realizar la comunicacion por protocolo para agregar al cart via script",
     id

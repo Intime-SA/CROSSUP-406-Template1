@@ -45,8 +45,8 @@ export const ProductAdded: React.FC<ProductAddedProps> = ({
           <div className="w-[30%] max-w-[116px]">
             <Image
               className="border border-[#e3e3e3] rounded-sm w-full h-auto"
-              src={mainProduct.image}
-              alt={mainProduct.name}
+              src={mainProduct.images[0].src}
+              alt={mainProduct.name.es}
               width={116}
               height={116}
               layout="responsive"
@@ -59,13 +59,13 @@ export const ProductAdded: React.FC<ProductAddedProps> = ({
                 visibilityDescription ? "line-clamp-3" : ""
               }`}
             >
-              {mainProduct.name}
+              {mainProduct.name.es}
               {visibilityDescription &&
-                mainProduct.description &&
-                ` + ${mainProduct.description}`}
+                mainProduct.description.es &&
+                ` + ${mainProduct.description.es}`}
             </button>
             <div className="text-[#2a2742] text-sm font-semibold">
-              {mainProduct.quantity} x {formatPrice(mainProduct.price)}
+              1 x {formatPrice(mainProduct.variants[0].price)}
             </div>
           </div>
         </div>

@@ -8,6 +8,7 @@ interface TiendaNubeState {
   restUnidad: boolean;
   lastUnidadGlobal: boolean;
   lastUnidad: boolean;
+  lastUnidadText: string;
   cantidadFiltros: number;
   visibilityDescription: boolean;
   cantidadProducts: number;
@@ -21,6 +22,7 @@ const initialState: TiendaNubeState = {
   restUnidad: false,
   lastUnidadGlobal: false,
   lastUnidad: false,
+  lastUnidadText: "ULTIMAS UNIDADES",
   cantidadFiltros: 0,
   visibilityDescription: true,
   cantidadProducts: 0,
@@ -51,6 +53,9 @@ const tiendaNubeSlice = createSlice({
     setLastUnidad: (state, action: PayloadAction<boolean>) => {
       state.lastUnidad = action.payload;
     },
+    setLastUnidadText: (state, action: PayloadAction<string>) => {
+      state.lastUnidadText = action.payload;
+    },
     setCantidadFiltros: (state, action: PayloadAction<number>) => {
       state.cantidadFiltros = action.payload;
     },
@@ -70,6 +75,7 @@ export const {
   setOffQuantity,
   setRestUnidad,
   setLastUnidadGlobal,
+  setLastUnidadText,
   setLastUnidad,
   setCantidadFiltros,
   setVisibilityDescription,

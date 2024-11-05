@@ -4,9 +4,9 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Plus } from "lucide-react";
 
 interface AddButtonProps {
-  productId: number;
-  clickedProducts: Set<number>;
-  handleAddToCartAndClose: (id: number) => void;
+  productId: string;
+  clickedProducts: Set<string>;
+  handleAddToCartAndClose: (id: string) => void;
 }
 
 export default function AddButton({

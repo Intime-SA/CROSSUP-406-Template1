@@ -69,7 +69,7 @@ export const ProductView: React.FC<ViewProductProps> = ({
               <Image
                 className="border border-border w-full h-auto object-cover"
                 src={"/backImage.png"}
-                alt={product.name}
+                alt={product.name.es}
                 width={382}
                 height={382}
               />
@@ -77,10 +77,10 @@ export const ProductView: React.FC<ViewProductProps> = ({
 
             <div className="self-stretch flex-col justify-start items-start gap-2 flex">
               <div className="self-stretch font-semibold text-foreground">
-                {product.name}
+                {product.name.es}
                 {visibilityDescription &&
-                  product.description &&
-                  ` + ${product.description}`}
+                  product.description.es &&
+                  ` + ${product.description.es}`}
               </div>
 
               {lastUnidad && (
@@ -97,7 +97,7 @@ export const ProductView: React.FC<ViewProductProps> = ({
                     className="text-sm font-semibold"
                     style={{ color: "var(--primary-text)" }}
                   >
-                    {formatPrice(product.price)}
+                    {formatPrice(product.variants[0].price)}
                   </div>
                   {offUnidad && (
                     <span className="text-[#00806e] font-semibold text-sm">
@@ -114,7 +114,7 @@ export const ProductView: React.FC<ViewProductProps> = ({
 
               {offUnidad && (
                 <div className="text-[#d1d1d1] text-xs font-medium line-through">
-                  {formatPrice(product.price)}
+                  {formatPrice(product.variants[0].price)}
                 </div>
               )}
             </div>

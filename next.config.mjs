@@ -5,7 +5,11 @@ const nextConfig = {
   },
   reactStrictMode: true,
   images: {
-    domains: ["picsum.photos", "firebasestorage.googleapis.com"],
+    domains: [
+      "picsum.photos",
+      "firebasestorage.googleapis.com",
+      "acdn.mitiendanube.com",
+    ],
   },
 };
 
