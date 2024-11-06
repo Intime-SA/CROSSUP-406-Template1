@@ -5,6 +5,7 @@ import CartComponent from "@/components/cart/CartComponent";
 import { ReduxProvider } from "@/redux/ReduxProvider";
 import { ThemeProvider } from "@/components/providers/providers";
 import { montserrat } from "./fonts/fonts";
+import Documentation from "@/components/ui-templates/Documentation";
 
 export const metadata: Metadata = {
   title: "CrossUp-406 Template 1",
@@ -43,6 +44,7 @@ export default function RootLayout({
                 <div className="flex items-center space-x-4">
                   <CartComponent />
                   <ThemeToggle />
+                  <Documentation />
                 </div>
               </header>
               <main className="flex-grow p-4">{children}</main>

@@ -5,6 +5,7 @@ interface TiendaNubeState {
   timerUnidad: boolean;
   offUnidad: boolean;
   offQuantity: number;
+  fixedDiscount: boolean;
   restUnidad: boolean;
   lastUnidadGlobal: boolean;
   lastUnidad: boolean;
@@ -19,6 +20,7 @@ const initialState: TiendaNubeState = {
   timerUnidad: false,
   offUnidad: false,
   offQuantity: 0,
+  fixedDiscount: false,
   restUnidad: false,
   lastUnidadGlobal: false,
   lastUnidad: false,
@@ -43,6 +45,9 @@ const tiendaNubeSlice = createSlice({
     },
     setOffQuantity: (state, action: PayloadAction<number>) => {
       state.offQuantity = action.payload;
+    },
+    setFixedDiscount: (state, action: PayloadAction<boolean>) => {
+      state.fixedDiscount = action.payload;
     },
     setRestUnidad: (state, action: PayloadAction<boolean>) => {
       state.restUnidad = action.payload;
@@ -73,6 +78,7 @@ export const {
   setTimerUnidad,
   setOffUnidad,
   setOffQuantity,
+  setFixedDiscount,
   setRestUnidad,
   setLastUnidadGlobal,
   setLastUnidadText,

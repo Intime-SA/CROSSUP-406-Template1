@@ -220,8 +220,8 @@ export default function ApiDocumentation() {
               </SyntaxHighlighter>
               <br />
               <p className="mb-4">
-                Posibles opciones: "template1A", "template1B", "template1C",
-                "template1D"
+                Posibles opciones: template1A, template1B, template1C,
+                template1D
               </p>
             </CardContent>
           </Card>

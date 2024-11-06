@@ -33,6 +33,7 @@ import {
   setVisibilityDescription,
   setCantidadProducts,
   setLastUnidadText,
+  setFixedDiscount,
 } from "@/redux/features/tiendaNubeSlice";
 import { fetchDataFromJson } from "@/app/actions/actions";
 import { MainProduct2, PromotionData } from "@/domain/definitionsTypes";
@@ -75,6 +76,9 @@ const Template1A = () => {
 
     // si existe descuentos activos para esta recomendacion
     dispatch(setOffUnidad(data.discount.isActive));
+
+    dispatch(setFixedDiscount(data.discount.isFixedDiscount));
+
     dispatch(setOffQuantity(data.discount.amount));
 
     // ver como implementar este metodo

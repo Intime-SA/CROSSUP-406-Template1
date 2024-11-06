@@ -9,6 +9,7 @@ const nextConfig = {
       "picsum.photos",
       "firebasestorage.googleapis.com",
       "acdn.mitiendanube.com",
+      "downloads.intercomcdn.com",
     ],
   },
 };
