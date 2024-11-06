@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { AppDispatch } from "../store"; // Importamos AppDispatch para los thunks
-import { TimerState } from "@/domain/definitions";
+import { TimerState } from "@/domain/definitionsTypes";
 
 // Inicializamos desde interfaz
 const initialState: TimerState = {

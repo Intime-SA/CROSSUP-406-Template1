@@ -103,6 +103,11 @@ export interface Image {
   updated_at: string;
 }
 
+export interface TimerState {
+  timeLeft: number;
+  isRunning: boolean;
+}
+
 export interface Variant {
   id: string;
   value: string;
