@@ -19,3 +19,22 @@ export const formatPrice = (price: number) => {
     currency: "CLP",
   }).format(price);
 };
+
+export const templateOptions = {
+  template1A: {
+    label: "Template sugerencias y Producto especifico (1A)",
+    type: "template1A",
+  },
+  template1B: {
+    label: "Con limites y maximos de textos (1B)",
+    type: "template1B",
+  },
+  template1C: {
+    label: "Con descuentos y widgets (1C°)",
+    type: "template1C",
+  },
+  template1D: {
+    label: "Con descuentos y widgets globales (1D°)",
+    type: "template1D",
+  },
+};

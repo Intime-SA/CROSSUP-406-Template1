@@ -24,6 +24,7 @@ import Link from "next/link";
 import { fetchDataFromJson } from "@/app/actions/actions";
 import { MainProduct2, PromotionData } from "@/domain/definitionsTypes";
 import { updateMultipleStates } from "@/redux/features/promotionSlice";
+import { templateOptions } from "@/lib/utils";
 
 const Template1A = () => {
   const [mainProduct, setMainProduct] = useState<MainProduct2 | null>(null);
@@ -93,6 +94,25 @@ const Template1A = () => {
     }
   };
 
+  const renderTemplateButton = (
+    key: string,
+    option: { label: string; type: string }
+  ) => (
+    <SheetTrigger key={key} asChild>
+      <Button
+        variant="outline"
+        style={{
+          borderTopLeftRadius: 0,
+          borderTopRightRadius: 0,
+          marginTop: "10px",
+        }}
+        onClick={() => handleInitializeTiendaNube(option.type)}
+      >
+        {option.label}
+      </Button>
+    </SheetTrigger>
+  );
+
   return (
     <div className="flex flex-col items-center justify-center w-full h-full m-0 p-10 text-primaryText">
       <h2>Template 1</h2>
@@ -111,58 +131,9 @@ const Template1A = () => {
         />
       </Link>
       <Sheet open={isOpen} onOpenChange={setIsOpen}>
-        <SheetTrigger asChild>
-          <Button
-            variant="outline"
-            style={{
-              borderTopLeftRadius: 0,
-              borderTopRightRadius: 0,
-              marginTop: "10px",
-            }}
-            onClick={() => handleInitializeTiendaNube("template1A")}
-          >
-            Template sugerencias y Producto especifico (1A)
-          </Button>
-        </SheetTrigger>
-        <SheetTrigger asChild>
-          <Button
-            variant="outline"
-            style={{
-              borderTopLeftRadius: 0,
-              borderTopRightRadius: 0,
-              marginTop: "10px",
-            }}
-            onClick={() => handleInitializeTiendaNube("template1B")}
-          >
-            Con limites y maximos de textos (1B)
-          </Button>
-        </SheetTrigger>
-        <SheetTrigger asChild>
-          <Button
-            variant="outline"
-            style={{
-              borderTopLeftRadius: 0,
-              borderTopRightRadius: 0,
-              marginTop: "10px",
-            }}
-            onClick={() => handleInitializeTiendaNube("template1C")}
-          >
-            Con descuentos y widgets (1C°)
-          </Button>
-        </SheetTrigger>
-        <SheetTrigger asChild>
-          <Button
-            variant="outline"
-            style={{
-              borderTopLeftRadius: 0,
-              borderTopRightRadius: 0,
-              marginTop: "10px",
-            }}
-            onClick={() => handleInitializeTiendaNube("template1D")}
-          >
-            Con descuentos y widgets globales (1D°)
-          </Button>
-        </SheetTrigger>
+        {Object.entries(templateOptions).map(([key, option]) =>
+          renderTemplateButton(key, option)
+        )}
         <SheetContent className="w-full sm:max-w-md flex flex-col p-0 bg-background text-foreground">
           <SheetHeader>
             <SheetTitle></SheetTitle>
