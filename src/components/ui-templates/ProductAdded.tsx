@@ -21,7 +21,7 @@ export const ProductAdded: React.FC<ProductAddedProps> = ({
   openModalViewProduct,
 }) => {
   const visibilityDescription = useSelector(
-    (state: RootState) => state.tiendaNube.visibilityDescription
+    (state: RootState) => state.promotion.visibilityDescription
   );
 
   return (

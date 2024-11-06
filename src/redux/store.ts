@@ -1,25 +1,23 @@
 import { Action, configureStore } from "@reduxjs/toolkit";
+import { thunk, ThunkAction } from "redux-thunk";
 import cartReducer from "./features/cartSlice";
 import timerReducer from "./features/timerSlice";
-import tiendaNubeReducer from "./features/tiendaNubeSlice"; // Añade esta línea
-import { thunk, ThunkAction } from "redux-thunk";
-
-// Store, reducers y middleware para thunk
+import promotionReducer from "./features/promotionSlice"; // Añade esta línea
 
 export const store = configureStore({
   reducer: {
     cart: cartReducer,
     timer: timerReducer,
-    tiendaNube: tiendaNubeReducer,
+    promotion: promotionReducer, // Añade esta línea
   },
-  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(thunk), // Añadir thunk
+  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(thunk),
 });
 
 // Tipos de redux / ts
 export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;
 
-// Tipos de Trunk Redux / ts
+// Tipos de Thunk Redux / ts
 export type AppThunk<ReturnType = void> = ThunkAction<
   ReturnType,
   RootState,

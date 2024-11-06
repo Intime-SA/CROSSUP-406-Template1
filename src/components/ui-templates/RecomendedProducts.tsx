@@ -44,32 +44,32 @@ export default function RecommendedProducts({
     new Set()
   );
 
-  const cantidadProducts = useSelector(
-    (state: RootState) => state.tiendaNube.cantidadProducts
-  );
   const visibilityDescription = useSelector(
-    (state: RootState) => state.tiendaNube.visibilityDescription
+    (state: RootState) => state.promotion.visibilityDescription
   );
   const timerGlobal = useSelector(
-    (state: RootState) => state.tiendaNube.timerGlobal
+    (state: RootState) => state.promotion.timerGlobal
   );
   const timerUnidad = useSelector(
-    (state: RootState) => state.tiendaNube.timerUnidad
+    (state: RootState) => state.promotion.timerUnidad
   );
   const offUnidad = useSelector(
-    (state: RootState) => state.tiendaNube.offUnidad
+    (state: RootState) => state.promotion.offUnidad
   );
   const offQuantity = useSelector(
-    (state: RootState) => state.tiendaNube.offQuantity
+    (state: RootState) => state.promotion.offQuantity
   );
   const lastUnidad = useSelector(
-    (state: RootState) => state.tiendaNube.lastUnidad
+    (state: RootState) => state.promotion.lastUnidad
   );
   const lastUnidadText = useSelector(
-    (state: RootState) => state.tiendaNube.lastUnidadText
+    (state: RootState) => state.promotion.lastUnidadText
   );
   const lastUnidadGlobal = useSelector(
-    (state: RootState) => state.tiendaNube.lastUnidadGlobal
+    (state: RootState) => state.promotion.lastUnidadGlobal
+  );
+  const isFixedDiscount = useSelector(
+    (state: RootState) => state.promotion.fixedDiscount
   );
 
   const handleAddToCartAndClose = async (id: string) => {
@@ -77,9 +77,6 @@ export default function RecommendedProducts({
     await addToCart(id);
     setTimeout(onClose, 500);
   };
-
-  const productsToShow =
-    products && products.length > 0 ? products.slice(0, cantidadProducts) : [];
 
   return (
     <div className="flex flex-col gap-4">
@@ -98,71 +95,89 @@ export default function RecommendedProducts({
         )}
       </div>
 
-      {productsToShow.map((product) => (
-        <div key={product.id} className="flex items-center gap-4">
-          <div className="w-[30%] max-w-[116px]">
-            <Image
-              className="border border-[#e3e3e3] rounded-sm w-full h-auto"
-              src={product.images[0].src}
-              alt={product.name.es}
-              width={116}
-              height={116}
-            />
-          </div>
-          <div className="flex-1 flex flex-col gap-2">
-            {timerUnidad && (
-              <div className="mb-2">
-                <CountdownTimer initialTime={300} /> {/* 5 minutos */}
-              </div>
-            )}
-            <button
-              onClick={() => openModalViewProduct(product)}
-              className={`text-left text-sm font-medium focus:outline-none transition-colors duration-200 ease-in-out hover:text-[#4a4760] ${
-                visibilityDescription ? "line-clamp-3" : ""
-              }`}
-              style={{ color: "var(--primary-text)" }}
-            >
-              {product.name.es}
-              {visibilityDescription &&
-                product.description.es &&
-                ` + ${product.description.es}`}
-            </button>
-            {lastUnidad && (
-              <div className="inline-flex items-center px-1.5 py-0.5 border border-[#00806e] w-fit">
-                <div className="text-[#00806e] text-xs text-center font-semibold uppercase tracking-wide">
-                  {lastUnidadText}
+      {products && products.length > 0 ? (
+        products.map((product) => (
+          <div key={product.id} className="flex items-center gap-4">
+            <div className="w-[30%] max-w-[116px]">
+              <Image
+                className="border border-[#e3e3e3] rounded-sm w-full h-auto"
+                src={product.images[0].src}
+                alt={product.name.es}
+                width={116}
+                height={116}
+              />
+            </div>
+            <div className="flex-1 flex flex-col gap-2">
+              {timerUnidad && (
+                <div className="mb-2">
+                  <CountdownTimer initialTime={300} /> {/* 5 minutos */}
                 </div>
-              </div>
-            )}
-            <div className="flex items-center gap-2">
-              <div
-                className="text-sm font-semibold"
+              )}
+              <button
+                onClick={() => openModalViewProduct(product)}
+                className={`text-left text-sm font-medium focus:outline-none transition-colors duration-200 ease-in-out hover:text-[#4a4760] ${
+                  visibilityDescription ? "line-clamp-3" : ""
+                }`}
                 style={{ color: "var(--primary-text)" }}
               >
-                {formatPrice(product.variants[0].price)}
-              </div>
-              {offUnidad && (
-                <div className="text-[#d1d1d1] text-xs font-medium line-through">
-                  {formatPrice(product.variants[0].price)}
+                {product.name.es}
+                {visibilityDescription &&
+                  product.description.es &&
+                  ` + ${product.description.es}`}
+              </button>
+              {lastUnidad && !lastUnidadGlobal && (
+                <div className="inline-flex items-center px-1.5 py-0.5 border border-[#00806e] w-fit">
+                  <div className="text-[#00806e] text-xs text-center font-semibold uppercase tracking-wide">
+                    {lastUnidadText}
+                  </div>
                 </div>
               )}
-            </div>
-            <div className="flex items-center gap-2">
-              {offUnidad && (
-                <span className="text-[#00806e] font-semibold text-sm">
-                  {offQuantity * 100}% OFF
-                </span>
-              )}
-            </div>
-          </div>
+              <div className="flex items-center gap-2">
+                {offUnidad && !isFixedDiscount ? (
+                  <div
+                    className="text-sm font-semibold"
+                    style={{ color: "var(--primary-text)" }}
+                  >
+                    {formatPrice(product.variants[0].price * (1 - offQuantity))}
+                  </div>
+                ) : (
+                  <div
+                    className="text-sm font-semibold"
+                    style={{ color: "var(--primary-text)" }}
+                  >
+                    {isFixedDiscount
+                      ? formatPrice(product.variants[0].price - offQuantity)
+                      : formatPrice(product.variants[0].price)}
+                  </div>
+                )}
 
-          <AddButton
-            productId={product.id}
-            clickedProducts={clickedProducts}
-            handleAddToCartAndClose={handleAddToCartAndClose}
-          />
-        </div>
-      ))}
+                {offUnidad && (
+                  <div className="text-[#d1d1d1] text-xs font-medium line-through">
+                    {formatPrice(product.variants[0].price)}
+                  </div>
+                )}
+              </div>
+              <div className="flex items-center gap-2">
+                {offUnidad && (
+                  <span className="text-[#00806e] font-semibold text-sm">
+                    {isFixedDiscount
+                      ? `${formatPrice(offQuantity)} OFF`
+                      : `${offQuantity * 100}% OFF`}
+                  </span>
+                )}
+              </div>
+            </div>
+
+            <AddButton
+              productId={product.id}
+              clickedProducts={clickedProducts}
+              handleAddToCartAndClose={handleAddToCartAndClose}
+            />
+          </div>
+        ))
+      ) : (
+        <p>No hay productos recomendados disponibles.</p>
+      )}
     </div>
   );
 }

@@ -21,22 +21,9 @@ import ProductView from "@/components/ui-templates/ProductView";
 import { RecommendedProduct2 } from "@/domain/definitionsTypes";
 import Image from "next/image";
 import Link from "next/link";
-import {
-  setTimerGlobal,
-  setTimerUnidad,
-  setOffUnidad,
-  setOffQuantity,
-  /* setRestUnidad, */
-  setLastUnidadGlobal,
-  setLastUnidad,
-  /*   setCantidadFiltros, */
-  setVisibilityDescription,
-  setCantidadProducts,
-  setLastUnidadText,
-  setFixedDiscount,
-} from "@/redux/features/tiendaNubeSlice";
 import { fetchDataFromJson } from "@/app/actions/actions";
 import { MainProduct2, PromotionData } from "@/domain/definitionsTypes";
+import { updateMultipleStates } from "@/redux/features/promotionSlice";
 
 const Template1A = () => {
   const [mainProduct, setMainProduct] = useState<MainProduct2 | null>(null);
@@ -47,82 +34,60 @@ const Template1A = () => {
   const [selectedProduct, setSelectedProduct] =
     useState<RecommendedProduct2 | null>(null);
 
+  // inicializar hook dispatch
   const dispatch = useDispatch();
 
+  // funcion para procesar la data que vuelve del serverAction
   const processData = (data: PromotionData) => {
-    // si existen varios disparadores, seleciona al primero como principal
+    // Objeto para actualizar el estado global cuando vuelve respuesta de la API
+    const stateUpdates = {
+      timerGlobal: data.timer.hasTimer && data.timer.designType === "global",
+      timerUnidad: data.timer.hasTimer && data.timer.designType === "unidad",
+      offUnidad: data.discount.isActive,
+      fixedDiscount: data.discount.isFixedDiscount,
+      offQuantity: data.discount.amount,
+      lastUnidadGlobal:
+        data.shortage.hasShortage && data.showingPlace === "checkout",
+      lastUnidad: data.shortage.hasShortage,
+      lastUnidadText: data.shortage.text,
+      visibilityDescription: true,
+      cantidadProducts: data.targets ? data.targets.length : 0,
+    };
+
+    // Despachar todas las actualizaciones de una vez
+    dispatch(updateMultipleStates(stateUpdates));
+
+    // setear el shooter como main product
     if (data.shooters && data.shooters.length > 0) {
       setMainProduct(data.shooters[0]);
     }
 
-    // si existen recomendaciones, las guarda aca
-    if (data.targets) {
+    // setear los targets como RecommendedProducts
+    if (data.targets && data.targets.length > 0) {
       setRecommendedProducts(data.targets);
     }
 
-    // si existe timer, define si es global y/o por unidad y renderiza en consecuencia
-    if (data.timer.hasTimer) {
-      if (data.timer.designType === "global") {
-        dispatch(setTimerGlobal(true));
-        dispatch(setTimerUnidad(false));
-      } else if (data.timer.designType === "unidad") {
-        dispatch(setTimerUnidad(true));
-        dispatch(setTimerGlobal(false));
-      }
-    } else {
-      dispatch(setTimerGlobal(false));
-      dispatch(setTimerUnidad(false));
-    }
-
-    // si existe descuentos activos para esta recomendacion
-    dispatch(setOffUnidad(data.discount.isActive));
-
-    dispatch(setFixedDiscount(data.discount.isFixedDiscount));
-
-    dispatch(setOffQuantity(data.discount.amount));
-
-    // ver como implementar este metodo
-    /*     dispatch(setRestUnidad(data.shortage.hasShortage));
-    dispatch(setCantidadFiltros(data.targets.length)); */
-
-    // ultimas unidades global o local
-    dispatch(setLastUnidadGlobal(data.shortage.hasShortage));
-    dispatch(setLastUnidad(data.shortage.hasShortage));
-    dispatch(setLastUnidadText(data.shortage.text));
-
-    // visibilizar descripcion
-    dispatch(setVisibilityDescription(true));
-
-    // cantidad de productos recomendados
-    dispatch(setCantidadProducts(data.targets.length));
-
+    // setear a true para abrir el sheet con recomendados
     setIsOpen(true);
   };
 
+  // abrir el modal con el Producto Especifico para ver mas details
   const handleOpenModalViewProduct = (product: RecommendedProduct2) => {
     setSelectedProduct(product);
   };
 
+  // funcion para cerrar modal
   const handleClose = () => {
     onClosePopUp("closeModal");
     setIsOpen(false);
     setSelectedProduct(null);
   };
 
+  // disparador de tienda nube para obtener la respuesta de API con la recomendacion
   const handleInitializeTiendaNube = async (typeTemplate: string) => {
     try {
       const data = await fetchDataFromJson(typeTemplate);
-      console.log(data);
       processData(data);
-      if (typeTemplate === "template1A") {
-        dispatch(setVisibilityDescription(false));
-      } else if (typeTemplate === "template1B") {
-        dispatch(setVisibilityDescription(true));
-      } else if (typeTemplate === "template1C") {
-        dispatch(setLastUnidadGlobal(false));
-      } else if (typeTemplate === "template1D") {
-        dispatch(setLastUnidad(false));
-      }
     } catch (error) {
       console.error("Error al inicializar Tienda Nube:", error);
     }

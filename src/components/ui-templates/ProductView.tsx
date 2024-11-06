@@ -39,21 +39,29 @@ export const ProductView: React.FC<ViewProductProps> = ({
   const [selectedSize, setSelectedSize] = useState(sizes[0]);
 
   const visibilityDescription = useSelector(
-    (state: RootState) => state.tiendaNube.visibilityDescription
+    (state: RootState) => state.promotion.visibilityDescription
   );
   const lastUnidad = useSelector(
-    (state: RootState) => state.tiendaNube.lastUnidad
+    (state: RootState) => state.promotion.lastUnidad
   );
   const offUnidad = useSelector(
-    (state: RootState) => state.tiendaNube.offUnidad
+    (state: RootState) => state.promotion.offUnidad
   );
   const offQuantity = useSelector(
-    (state: RootState) => state.tiendaNube.offQuantity
+    (state: RootState) => state.promotion.offQuantity
   );
+  const isFixedDiscount = useSelector(
+    (state: RootState) => state.promotion.fixedDiscount
+  );
+  const lastUnidadText = useSelector(
+    (state: RootState) => state.promotion.lastUnidadText
+  );
+
+  console.log(isFixedDiscount);
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="w-full mt-[10vh] h-[80vh] max-h-[888px] md:max-h-[808px] md:!mt-0 md:h-full md:w-[430px] m p-0 bg-background text-foreground max-w-full flex flex-col">
+      <DialogContent className="w-full mt-[10vh] h-[80vh] max-h-[888px] md:max-h-[808px] md:!mt-0 md:h-full md:w-[430px] p-0 bg-background text-foreground max-w-full flex flex-col">
         <Button
           variant="outline"
           size="icon"
@@ -64,8 +72,9 @@ export const ProductView: React.FC<ViewProductProps> = ({
           <span className="sr-only">Close</span>
         </Button>
 
-        <div className="flex-grow overflow-y-auto mb-20">
-          <div className="p-4 flex flex-col justify-start items-start gap-4">
+        {/* Scrollable container with ultra-thin scrollbar */}
+        <div className="flex-grow overflow-y-auto [&::-webkit-scrollbar]:w-[2px] [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:bg-zinc-300 [&::-webkit-scrollbar-thumb]:rounded-full hover:[&::-webkit-scrollbar-thumb]:bg-zinc-400 dark:[&::-webkit-scrollbar-thumb]:bg-zinc-700 dark:hover:[&::-webkit-scrollbar-thumb]:bg-zinc-600">
+          <div className="p-4 flex flex-col justify-start items-start gap-4 pb-24 pr-2">
             <div className="self-stretch flex justify-start">
               <Image
                 className="border border-border w-full h-auto object-cover"
@@ -87,22 +96,30 @@ export const ProductView: React.FC<ViewProductProps> = ({
               {lastUnidad && (
                 <div className="inline-flex items-center px-1.5 py-0.5 border border-[#00806e] w-fit">
                   <div className="text-[#00806e] text-xs text-center font-semibold uppercase tracking-wide">
-                    ULTIMAS UNIDADES!
+                    {lastUnidadText}
                   </div>
                 </div>
               )}
 
               <div className="self-stretch justify-between items-center flex">
                 <div className="flex items-center gap-2">
-                  <div
-                    className="text-sm font-semibold"
-                    style={{ color: "var(--primary-text)" }}
-                  >
-                    {formatPrice(product.variants[0].price)}
-                  </div>
-                  {offUnidad && (
+                  {isFixedDiscount ? (
+                    <div className="text-sm font-semibold text-primary">
+                      {formatPrice(product.variants[0].price - offQuantity)}
+                    </div>
+                  ) : (
+                    <div className="text-sm font-semibold text-primary">
+                      {formatPrice(product.variants[0].price)}
+                    </div>
+                  )}
+
+                  {!isFixedDiscount ? (
                     <span className="text-[#00806e] font-semibold text-sm">
                       {offQuantity * 100}% OFF
+                    </span>
+                  ) : (
+                    <span className="text-[#00806e] font-semibold text-sm">
+                      {formatPrice(offQuantity)} OFF
                     </span>
                   )}
                 </div>
@@ -149,7 +166,7 @@ export const ProductView: React.FC<ViewProductProps> = ({
           </div>
         </div>
 
-        <div className="absolute bottom-0 left-0 right-0 p-4">
+        <div className="absolute bottom-0 left-0 right-0 p-4 bg-background border-t">
           <Button
             className="w-full h-10 bg-[#00806e] hover:bg-[#00806e]/90 text-white rounded-none"
             onClick={handleAddToCartAndClose}

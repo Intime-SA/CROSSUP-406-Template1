@@ -1,52 +1,8 @@
 import { PromotionData } from "@/domain/definitionsTypes";
 
-export const getMockOfferData = (): PromotionData => ({
+export const getMockOfferData4 = (): PromotionData => ({
   _id: "67223aac87729c4433dcbc31",
   targets: [
-    {
-      _id: "64de16e59ffb22f98387cc3e",
-      id: "4",
-      name: {
-        es: "Tónico facial descongestivo y reparador BALANCE SKIN",
-      },
-      description: {
-        es: "",
-      },
-      images: [
-        {
-          id: 70566714,
-          product_id: "40373371",
-          src: "/image4.png",
-          position: 1,
-          alt: [],
-          height: 3000,
-          width: 2000,
-          thumbnails_generated: 2,
-          created_at: "2023-10-01T00:00:00+0000",
-          updated_at: "2023-10-01T00:00:00+0000",
-        },
-      ],
-      variants: [
-        {
-          id: "105014162",
-          value: "Tamaño 1",
-          attr: {
-            Color: "Transparente",
-            Talle: "Estándar",
-          },
-          stock: 15,
-          stockManagement: true,
-          price: 29990,
-          promotionalPrice: null,
-          imageId: "70566714",
-          productId: "40373371",
-          sku: null,
-          ageGroup: null,
-          gender: null,
-          cost: null,
-        },
-      ],
-    },
     {
       _id: "64de16e59ffb22f98387cc3c",
       id: "2",
@@ -54,7 +10,7 @@ export const getMockOfferData = (): PromotionData => ({
         es: "Contorno de Ojos FILLER REPAIR",
       },
       description: {
-        es: "",
+        es: "Tónico facial descongestivo y reparador BALANCE SKIN",
       },
       images: [
         {
@@ -98,7 +54,7 @@ export const getMockOfferData = (): PromotionData => ({
         es: "Serum Facial Renovador Mandelic Night",
       },
       description: {
-        es: "",
+        es: "Tónico facial descongestivo y reparador BALANCE SKIN",
       },
       images: [
         {
@@ -135,26 +91,202 @@ export const getMockOfferData = (): PromotionData => ({
         },
       ],
     },
+    {
+      _id: "64de16e59ffb22f98387cc3e",
+      id: "4",
+      name: {
+        es: "Tónico facial descongestivo y reparador BALANCE SKIN",
+      },
+      description: {
+        es: "Tónico facial descongestivo y reparador BALANCE SKIN",
+      },
+      images: [
+        {
+          id: 70566714,
+          product_id: "40373371",
+          src: "/image4.png",
+          position: 1,
+          alt: [],
+          height: 3000,
+          width: 2000,
+          thumbnails_generated: 2,
+          created_at: "2023-10-01T00:00:00+0000",
+          updated_at: "2023-10-01T00:00:00+0000",
+        },
+      ],
+      variants: [
+        {
+          id: "105014162",
+          value: "Tamaño 1",
+          attr: {
+            Color: "Transparente",
+            Talle: "Estándar",
+          },
+          stock: 15,
+          stockManagement: true,
+          price: 29990,
+          promotionalPrice: null,
+          imageId: "70566714",
+          productId: "40373371",
+          sku: null,
+          ageGroup: null,
+          gender: null,
+          cost: null,
+        },
+      ],
+    },
+    {
+      _id: "64de16e59ffb22f98387cc3e",
+      id: "5",
+      name: {
+        es: "Tónico facial descongestivo y reparador BALANCE SKIN",
+      },
+      description: {
+        es: "Tónico facial descongestivo y reparador BALANCE SKIN",
+      },
+      images: [
+        {
+          id: 70566714,
+          product_id: "40373371",
+          src: "/image4.png",
+          position: 1,
+          alt: [],
+          height: 3000,
+          width: 2000,
+          thumbnails_generated: 2,
+          created_at: "2023-10-01T00:00:00+0000",
+          updated_at: "2023-10-01T00:00:00+0000",
+        },
+      ],
+      variants: [
+        {
+          id: "105014162",
+          value: "Tamaño 1",
+          attr: {
+            Color: "Transparente",
+            Talle: "Estándar",
+          },
+          stock: 15,
+          stockManagement: true,
+          price: 29990,
+          promotionalPrice: null,
+          imageId: "70566714",
+          productId: "40373371",
+          sku: null,
+          ageGroup: null,
+          gender: null,
+          cost: null,
+        },
+      ],
+    },
+    {
+      _id: "64de16e59ffb22f98387cc3e",
+      id: "6",
+      name: {
+        es: "Tónico facial descongestivo y reparador BALANCE SKIN",
+      },
+      description: {
+        es: "Tónico facial descongestivo y reparador BALANCE SKIN",
+      },
+      images: [
+        {
+          id: 70566714,
+          product_id: "40373371",
+          src: "/image4.png",
+          position: 1,
+          alt: [],
+          height: 3000,
+          width: 2000,
+          thumbnails_generated: 2,
+          created_at: "2023-10-01T00:00:00+0000",
+          updated_at: "2023-10-01T00:00:00+0000",
+        },
+      ],
+      variants: [
+        {
+          id: "105014162",
+          value: "Tamaño 1",
+          attr: {
+            Color: "Transparente",
+            Talle: "Estándar",
+          },
+          stock: 15,
+          stockManagement: true,
+          price: 29990,
+          promotionalPrice: null,
+          imageId: "70566714",
+          productId: "40373371",
+          sku: null,
+          ageGroup: null,
+          gender: null,
+          cost: null,
+        },
+      ],
+    },
+    {
+      _id: "64de16e59ffb22f98387cc3e",
+      id: "7",
+      name: {
+        es: "Tónico facial descongestivo y reparador BALANCE SKIN",
+      },
+      description: {
+        es: "Tónico facial descongestivo y reparador BALANCE SKIN",
+      },
+      images: [
+        {
+          id: 70566714,
+          product_id: "40373371",
+          src: "/image4.png",
+          position: 1,
+          alt: [],
+          height: 3000,
+          width: 2000,
+          thumbnails_generated: 2,
+          created_at: "2023-10-01T00:00:00+0000",
+          updated_at: "2023-10-01T00:00:00+0000",
+        },
+      ],
+      variants: [
+        {
+          id: "105014162",
+          value: "Tamaño 1",
+          attr: {
+            Color: "Transparente",
+            Talle: "Estándar",
+          },
+          stock: 15,
+          stockManagement: true,
+          price: 29990,
+          promotionalPrice: null,
+          imageId: "70566714",
+          productId: "40373371",
+          sku: null,
+          ageGroup: null,
+          gender: null,
+          cost: null,
+        },
+      ],
+    },
   ],
   privateName: "pruebaa",
-  showingPlace: "cart",
+  showingPlace: "checkout",
   isActive: true,
   shortage: {
-    hasShortage: false,
-    text: "",
+    hasShortage: true,
+    text: "Ultimas Unidades",
   },
   canModifyQuantity: false,
   discount: {
-    isActive: false,
-    isFixedDiscount: false,
-    amount: 0,
+    isActive: true,
+    isFixedDiscount: true,
+    amount: 10000,
     designType: null,
-    promotionId: null,
+    promotionId: "810d9356-9500-4d47-a61d-310978d51d7a",
   },
   timer: {
-    hasTimer: false,
+    hasTimer: true,
     amountOfTime: 0,
-    designType: "",
+    designType: "global",
     text: "",
   },
   autoManagement: {
@@ -200,7 +332,7 @@ export const getMockOfferData = (): PromotionData => ({
         es: "Emulsión Facial HYALU PRO",
       },
       description: {
-        es: "",
+        es: "Serum Facial Renovador Mandelic Night Tónico facial descongestivo y Serum Facial Renovador Mandelic Night Tónico facial descongestivo y reparador BALANCE SKIN",
       },
       images: [
         {
