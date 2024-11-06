@@ -584,7 +584,7 @@ export default function ApiDocumentation() {
                     <p>
                       Un array de objetos que representan productos que activan
                       la sugerencia. Cada objeto contiene la misma estructura
-                      que los objetos en el array "targets":
+                      que los objetos en el array {"targets"}:
                     </p>
                     <ul className="list-disc list-inside ml-4 mb-4">
                       <li>
