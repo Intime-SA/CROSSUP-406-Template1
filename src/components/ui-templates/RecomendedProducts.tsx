@@ -78,16 +78,8 @@ export default function RecommendedProducts({
     setTimeout(onClose, 500);
   };
 
-  console.log(products);
   const productsToShow =
     products && products.length > 0 ? products.slice(0, cantidadProducts) : [];
-
-  console.log(lastUnidad);
-  console.log(lastUnidadText);
-
-  console.log(lastUnidad);
-
-  console.log(lastUnidadGlobal);
 
   return (
     <div className="flex flex-col gap-4">

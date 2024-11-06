@@ -2,7 +2,7 @@ import React from "react";
 import { useSelector } from "react-redux";
 import Image from "next/image";
 import { formatPrice } from "@/lib/utils";
-import { MainProduct2 } from "@/domain/definitions";
+import { MainProduct2 } from "@/domain/definitionsTypes";
 import { RootState } from "@/redux/store"; // Asegúrate de que la ruta sea correcta
 
 interface ProductAddedProps {

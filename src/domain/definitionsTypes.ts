@@ -147,3 +147,9 @@ export interface RecommendedProduct2 {
   images: Image[]; // Se añadió un array de imágenes
   variants: Variant[]; // Se añadió un array de variantes
 }
+
+export interface ViewProductProps {
+  product: RecommendedProduct2;
+  isOpen: boolean; // Indica si el modal está abierto
+  onClose: () => void; // Función para cerrar el modal
+}

@@ -37,9 +37,48 @@ export default function ApiDocumentation() {
   "_id": "67223aac87729c4433dcbc31",
   "targets": [
     {
-      "id": "203086431",
-      "type": "category",
-      "rank": 1
+      "_id": "64de16e59ffb22f98387cc3c",
+      "id": "2",
+      "name": {
+        "es": "Contorno de Ojos FILLER REPAIR"
+      },
+      "description": {
+        "es": "Tónico facial descongestivo y reparador BALANCE SKIN"
+      },
+      "images": [
+        {
+          "id": 70566712,
+          "product_id": "40373369",
+          "src": "/image2.png",
+          "position": 1,
+          "alt": [],
+          "height": 3000,
+          "width": 2000,
+          "thumbnails_generated": 2,
+          "created_at": "2023-10-01T00:00:00+0000",
+          "updated_at": "2023-10-01T00:00:00+0000"
+        }
+      ],
+      "variants": [
+        {
+          "id": "105014160",
+          "value": "Tamaño 1",
+          "attr": {
+            "Color": "Transparente",
+            "Talle": "Estándar"
+          },
+          "stock": 30,
+          "stockManagement": true,
+          "price": 29990,
+          "promotionalPrice": null,
+          "imageId": "70566712",
+          "productId": "40373369",
+          "sku": null,
+          "ageGroup": null,
+          "gender": null,
+          "cost": null
+        }
+      ]
     }
   ],
   "privateName": "pruebaa",
@@ -82,8 +121,48 @@ export default function ApiDocumentation() {
   },
   "shooters": [
     {
-      "id": "129558013",
-      "type": "product"
+      "_id": "64de16e59ffb22f98387cc3c",
+      "id": "2",
+      "name": {
+        "es": "Contorno de Ojos FILLER REPAIR"
+      },
+      "description": {
+        "es": "Tónico facial descongestivo y reparador BALANCE SKIN"
+      },
+      "images": [
+        {
+          "id": 70566712,
+          "product_id": "40373369",
+          "src": "/image2.png",
+          "position": 1,
+          "alt": [],
+          "height": 3000,
+          "width": 2000,
+          "thumbnails_generated": 2,
+          "created_at": "2023-10-01T00:00:00+0000",
+          "updated_at": "2023-10-01T00:00:00+0000"
+        }
+      ],
+      "variants": [
+        {
+          "id": "105014160",
+          "value": "Tamaño 1",
+          "attr": {
+            "Color": "Transparente",
+            "Talle": "Estándar"
+          },
+          "stock": 30,
+          "stockManagement": true,
+          "price": 29990,
+          "promotionalPrice": null,
+          "imageId": "70566712",
+          "productId": "40373369",
+          "sku": null,
+          "ageGroup": null,
+          "gender": null,
+          "cost": null
+        }
+      ]
     }
   ],
   "exceptions": null,
@@ -134,12 +213,16 @@ export default function ApiDocumentation() {
               <CardTitle>Punto de Acceso</CardTitle>
             </CardHeader>
             <CardContent>
-              <p className="mb-4">
-                Recupera una sugerencia específica por su ID:
-              </p>
+              <p className="mb-4">Recupera una sugerencia especifica por ID:</p>
               <SyntaxHighlighter language="bash" style={docco}>
-                GET /suggestions/{"{id}"}
+                fetchDataFromJson(typeTemplate) - es un metodo que se ejecuta
+                como Server Action en app/actions/actions.ts
               </SyntaxHighlighter>
+              <br />
+              <p className="mb-4">
+                Posibles opciones: "template1A", "template1B", "template1C",
+                "template1D"
+              </p>
             </CardContent>
           </Card>
         </TabsContent>
@@ -189,8 +272,8 @@ export default function ApiDocumentation() {
                       <TableCell className="font-medium">targets</TableCell>
                       <TableCell>array</TableCell>
                       <TableCell>
-                        Lista de productos a ofrecer, incluyendo sus IDs y orden
-                        de visualización
+                        Lista de productos a ofrecer, incluyendo detalles
+                        completos del producto
                       </TableCell>
                     </TableRow>
                     <TableRow>
@@ -292,7 +375,10 @@ export default function ApiDocumentation() {
                     <TableRow>
                       <TableCell className="font-medium">shooters</TableCell>
                       <TableCell>array</TableCell>
-                      <TableCell>Productos que activan la sugerencia</TableCell>
+                      <TableCell>
+                        Productos que activan la sugerencia, incluyendo detalles
+                        completos del producto
+                      </TableCell>
                     </TableRow>
                     <TableRow>
                       <TableCell className="font-medium">exceptions</TableCell>
@@ -341,15 +427,26 @@ export default function ApiDocumentation() {
                     </p>
                     <ul className="list-disc list-inside ml-4 mb-4">
                       <li>
+                        <strong>_id</strong>: string - El ID único del producto
+                      </li>
+                      <li>
                         <strong>id</strong>: string - El ID del producto
                       </li>
                       <li>
-                        <strong>type</strong>: string - El tipo de objetivo (ej.
-                        category)
+                        <strong>name</strong>: object - Nombre del producto en
+                        diferentes idiomas
                       </li>
                       <li>
-                        <strong>rank</strong>: number - El orden de
-                        visualización del producto en la sugerencia
+                        <strong>description</strong>: object - Descripción del
+                        producto en diferentes idiomas
+                      </li>
+                      <li>
+                        <strong>images</strong>: array - Lista de imágenes del
+                        producto
+                      </li>
+                      <li>
+                        <strong>variants</strong>: array - Lista de variantes
+                        del producto
                       </li>
                     </ul>
 
@@ -486,15 +583,31 @@ export default function ApiDocumentation() {
                     </h3>
                     <p>
                       Un array de objetos que representan productos que activan
-                      la sugerencia:
+                      la sugerencia. Cada objeto contiene la misma estructura
+                      que los objetos en el array "targets":
                     </p>
                     <ul className="list-disc list-inside ml-4 mb-4">
+                      <li>
+                        <strong>_id</strong>: string - El ID único del producto
+                      </li>
                       <li>
                         <strong>id</strong>: string - El ID del producto
                       </li>
                       <li>
-                        <strong>type</strong>: string - El tipo de activador
-                        (ej. product)
+                        <strong>name</strong>: object - Nombre del producto en
+                        diferentes idiomas
+                      </li>
+                      <li>
+                        <strong>description</strong>: object - Descripción del
+                        producto en diferentes idiomas
+                      </li>
+                      <li>
+                        <strong>images</strong>: array - Lista de imágenes del
+                        producto
+                      </li>
+                      <li>
+                        <strong>variants</strong>: array - Lista de variantes
+                        del producto
                       </li>
                     </ul>
 
@@ -561,6 +674,11 @@ export default function ApiDocumentation() {
               El campo <code>exceptions</code>, cuando se implemente, contendrá
               un array de IDs de productos que no deben mostrarse con esta
               oferta.
+            </li>
+            <li>
+              Los campos <code>targets</code> y <code>shooters</code> ahora
+              contienen información detallada del producto, incluyendo nombre,
+              descripción, imágenes y variantes.
             </li>
           </ul>
         </CardContent>

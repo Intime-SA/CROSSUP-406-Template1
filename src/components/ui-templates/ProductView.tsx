@@ -4,13 +4,14 @@ import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { X } from "lucide-react";
 import { handleAddToCart } from "@/lib/protocolFunctions/functions";
-import { ViewProductProps } from "@/domain/definitions";
+
 import { formatPrice } from "@/lib/utils";
 import QuantitySelector from "./QuantitySelector";
 import ColorSelector from "./ColorSelector";
 import SizeSelector from "./SizeSelector";
 import { useSelector } from "react-redux";
 import { RootState } from "@/redux/store";
+import { ViewProductProps } from "@/domain/definitionsTypes";
 
 export const ProductView: React.FC<ViewProductProps> = ({
   product,

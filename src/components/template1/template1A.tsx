@@ -18,7 +18,7 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import ProductView from "@/components/ui-templates/ProductView";
-import { RecommendedProduct2 } from "@/domain/definitions";
+import { RecommendedProduct2 } from "@/domain/definitionsTypes";
 import Image from "next/image";
 import Link from "next/link";
 import {
@@ -49,8 +49,6 @@ const Template1A = () => {
   const dispatch = useDispatch();
 
   const processData = (data: PromotionData) => {
-    console.log(data);
-
     // si existen varios disparadores, seleciona al primero como principal
     if (data.shooters && data.shooters.length > 0) {
       setMainProduct(data.shooters[0]);
@@ -96,9 +94,6 @@ const Template1A = () => {
 
     setIsOpen(true);
   };
-
-  console.log(mainProduct);
-  console.log(recommendedProducts);
 
   const handleOpenModalViewProduct = (product: RecommendedProduct2) => {
     setSelectedProduct(product);
