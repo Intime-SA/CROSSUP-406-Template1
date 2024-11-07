@@ -1,8 +1,8 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 interface PromotionState {
+  amountOfTime: number;
   timerGlobal: boolean;
-  timerUnidad: boolean;
   offUnidad: boolean;
   fixedDiscount: boolean;
   offQuantity: number;
@@ -10,12 +10,14 @@ interface PromotionState {
   lastUnidad: boolean;
   lastUnidadText: string;
   visibilityDescription: boolean;
-  cantidadProducts: number;
+  quantityProducts: number;
+  titleText: string;
+  addToCartButton: string;
 }
 
 const initialState: PromotionState = {
+  amountOfTime: 0,
   timerGlobal: false,
-  timerUnidad: false,
   offUnidad: false,
   fixedDiscount: false,
   offQuantity: 0,
@@ -23,7 +25,9 @@ const initialState: PromotionState = {
   lastUnidad: false,
   lastUnidadText: "",
   visibilityDescription: false,
-  cantidadProducts: 0,
+  quantityProducts: 0,
+  titleText: "",
+  addToCartButton: "",
 };
 
 const promotionSlice = createSlice({

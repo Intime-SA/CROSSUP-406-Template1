@@ -1,19 +1,20 @@
-import { Variant } from "@/domain/definitionsTypes";
 import React from "react";
+import { Variant } from "@/domain/definitionsTypes";
 
 interface SizeSelectorProps {
   variants: Variant[];
+  availableSizes: string[];
   selectedSize: string;
   onSizeSelect: (size: string) => void;
 }
 
-export default function SizeSelector({
+const SizeSelector: React.FC<SizeSelectorProps> = ({
   variants,
+  availableSizes,
   selectedSize,
   onSizeSelect,
-}: SizeSelectorProps) {
-  // Extraer los tamaños únicos de las variantes
-  const sizes = Array.from(
+}) => {
+  const allSizes = Array.from(
     new Set(variants.map((variant) => variant.attr.Talle))
   );
 
@@ -21,7 +22,7 @@ export default function SizeSelector({
     <div className="self-stretch justify-between items-center inline-flex">
       <div className="text-sm font-medium text-foreground">Talle</div>
       <div className="justify-start items-center gap-2 flex">
-        {sizes.map((size) => (
+        {allSizes.map((size) => (
           <button
             key={size}
             onClick={() => onSizeSelect(size)}
@@ -33,9 +34,12 @@ export default function SizeSelector({
               ${
                 selectedSize === size
                   ? "bg-[var(--components-bg)] border-[var(--primary-text)]"
-                  : "border-border hover:opacity-80"
+                  : availableSizes.includes(size)
+                  ? "border-border hover:opacity-80"
+                  : "border-border opacity-50 cursor-not-allowed"
               }
             `}
+            disabled={!availableSizes.includes(size)}
           >
             <div className="text-foreground text-xs font-semibold hover:text-gray-500 uppercase tracking-wide">
               {size}
@@ -45,4 +49,6 @@ export default function SizeSelector({
       </div>
     </div>
   );
-}
+};
+
+export default SizeSelector;

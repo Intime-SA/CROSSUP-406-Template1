@@ -1,10 +1,9 @@
 "use client";
 
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import ProductAdded from "@/components/ui-templates/ProductAdded";
 import {
-  customText,
   handleAddToCart,
   onClosePopUp,
 } from "@/lib/protocolFunctions/functions";
@@ -25,6 +24,9 @@ import { fetchDataFromJson } from "@/app/actions/actions";
 import { MainProduct2, PromotionData } from "@/domain/definitionsTypes";
 import { updateMultipleStates } from "@/redux/features/promotionSlice";
 import { templateOptions } from "@/lib/utils";
+import ProductCartSkeleton from "../skeletons/ProductCardSkeleton";
+import ProductAddedSkeleton from "../skeletons/ProductAddedSkeleton";
+import { RootState } from "@/redux/store";
 
 const Template1A = () => {
   const [mainProduct, setMainProduct] = useState<MainProduct2 | null>(null);
@@ -34,16 +36,14 @@ const Template1A = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedProduct, setSelectedProduct] =
     useState<RecommendedProduct2 | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
 
-  // inicializar hook dispatch
   const dispatch = useDispatch();
 
-  // funcion para procesar la data que vuelve del serverAction
   const processData = (data: PromotionData) => {
-    // Objeto para actualizar el estado global cuando vuelve respuesta de la API
     const stateUpdates = {
-      timerGlobal: data.timer.hasTimer && data.timer.designType === "global",
-      timerUnidad: data.timer.hasTimer && data.timer.designType === "unidad",
+      amountOfTime: data.timer.amountOfTime,
+      timerGlobal: data.timer.hasTimer,
       offUnidad: data.discount.isActive,
       fixedDiscount: data.discount.isFixedDiscount,
       offQuantity: data.discount.amount,
@@ -52,47 +52,49 @@ const Template1A = () => {
       lastUnidad: data.shortage.hasShortage,
       lastUnidadText: data.shortage.text,
       visibilityDescription: true,
-      cantidadProducts: data.targets ? data.targets.length : 0,
+      quantityProducts: data.targets ? data.targets.length : 0,
+      titleText: data.text.title,
+      addToCartButton: data.text.buttonAccept,
     };
 
-    // Despachar todas las actualizaciones de una vez
     dispatch(updateMultipleStates(stateUpdates));
 
-    // setear el shooter como main product
     if (data.shooters && data.shooters.length > 0) {
       setMainProduct(data.shooters[0]);
     }
 
-    // setear los targets como RecommendedProducts
     if (data.targets && data.targets.length > 0) {
       setRecommendedProducts(data.targets);
     }
 
-    // setear a true para abrir el sheet con recomendados
     setIsOpen(true);
+    setIsLoading(false);
   };
 
-  // abrir el modal con el Producto Especifico para ver mas details
   const handleOpenModalViewProduct = (product: RecommendedProduct2) => {
     setSelectedProduct(product);
   };
 
-  // funcion para cerrar modal
   const handleClose = () => {
     onClosePopUp("closeModal");
     setIsOpen(false);
     setSelectedProduct(null);
   };
 
-  // disparador de tienda nube para obtener la respuesta de API con la recomendacion
   const handleInitializeTiendaNube = async (typeTemplate: string) => {
     try {
+      setIsLoading(true);
       const data = await fetchDataFromJson(typeTemplate);
       processData(data);
     } catch (error) {
       console.error("Error al inicializar Tienda Nube:", error);
+      setIsLoading(false);
     }
   };
+
+  const titleText = useSelector(
+    (state: RootState) => state.promotion.titleText
+  );
 
   const renderTemplateButton = (
     key: string,
@@ -140,14 +142,18 @@ const Template1A = () => {
           </SheetHeader>
           <div className="flex-grow overflow-auto h-full">
             <div className="w-full h-full max-w-md mx-auto bg-background flex flex-col">
-              {mainProduct && (
-                <ProductAdded
-                  onClose={handleClose}
-                  mainProduct={mainProduct}
-                  openModalViewProduct={() =>
-                    handleOpenModalViewProduct(mainProduct)
-                  }
-                />
+              {isLoading ? (
+                <ProductAddedSkeleton />
+              ) : (
+                mainProduct && (
+                  <ProductAdded
+                    onClose={handleClose}
+                    mainProduct={mainProduct}
+                    openModalViewProduct={() =>
+                      handleOpenModalViewProduct(mainProduct)
+                    }
+                  />
+                )
               )}
 
               <div className="flex flex-col gap-6 px-4 sm:px-6 flex-grow">
@@ -157,16 +163,20 @@ const Template1A = () => {
                 />
 
                 <div className="text-foreground text-sm font-semibold">
-                  {customText("traer mensaje customizado cliente")}
+                  {titleText}
                 </div>
 
                 <div className="w-full max-w-md mx-auto bg-background flex flex-col flex-grow">
-                  <RecommendedProducts
-                    products={recommendedProducts}
-                    openModalViewProduct={handleOpenModalViewProduct}
-                    addToCart={handleAddToCart}
-                    onClose={handleClose}
-                  />
+                  {isLoading ? (
+                    <ProductCartSkeleton />
+                  ) : (
+                    <RecommendedProducts
+                      products={recommendedProducts}
+                      openModalViewProduct={handleOpenModalViewProduct}
+                      addToCart={handleAddToCart}
+                      onClose={handleClose}
+                    />
+                  )}
                 </div>
               </div>
             </div>

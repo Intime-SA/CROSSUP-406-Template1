@@ -589,9 +589,9 @@ export const getMockOfferData4 = (): PromotionData => ({
   exceptions: null,
   isUpsell: false,
   text: {
-    title: "OFERTA EXCLUSIVA",
+    title: "ATENCION",
     description: "Aprovecha esta oportunidad exclusiva para vos",
-    buttonAccept: "AGREGAR AL CARRITO",
+    buttonAccept: "ADD TO CART",
     buttonIgnore: "Ignorar oferta y seguir comprando",
     type: "PersonalizedTemplate",
   },

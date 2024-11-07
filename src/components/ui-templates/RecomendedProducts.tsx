@@ -47,11 +47,11 @@ export default function RecommendedProducts({
   const visibilityDescription = useSelector(
     (state: RootState) => state.promotion.visibilityDescription
   );
+  const amountOfTime = useSelector(
+    (state: RootState) => state.promotion.amountOfTime
+  );
   const timerGlobal = useSelector(
     (state: RootState) => state.promotion.timerGlobal
-  );
-  const timerUnidad = useSelector(
-    (state: RootState) => state.promotion.timerUnidad
   );
   const offUnidad = useSelector(
     (state: RootState) => state.promotion.offUnidad
@@ -81,9 +81,9 @@ export default function RecommendedProducts({
   return (
     <div className="flex flex-col gap-4">
       <div className="mb-4 flex items-center gap-2">
-        {timerGlobal && (
+        {timerGlobal && amountOfTime !== 0 && (
           <div className="h-[30px] px-2 py-1 border border-[#00806e] justify-start items-center gap-1 inline-flex">
-            <CountdownTimer initialTime={600} />
+            <CountdownTimer initialTime={amountOfTime} />
           </div>
         )}
         {lastUnidadGlobal && (
@@ -108,11 +108,6 @@ export default function RecommendedProducts({
               />
             </div>
             <div className="flex-1 flex flex-col gap-2">
-              {timerUnidad && (
-                <div className="mb-2">
-                  <CountdownTimer initialTime={300} /> {/* 5 minutos */}
-                </div>
-              )}
               <button
                 onClick={() => openModalViewProduct(product)}
                 className={`text-left text-sm font-medium focus:outline-none transition-colors duration-200 ease-in-out hover:text-[#4a4760] ${

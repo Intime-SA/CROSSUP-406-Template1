@@ -176,7 +176,7 @@ export const getMockOfferData3 = (): PromotionData => ({
             Color: "Transparente",
             Talle: "250ml",
           },
-          stock: 15,
+          stock: 3,
           stockManagement: true,
           price: 29990,
           promotionalPrice: null,
@@ -447,8 +447,8 @@ export const getMockOfferData3 = (): PromotionData => ({
   },
   timer: {
     hasTimer: true,
-    amountOfTime: 0,
-    designType: "global",
+    amountOfTime: 300,
+    designType: "",
     text: "",
   },
   autoManagement: {
@@ -535,9 +535,9 @@ export const getMockOfferData3 = (): PromotionData => ({
   exceptions: null,
   isUpsell: false,
   text: {
-    title: "OFERTA EXCLUSIVA",
+    title: "ULTIMA OFERTA DEL AÑO",
     description: "Aprovecha esta oportunidad exclusiva para vos",
-    buttonAccept: "AGREGAR AL CARRITO",
+    buttonAccept: "AGREGAR",
     buttonIgnore: "Ignorar oferta y seguir comprando",
     type: "PersonalizedTemplate",
   },

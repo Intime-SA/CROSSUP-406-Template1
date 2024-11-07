@@ -2,13 +2,15 @@ import { Action, configureStore } from "@reduxjs/toolkit";
 import { thunk, ThunkAction } from "redux-thunk";
 import cartReducer from "./features/cartSlice";
 import timerReducer from "./features/timerSlice";
-import promotionReducer from "./features/promotionSlice"; // Añade esta línea
+import promotionReducer from "./features/promotionSlice";
+import selectedTargetReducer from "./features/selectedTargetSlice"; // Añade esta línea
 
 export const store = configureStore({
   reducer: {
     cart: cartReducer,
     timer: timerReducer,
     promotion: promotionReducer, // Añade esta línea
+    selectedTarget: selectedTargetReducer,
   },
   middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(thunk),
 });
