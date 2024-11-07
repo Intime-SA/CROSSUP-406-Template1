@@ -13,7 +13,6 @@ interface ProductInfoProps {
 const ProductInfo: React.FC<ProductInfoProps> = ({
   product,
   selectedVariant,
-  quantity,
 }) => {
   const visibilityDescription = useSelector(
     (state: RootState) => state.promotion.visibilityDescription

@@ -18,8 +18,6 @@ import {
 } from "@/components/ui/sheet";
 import ProductView from "@/components/ui-templates/ProductView";
 import { RecommendedProduct2 } from "@/domain/definitionsTypes";
-import Image from "next/image";
-import Link from "next/link";
 import { fetchDataFromJson } from "@/app/actions/actions";
 import { MainProduct2, PromotionData } from "@/domain/definitionsTypes";
 import { updateMultipleStates } from "@/redux/features/promotionSlice";
@@ -118,20 +116,6 @@ const Template1A = () => {
   return (
     <div className="flex flex-col items-center justify-center w-full h-full m-0 p-10 text-primaryText">
       <h2>Template 1</h2>
-      <Link
-        href="https://www.figma.com/design/fT9qXiepXWJoxgsvchAIYp/Flowy-CrossUp-%F0%9F%9A%80-(con-modo-dev)?node-id=8298-36178&m=dev"
-        target="_blank"
-        rel="noopener noreferrer"
-        className="w-[70vw] max-w-[516px]"
-      >
-        <Image
-          className="border border-[#e3e3e3] rounded-sm w-full h-auto"
-          src={"/t1-sugerencias-y-especifico.png"}
-          alt={"template1"}
-          width={516}
-          height={300}
-        />
-      </Link>
       <Sheet open={isOpen} onOpenChange={setIsOpen}>
         {Object.entries(templateOptions).map(([key, option]) =>
           renderTemplateButton(key, option)
