@@ -8,7 +8,7 @@ import { RootState } from "@/redux/store";
 
 interface RecommendedProductsProps {
   products: RecommendedProduct2[] | null;
-  addToCart: (id: string) => void;
+  addToCart: (id: string, quantity: number) => void;
   openModalViewProduct: (product: RecommendedProduct2) => void;
   onClose: () => void;
 }
@@ -74,7 +74,7 @@ export default function RecommendedProducts({
 
   const handleAddToCartAndClose = async (id: string) => {
     setClickedProducts((prev) => new Set(prev).add(id));
-    await addToCart(id);
+    await addToCart(id, 1);
     setTimeout(onClose, 500);
   };
 
