@@ -22,10 +22,11 @@ export const customText = (mensaje: string) => {
   return customTextHardcode;
 };
 
-export const handleAddToCart = (id: string): void => {
+export const handleAddToCart = (id: string, quantity: number): void => {
   console.log(
     "Aqui se va a realizar la comunicacion por protocolo para agregar al cart via script",
-    id
+    id,
+    quantity
   );
   onClosePopUp("cerrar desde agregar al cart");
 };

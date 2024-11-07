@@ -1,18 +1,23 @@
 import React from "react";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
+import { Variant } from "@/domain/definitionsTypes";
 
 interface QuantitySelectorProps {
+  variant: Variant | null;
   quantity: number;
-  onIncrease: () => void;
-  onDecrease: () => void;
+  onIncrease: () => void; // Función que no recibe parámetros y no retorna nada
+  onDecrease: () => void; // Función que no recibe parámetros y no retorna nada
 }
 
 export default function QuantitySelector({
+  variant,
   quantity,
   onIncrease,
   onDecrease,
 }: QuantitySelectorProps) {
+  console.log(variant);
+
   return (
     <div className="justify-start items-center gap-2 flex">
       <div className="h-[30px] px-2 py-1 bg-background border border-border hover:border-[var(--neutrals-disabled)] transition-colors duration-200 justify-start items-center gap-4 inline-flex group">
@@ -21,6 +26,7 @@ export default function QuantitySelector({
           size="sm"
           className="flex-col justify-center items-start p-0 hover:bg-transparent dark:hover:bg-transparent"
           onClick={onDecrease}
+          disabled={quantity < 1}
         >
           <Image
             src="/bottomRest.svg"
@@ -38,6 +44,7 @@ export default function QuantitySelector({
           size="sm"
           className="flex-col justify-center items-start p-0 hover:bg-transparent dark:hover:bg-transparent"
           onClick={onIncrease}
+          disabled={!variant || quantity >= variant.stock}
         >
           <Image
             src="/bottomMore.svg"

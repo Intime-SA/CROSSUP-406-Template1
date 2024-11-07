@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
@@ -11,7 +11,7 @@ import ColorSelector from "./ColorSelector";
 import SizeSelector from "./SizeSelector";
 import { useSelector } from "react-redux";
 import { RootState } from "@/redux/store";
-import { ViewProductProps } from "@/domain/definitionsTypes";
+import { ViewProductProps, Variant } from "@/domain/definitionsTypes";
 
 export const ProductView: React.FC<ViewProductProps> = ({
   product,
@@ -19,24 +19,26 @@ export const ProductView: React.FC<ViewProductProps> = ({
   onClose,
 }) => {
   const handleAddToCartAndClose = () => {
-    handleAddToCart(product.id);
+    if (selectedVariant) {
+      handleAddToCart(selectedVariant.id, quantity);
+    }
     onClose();
   };
 
   const [quantity, setQuantity] = useState(1);
-  const [selectedColor, setSelectedColor] = useState(1);
+  const [selectedColor, setSelectedColor] = useState("");
+  const [selectedSize, setSelectedSize] = useState("");
+  const [selectedVariant, setSelectedVariant] = useState<Variant | null>(null);
 
   const handleIncrease = () => setQuantity((prev) => prev + 1);
   const handleDecrease = () => setQuantity((prev) => Math.max(1, prev - 1));
 
-  const colorOptions = [
-    { id: 1, color: "#1078ff" },
-    { id: 2, color: "#ff4136" },
-    { id: 3, color: "#2ecc40" },
-  ];
-
-  const sizes = ["XS", "S", "M", "L", "XL"];
-  const [selectedSize, setSelectedSize] = useState(sizes[0]);
+  useEffect(() => {
+    const variant = product.variants.find(
+      (v) => v.attr.Color === selectedColor && v.attr.Talle === selectedSize
+    );
+    setSelectedVariant(variant || product.variants[0] || null);
+  }, [selectedColor, selectedSize, product.variants]);
 
   const visibilityDescription = useSelector(
     (state: RootState) => state.promotion.visibilityDescription
@@ -57,8 +59,6 @@ export const ProductView: React.FC<ViewProductProps> = ({
     (state: RootState) => state.promotion.lastUnidadText
   );
 
-  console.log(isFixedDiscount);
-
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent className="w-full mt-[10vh] h-[80vh] max-h-[888px] md:max-h-[808px] md:!mt-0 md:h-full md:w-[430px] p-0 bg-background text-foreground max-w-full flex flex-col">
@@ -72,7 +72,6 @@ export const ProductView: React.FC<ViewProductProps> = ({
           <span className="sr-only">Close</span>
         </Button>
 
-        {/* Scrollable container with ultra-thin scrollbar */}
         <div className="flex-grow overflow-y-auto [&::-webkit-scrollbar]:w-[2px] [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:bg-zinc-300 [&::-webkit-scrollbar-thumb]:rounded-full hover:[&::-webkit-scrollbar-thumb]:bg-zinc-400 dark:[&::-webkit-scrollbar-thumb]:bg-zinc-700 dark:hover:[&::-webkit-scrollbar-thumb]:bg-zinc-600">
           <div className="p-4 flex flex-col justify-start items-start gap-4 pb-24 pr-2">
             <div className="self-stretch flex justify-start">
@@ -105,11 +104,13 @@ export const ProductView: React.FC<ViewProductProps> = ({
                 <div className="flex items-center gap-2">
                   {isFixedDiscount ? (
                     <div className="text-sm font-semibold text-primary">
-                      {formatPrice(product.variants[0].price - offQuantity)}
+                      {formatPrice(
+                        (product.variants[0]?.price || 0) - offQuantity
+                      )}
                     </div>
                   ) : (
                     <div className="text-sm font-semibold text-primary">
-                      {formatPrice(product.variants[0].price)}
+                      {formatPrice(product.variants[0]?.price || 0)}
                     </div>
                   )}
 
@@ -124,6 +125,7 @@ export const ProductView: React.FC<ViewProductProps> = ({
                   )}
                 </div>
                 <QuantitySelector
+                  variant={selectedVariant}
                   quantity={quantity}
                   onIncrease={handleIncrease}
                   onDecrease={handleDecrease}
@@ -132,37 +134,22 @@ export const ProductView: React.FC<ViewProductProps> = ({
 
               {offUnidad && (
                 <div className="text-[#d1d1d1] text-xs font-medium line-through">
-                  {formatPrice(product.variants[0].price)}
+                  {formatPrice(selectedVariant?.price || 0)}
                 </div>
               )}
             </div>
 
             <ColorSelector
-              colors={colorOptions}
+              variants={product.variants}
               selectedColor={selectedColor}
               onColorSelect={setSelectedColor}
             />
 
-            {offUnidad && (
-              <>
-                {[...Array(5)].map((_, index) => (
-                  <SizeSelector
-                    key={index}
-                    sizes={sizes}
-                    selectedSize={selectedSize}
-                    onSizeSelect={setSelectedSize}
-                  />
-                ))}
-              </>
-            )}
-
-            {!offUnidad && (
-              <SizeSelector
-                sizes={sizes}
-                selectedSize={selectedSize}
-                onSizeSelect={setSelectedSize}
-              />
-            )}
+            <SizeSelector
+              variants={product.variants}
+              selectedSize={selectedSize}
+              onSizeSelect={setSelectedSize}
+            />
           </div>
         </div>
 
@@ -170,6 +157,7 @@ export const ProductView: React.FC<ViewProductProps> = ({
           <Button
             className="w-full h-10 bg-[#00806e] hover:bg-[#00806e]/90 text-white rounded-none"
             onClick={handleAddToCartAndClose}
+            disabled={!selectedVariant}
           >
             <span className="text-base font-medium">Agregar al carrito</span>
           </Button>

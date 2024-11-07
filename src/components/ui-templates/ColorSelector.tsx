@@ -1,45 +1,46 @@
 import React from "react";
-
-interface ColorOption {
-  id: number;
-  color: string;
-}
+import { Variant } from "@/domain/definitionsTypes";
 
 interface ColorSelectorProps {
-  colors: ColorOption[];
-  selectedColor: number;
-  onColorSelect: (id: number) => void;
+  variants: Variant[];
+  selectedColor: string;
+  onColorSelect: (color: string) => void;
 }
 
 export default function ColorSelector({
-  colors,
+  variants,
   selectedColor,
   onColorSelect,
 }: ColorSelectorProps) {
+  // Extraer colores únicos de las variantes
+  const uniqueColors = Array.from(
+    new Set(variants.map((variant) => variant.attr.Color))
+  );
+
   return (
     <div className="self-stretch justify-between items-center inline-flex">
       <div className="text-sm font-medium text-foreground">Color</div>
-      <div className="justify-start items-center gap-2 flex">
-        {colors.map((colorOption) => (
+      <div className="justify-end items-center gap-2 flex">
+        {uniqueColors.map((color) => (
           <button
-            key={colorOption.id}
-            onClick={() => onColorSelect(colorOption.id)}
+            key={color}
+            onClick={() => onColorSelect(color)}
             className={`
-              w-[30px] h-[30px] p-2
+p-1
               flex justify-center items-center
-              border
+              border rounded-sm
               transition-all duration-200
               ${
-                selectedColor === colorOption.id
+                selectedColor === color
                   ? "bg-[var(--components-bg)] border-[var(--primary-text)]"
                   : "border-border hover:opacity-80"
               }
             `}
+            aria-label={`Select color ${color}`}
           >
-            <div
-              className="w-3 h-3"
-              style={{ backgroundColor: colorOption.color }}
-            />
+            <span className="text-xs font-medium overflow-hidden  w-full text-center">
+              {color}
+            </span>
           </button>
         ))}
       </div>
