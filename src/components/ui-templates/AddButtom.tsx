@@ -2,15 +2,16 @@ import React from "react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { Plus } from "lucide-react";
+import { RecommendedProduct2 } from "@/domain/definitionsTypes";
 
 interface AddButtonProps {
-  productId: string;
-  clickedProducts: Set<string>;
-  handleAddToCartAndClose: (id: string) => void;
+  product: RecommendedProduct2;
+  clickedProducts: Set<RecommendedProduct2>;
+  handleAddToCartAndClose: (id: RecommendedProduct2) => void;
 }
 
 export default function AddButton({
-  productId,
+  product,
   clickedProducts,
   handleAddToCartAndClose,
 }: AddButtonProps) {
@@ -18,15 +19,15 @@ export default function AddButton({
     <AnimatePresence>
       <motion.button
         className={`p-4 rounded-3xl border overflow-hidden ${
-          clickedProducts.has(productId)
+          clickedProducts.has(product)
             ? "bg-[var(--components-bg)] text-white border-[var(--neutrals-disabled)]"
             : "border-[#00806e] hover:border-[var(--neutrals-disabled)] hover:bg-[var(--neutrals-disabled)] hover:text-white"
         }`}
-        onClick={() => handleAddToCartAndClose(productId)}
-        disabled={clickedProducts.has(productId)}
+        onClick={() => handleAddToCartAndClose(product)}
+        disabled={clickedProducts.has(product)}
         initial={{ scale: 1, opacity: 1 }}
         animate={
-          clickedProducts.has(productId)
+          clickedProducts.has(product)
             ? {
                 scale: [1, 1.2, 0.8, 0], // Agranda, reduce y luego desaparece
                 opacity: [1, 1, 1, 0], // Mantiene opacidad hasta desaparecer

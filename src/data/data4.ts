@@ -501,7 +501,7 @@ export const getMockOfferData4 = (): PromotionData => ({
   },
   timer: {
     hasTimer: true,
-    amountOfTime: 0,
+    amountOfTime: 600,
     designType: "global",
     text: "",
   },

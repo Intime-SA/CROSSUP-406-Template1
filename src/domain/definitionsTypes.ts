@@ -68,6 +68,7 @@ interface Text {
   type: string;
 }
 
+// instancia a todas las interfaces de arriba. Es la estructura de datos que viene de la api de crossUp en donde viene toda la informacion de la sugerencia que se dispara con el shooter.
 export interface PromotionData {
   _id: string;
   targets: RecommendedProduct2[];
@@ -90,6 +91,9 @@ export interface PromotionData {
   createdAt: string;
 }
 
+/////////////////////////////////////////////////////////////////////////////////////////
+
+// data image targent.image
 export interface Image {
   id: number;
   product_id: string;
@@ -103,6 +107,7 @@ export interface Image {
   updated_at: string;
 }
 
+//
 export interface TimerState {
   timeLeft: number;
   isRunning: boolean;
@@ -157,4 +162,19 @@ export interface ViewProductProps {
   product: RecommendedProduct2;
   isOpen: boolean; // Indica si el modal está abierto
   onClose: () => void; // Función para cerrar el modal
+}
+
+//
+export interface ProductInfoProps {
+  product: ViewProductProps["product"];
+  selectedVariant: Variant | null;
+  quantity: number;
+}
+
+export interface ProductAddedProps {
+  onClose: () => void;
+  checkIconSrc?: string;
+  closeIconSrc?: string;
+  mainProduct: MainProduct2;
+  openModalViewProduct: (product: MainProduct2) => void;
 }

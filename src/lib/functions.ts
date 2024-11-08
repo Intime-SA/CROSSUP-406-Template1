@@ -16,11 +16,7 @@ export const onClosePopUp = (mensaje: string): void => {
   console.log("Close modal ViewProduct", mensaje);
 };
 
-export const handleAddToCart = (id: string, quantity: number): void => {
-  console.log("Si no tiene variantes, se agrega directo al cart", id, quantity);
-  onClosePopUp("cerrar desde agregar al cart");
-};
-
+// agregar al carrito y enviar string con payload
 export const addToCartHandler = (
   selectedVariant: Variant,
   quantity: number

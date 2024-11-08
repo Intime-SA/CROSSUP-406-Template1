@@ -2,7 +2,7 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { Button } from "@/components/ui/button";
 import { RootState } from "@/redux/store";
-import { addToCartHandler } from "@/lib/protocolFunctions/functions";
+import { addToCartHandler } from "@/lib/functions";
 
 interface AddToCartButtonProps {
   onAddToCart: () => void;

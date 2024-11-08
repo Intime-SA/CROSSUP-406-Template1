@@ -1,33 +1,38 @@
+import { PromotionData } from "@/domain/definitionsTypes";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 interface PromotionState {
   amountOfTime: number;
   timerGlobal: boolean;
-  offUnidad: boolean;
+  discountIsActive: boolean;
   fixedDiscount: boolean;
-  offQuantity: number;
-  lastUnidadGlobal: boolean;
-  lastUnidad: boolean;
-  lastUnidadText: string;
+  discountAmount: number;
+  canModifyQuantity: boolean;
+  hasShortageGlobal: boolean;
+  hasShortage: boolean;
+  hasShortageText: string;
   visibilityDescription: boolean;
   quantityProducts: number;
   titleText: string;
   addToCartButton: string;
+  targets: PromotionData[];
 }
 
 const initialState: PromotionState = {
   amountOfTime: 0,
   timerGlobal: false,
-  offUnidad: false,
+  discountIsActive: false,
   fixedDiscount: false,
-  offQuantity: 0,
-  lastUnidadGlobal: false,
-  lastUnidad: false,
-  lastUnidadText: "",
+  discountAmount: 0,
+  canModifyQuantity: false,
+  hasShortageGlobal: false,
+  hasShortage: false,
+  hasShortageText: "",
   visibilityDescription: false,
   quantityProducts: 0,
   titleText: "",
   addToCartButton: "",
+  targets: [],
 };
 
 const promotionSlice = createSlice({

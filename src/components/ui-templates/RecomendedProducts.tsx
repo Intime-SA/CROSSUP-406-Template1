@@ -1,81 +1,55 @@
-import React, { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
+import React, { useState } from "react";
 import Image from "next/image";
 import { RecommendedProduct2 } from "@/domain/definitionsTypes";
 import { formatPrice } from "@/lib/utils";
 import AddButton from "./AddButtom";
-import { RootState } from "@/redux/store";
+import { CountdownTimer } from "./CountDownTimer";
+import { addToCartHandler } from "@/lib/functions";
+import { useProductSelectors } from "@/redux/selectores";
 
 interface RecommendedProductsProps {
   products: RecommendedProduct2[] | null;
-  addToCart: (id: string, quantity: number) => void;
   openModalViewProduct: (product: RecommendedProduct2) => void;
   onClose: () => void;
 }
 
-const CountdownTimer: React.FC<{ initialTime: number }> = ({ initialTime }) => {
-  const [timeLeft, setTimeLeft] = useState(initialTime);
-
-  useEffect(() => {
-    if (timeLeft > 0) {
-      const timerId = setTimeout(() => setTimeLeft(timeLeft - 1), 1000);
-      return () => clearTimeout(timerId);
-    }
-  }, [timeLeft]);
-
-  const minutes = Math.floor(timeLeft / 60);
-  const seconds = timeLeft % 60;
-
-  return (
-    <div className="text-[#00806e] text-xs font-semibold uppercase tracking-wide">
-      {minutes.toString().padStart(2, "0")}:
-      {seconds.toString().padStart(2, "0")}:00
-    </div>
-  );
-};
-
 export default function RecommendedProducts({
   products,
-  addToCart,
   openModalViewProduct,
   onClose,
 }: RecommendedProductsProps) {
-  const [clickedProducts, setClickedProducts] = useState<Set<string>>(
-    new Set()
-  );
+  const [clickedProducts, setClickedProducts] = useState<
+    Set<RecommendedProduct2>
+  >(new Set());
 
-  const visibilityDescription = useSelector(
-    (state: RootState) => state.promotion.visibilityDescription
-  );
-  const amountOfTime = useSelector(
-    (state: RootState) => state.promotion.amountOfTime
-  );
-  const timerGlobal = useSelector(
-    (state: RootState) => state.promotion.timerGlobal
-  );
-  const offUnidad = useSelector(
-    (state: RootState) => state.promotion.offUnidad
-  );
-  const offQuantity = useSelector(
-    (state: RootState) => state.promotion.offQuantity
-  );
-  const lastUnidad = useSelector(
-    (state: RootState) => state.promotion.lastUnidad
-  );
-  const lastUnidadText = useSelector(
-    (state: RootState) => state.promotion.lastUnidadText
-  );
-  const lastUnidadGlobal = useSelector(
-    (state: RootState) => state.promotion.lastUnidadGlobal
-  );
-  const isFixedDiscount = useSelector(
-    (state: RootState) => state.promotion.fixedDiscount
-  );
+  const {
+    quantity,
+    visibilityDescription,
+    amountOfTime,
+    timerGlobal,
+    discountIsActive,
+    discountAmount,
+    isFixedDiscount,
+    hasShortage,
+    hasShortageText,
+    hasShortageGlobal,
+    canModifyQuantity,
+  } = useProductSelectors();
 
-  const handleAddToCartAndClose = async (id: string) => {
-    setClickedProducts((prev) => new Set(prev).add(id));
-    await addToCart(id, 1);
-    setTimeout(onClose, 500);
+  const handleAddToCartAndClose = (target: RecommendedProduct2) => {
+    if (!target) {
+      console.error("Producto no encontrado");
+      return;
+    }
+
+    if (target.variants.length > 1 || canModifyQuantity) {
+      openModalViewProduct(target);
+    } else {
+      const variantToAdd = target.variants[0] || target;
+      addToCartHandler(variantToAdd, quantity);
+      setClickedProducts((prev) => new Set(prev).add(target));
+      setTimeout(onClose, 500);
+    }
   };
 
   return (
@@ -86,10 +60,10 @@ export default function RecommendedProducts({
             <CountdownTimer initialTime={amountOfTime} />
           </div>
         )}
-        {lastUnidadGlobal && (
+        {hasShortageGlobal && (
           <div className="h-[30px] px-2 py-1 border border-[#00806e] justify-start items-center gap-1 inline-flex">
             <div className="text-[#00806e] text-xs font-semibold uppercase tracking-wide">
-              {lastUnidadText}
+              {hasShortageText}
             </div>
           </div>
         )}
@@ -120,20 +94,22 @@ export default function RecommendedProducts({
                   product.description.es &&
                   ` + ${product.description.es}`}
               </button>
-              {lastUnidad && !lastUnidadGlobal && (
+              {hasShortage && !hasShortageGlobal && (
                 <div className="inline-flex items-center px-1.5 py-0.5 border border-[#00806e] w-fit">
                   <div className="text-[#00806e] text-xs text-center font-semibold uppercase tracking-wide">
-                    {lastUnidadText}
+                    {hasShortageText}
                   </div>
                 </div>
               )}
               <div className="flex items-center gap-2">
-                {offUnidad && !isFixedDiscount ? (
+                {discountIsActive && !isFixedDiscount ? (
                   <div
                     className="text-sm font-semibold"
                     style={{ color: "var(--primary-text)" }}
                   >
-                    {formatPrice(product.variants[0].price * (1 - offQuantity))}
+                    {formatPrice(
+                      product.variants[0].price * (1 - discountAmount)
+                    )}
                   </div>
                 ) : (
                   <div
@@ -141,30 +117,30 @@ export default function RecommendedProducts({
                     style={{ color: "var(--primary-text)" }}
                   >
                     {isFixedDiscount
-                      ? formatPrice(product.variants[0].price - offQuantity)
+                      ? formatPrice(product.variants[0].price - discountAmount)
                       : formatPrice(product.variants[0].price)}
                   </div>
                 )}
 
-                {offUnidad && (
+                {discountIsActive && (
                   <div className="text-[#d1d1d1] text-xs font-medium line-through">
                     {formatPrice(product.variants[0].price)}
                   </div>
                 )}
               </div>
               <div className="flex items-center gap-2">
-                {offUnidad && (
+                {discountIsActive && (
                   <span className="text-[#00806e] font-semibold text-sm">
                     {isFixedDiscount
-                      ? `${formatPrice(offQuantity)} OFF`
-                      : `${offQuantity * 100}% OFF`}
+                      ? `${formatPrice(discountAmount)} OFF`
+                      : `${discountAmount * 100}% OFF`}
                   </span>
                 )}
               </div>
             </div>
 
             <AddButton
-              productId={product.id}
+              product={product}
               clickedProducts={clickedProducts}
               handleAddToCartAndClose={handleAddToCartAndClose}
             />

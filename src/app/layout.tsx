@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { ThemeToggle } from "@/components/ui-templates/ThemeToggle";
-import CartComponent from "@/components/cart/CartComponent";
 import { ReduxProvider } from "@/redux/ReduxProvider";
 import { ThemeProvider } from "@/components/providers/providers";
 import { montserrat } from "./fonts/fonts";
-import Documentation from "@/components/ui-templates/Documentation";
+import Documentation from "@/components/ui-documentation/Documentation";
+import Image from "next/image";
 
 export const metadata: Metadata = {
   title: "CrossUp-406 Template 1",
@@ -35,14 +35,13 @@ export default function RootLayout({
           <ReduxProvider>
             <div className="flex flex-col min-h-screen">
               <header className="p-4 bg-secondary text-secondary-foreground flex justify-between items-center">
-                <img
+                <Image
                   src="https://downloads.intercomcdn.com/i/o/567676/1521f5674a14451eb4025d0d/6093c828cea2f5da2d68aa4eed94585a.png"
                   alt=""
-                  width="200px"
-                  height="50px"
+                  width={200}
+                  height={50}
                 />
                 <div className="flex items-center space-x-4">
-                  <CartComponent />
                   <ThemeToggle />
                   <Documentation />
                 </div>
