@@ -17,7 +17,8 @@ const QuantitySelector: React.FC<QuantitySelectorProps> = ({
   onDecrease,
 }) => {
   return (
-    <div className="justify-start items-center gap-2 flex">
+    <div className="self-stretch justify-between items-center inline-flex">
+      <div className="text-sm font-medium text-foreground"> </div>
       <div className="h-[30px] px-2 py-1 bg-background border border-border hover:border-[var(--neutrals-disabled)] transition-colors duration-200 justify-start items-center gap-4 inline-flex group">
         <Button
           variant="ghost"

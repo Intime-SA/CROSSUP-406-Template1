@@ -7,7 +7,6 @@ import ProductInfo from "./ProductInfo";
 import QuantitySelector from "./QuantitySelector";
 import ColorSelector from "./ColorSelector";
 import SizeSelector from "./SizeSelector";
-import StockInfo from "./StockInfo";
 import AddToCartButton from "./AddToCartButtom";
 import { ProductViewPresentationProps } from "@/domain/definitionsTypes";
 
@@ -67,7 +66,7 @@ export const ProductViewPresentation: React.FC<
               selectedSize={selectedVariant?.attr.Talle || ""}
               onSizeSelect={handleSizeSelect}
             />
-            <StockInfo selectedVariant={selectedVariant} />
+            {/* <StockInfo selectedVariant={selectedVariant} /> */}
           </div>
         </div>
 

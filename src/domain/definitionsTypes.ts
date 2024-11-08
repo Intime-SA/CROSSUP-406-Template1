@@ -62,7 +62,7 @@ interface Frame {
   props: FrameProps;
 }
 
-// ?
+// inicio y fin de la oferta. Si endRange es menor a la date.now() es equivalente a que la sugerencia esta activa.
 interface Range {
   hasRange: boolean;
   startRange: number | null;
@@ -220,4 +220,11 @@ export interface ProductViewPresentationProps extends ViewProductProps {
   handleColorSelect: (color: string) => void;
   handleSizeSelect: (size: string) => void;
   handleAddToCartAndClose: () => void;
+}
+
+// enum para los diferentes tipos de template
+export enum DesignType {
+  VERTICAL = "template1",
+  HORIZONTAL = "template2",
+  HISTORY = "template3",
 }

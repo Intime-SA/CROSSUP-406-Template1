@@ -18,7 +18,7 @@ export const ProductAdded: React.FC<ProductAddedProps> = ({
       <div className="px-4 sm:px-6 py-4 flex justify-between items-center border-b border-gray-100">
         <div className="flex items-center gap-2">
           <Image src={checkIconSrc} alt="Check Icon" width={24} height={24} />
-          <span className="text-base font-semibold">
+          <span className="text-base text-[var(--primary-text)] font-semibold">
             Producto añadido al carrito
           </span>
         </div>
@@ -33,7 +33,7 @@ export const ProductAdded: React.FC<ProductAddedProps> = ({
         <div className="flex gap-4">
           <div className="w-[30%] max-w-[116px]">
             <Image
-              className="border border-[#e3e3e3] rounded-sm w-full h-auto"
+              className="border border-[var(--neutrals-disabled)] rounded-sm w-full h-auto"
               src={mainProduct.images[0].src}
               alt={mainProduct.name.es}
               width={116}
@@ -44,7 +44,7 @@ export const ProductAdded: React.FC<ProductAddedProps> = ({
           <div className="flex-1 flex flex-col gap-2">
             <button
               onClick={() => openModalViewProduct(mainProduct)}
-              className={`text-left text-[#2a2742] text-sm font-medium focus:outline-none transition-colors duration-200 ease-in-out hover:text-[#4a4760] ${
+              className={`text-left text-[var(--primary-text)] text-sm font-medium focus:outline-none transition-colors duration-200 ease-in-out hover:text-[#4a4760] ${
                 visibilityDescription ? "line-clamp-3" : ""
               }`}
             >
@@ -53,7 +53,7 @@ export const ProductAdded: React.FC<ProductAddedProps> = ({
                 mainProduct.description.es &&
                 ` + ${mainProduct.description.es}`}
             </button>
-            <div className="text-[#2a2742] text-sm font-semibold">
+            <div className="text-[var(--primary-text)] text-sm font-semibold">
               1 x {formatPrice(mainProduct.variants[0].price)}
             </div>
           </div>

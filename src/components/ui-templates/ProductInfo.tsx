@@ -26,8 +26,8 @@ const ProductInfo: React.FC<ProductInfoProps> = ({
       </div>
 
       {hasShortage && (
-        <div className="inline-flex items-center px-1.5 py-0.5 border border-[#00806e] w-fit">
-          <div className="text-[#00806e] text-xs text-center font-semibold uppercase tracking-wide">
+        <div className="inline-flex items-center px-1.5 py-0.5 border border-[var(--border-components)] w-fit">
+          <div className="text-[var(--border-components)] text-xs text-center font-semibold uppercase tracking-wide">
             {hasShortageText}
           </div>
         </div>
@@ -46,11 +46,11 @@ const ProductInfo: React.FC<ProductInfoProps> = ({
           )}
 
           {!isFixedDiscount ? (
-            <span className="text-[#00806e] font-semibold text-sm">
+            <span className="text-[var(--border-components)] font-semibold text-sm">
               {discountAmount * 100}% OFF
             </span>
           ) : (
-            <span className="text-[#00806e] font-semibold text-sm">
+            <span className="text-[var(--border-components)] font-semibold text-sm">
               {formatPrice(discountAmount)} OFF
             </span>
           )}
@@ -58,7 +58,7 @@ const ProductInfo: React.FC<ProductInfoProps> = ({
       </div>
 
       {discountIsActive && (
-        <div className="text-[#d1d1d1] text-xs font-medium line-through">
+        <div className="text-[var(--neutrals-disabled)] text-xs font-medium line-through">
           {formatPrice(selectedVariant?.price || 0)}
         </div>
       )}

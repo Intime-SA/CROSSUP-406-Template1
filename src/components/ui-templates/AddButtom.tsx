@@ -21,7 +21,7 @@ export default function AddButton({
         className={`p-4 rounded-3xl border overflow-hidden ${
           clickedProducts.has(product)
             ? "bg-[var(--components-bg)] text-white border-[var(--neutrals-disabled)]"
-            : "border-[#00806e] hover:border-[var(--neutrals-disabled)] hover:bg-[var(--neutrals-disabled)] hover:text-white"
+            : "border-[var(--border-components)] hover:border-[var(--neutrals-disabled)] hover:bg-[var(--neutrals-disabled)] hover:text-white"
         }`}
         onClick={() => handleAddToCartAndClose(product)}
         disabled={clickedProducts.has(product)}

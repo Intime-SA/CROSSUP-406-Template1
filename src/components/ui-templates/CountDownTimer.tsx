@@ -16,7 +16,7 @@ export const CountdownTimer: React.FC<{ initialTime: number }> = ({
   const seconds = timeLeft % 60;
 
   return (
-    <div className="text-[#00806e] text-xs font-semibold uppercase tracking-wide">
+    <div className="text-[var(--border-components)] text-xs font-semibold uppercase tracking-wide">
       {minutes.toString().padStart(2, "0")}:
       {seconds.toString().padStart(2, "0")}:00
     </div>

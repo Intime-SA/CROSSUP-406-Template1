@@ -15,9 +15,9 @@ const AddToCartButton: React.FC<AddToCartButtonProps> = ({ onAddToCart }) => {
   };
 
   return (
-    <div className="absolute bottom-0 left-0 right-0 p-4 bg-background border-t">
+    <div className="absolute bottom-0 left-0 right-0 p-4 bg-background border-t sm:mb-10">
       <Button
-        className="w-full h-10 bg-[#00806e] hover:bg-[#00806e]/90 text-white rounded-none"
+        className="w-full h-10 bg-[var(--border-components)] hover:bg-[var(--border-components)]/90 text-white rounded-none"
         onClick={handleAddToCart}
         disabled={!selectedVariant || selectedVariant.stock === 0}
       >

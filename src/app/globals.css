@@ -44,6 +44,7 @@ body {
     --neutrals-disabled: #d1d1d1;
     --neutrals-white: #ffffff;
     --components-bg: rgba(0, 128, 110, 0.2);
+    --border-components: #00806e;
   }
 
   .dark {

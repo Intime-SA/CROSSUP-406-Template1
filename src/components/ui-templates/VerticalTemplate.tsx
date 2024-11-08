@@ -44,14 +44,14 @@ export const VerticalTemplate: React.FC<SheetContentProps> = ({
         )}
 
         <div className="flex flex-col gap-6 px-4 sm:px-6 flex-grow">
-          <div
-            className="h-[1px] w-full bg-border"
-            style={{ color: "var(--primary-text)" }}
-          />
+          <div className="h-[1px] text-[var(--primary-text)] w-full bg-border" />
           {isLoading ? (
             <LineSkeleton />
           ) : (
-            <div className="text-foreground text-sm font-semibold">
+            <div
+              className="text-foreground text-sm text-[var(--primary-text)] font-semibold"
+              style={{ color: "var(--primary-text)" }}
+            >
               {titleText}
             </div>
           )}

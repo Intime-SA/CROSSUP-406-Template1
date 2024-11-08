@@ -56,13 +56,13 @@ export default function RecommendedProducts({
     <div className="flex flex-col gap-4">
       <div className="mb-4 flex items-center gap-2">
         {timerGlobal && amountOfTime !== 0 && (
-          <div className="h-[30px] px-2 py-1 border border-[#00806e] justify-start items-center gap-1 inline-flex">
+          <div className="h-[30px] px-2 py-1 border border-[var(--border-components)] justify-start items-center gap-1 inline-flex">
             <CountdownTimer initialTime={amountOfTime} />
           </div>
         )}
         {hasShortageGlobal && (
-          <div className="h-[30px] px-2 py-1 border border-[#00806e] justify-start items-center gap-1 inline-flex">
-            <div className="text-[#00806e] text-xs font-semibold uppercase tracking-wide">
+          <div className="h-[30px] px-2 py-1 border border-[var(--border-components)] justify-start items-center gap-1 inline-flex">
+            <div className="text-[var(--border-components)] text-xs text-[var(--primary-text)] font-semibold uppercase tracking-wide">
               {hasShortageText}
             </div>
           </div>
@@ -72,9 +72,9 @@ export default function RecommendedProducts({
       {products && products.length > 0 ? (
         products.map((product) => (
           <div key={product.id} className="flex items-center gap-4">
-            <div className="w-[30%] max-w-[116px]">
+            <div className="w-[116px] max-w-[116px]">
               <Image
-                className="border border-[#e3e3e3] rounded-sm w-full h-auto"
+                className="border border-[var(--neutrals-disabled)] rounded-sm"
                 src={product.images[0].src}
                 alt={product.name.es}
                 width={116}
@@ -95,8 +95,8 @@ export default function RecommendedProducts({
                   ` + ${product.description.es}`}
               </button>
               {hasShortage && !hasShortageGlobal && (
-                <div className="inline-flex items-center px-1.5 py-0.5 border border-[#00806e] w-fit">
-                  <div className="text-[#00806e] text-xs text-center font-semibold uppercase tracking-wide">
+                <div className="inline-flex items-center px-1.5 py-0.5 border border-[var(--border-components)] w-fit">
+                  <div className="text-[var(--border-components)] text-xs text-center font-semibold uppercase tracking-wide">
                     {hasShortageText}
                   </div>
                 </div>
@@ -130,7 +130,7 @@ export default function RecommendedProducts({
               </div>
               <div className="flex items-center gap-2">
                 {discountIsActive && (
-                  <span className="text-[#00806e] font-semibold text-sm">
+                  <span className="text-[var(--border-components)] font-semibold text-sm">
                     {isFixedDiscount
                       ? `${formatPrice(discountAmount)} OFF`
                       : `${discountAmount * 100}% OFF`}
