@@ -81,6 +81,7 @@ interface Text {
 // instancia a todas las interfaces de arriba. Es la estructura de datos que viene de la api de crossUp en donde viene toda la informacion de la sugerencia que se dispara con el shooter.
 export interface PromotionData {
   _id: string;
+  colors: ColorsApi;
   targets: TargetProduct[];
   privateName: string;
   showingPlace: string;
@@ -99,6 +100,12 @@ export interface PromotionData {
   isUpsell: boolean;
   text: Text;
   createdAt: string;
+}
+
+export interface ColorsApi {
+  primary: string;
+  secondary: string;
+  font: string;
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////

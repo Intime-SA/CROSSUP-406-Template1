@@ -1,7 +1,8 @@
-import { PromotionData } from "@/domain/definitionsTypes";
+import { ColorsApi, PromotionData } from "@/domain/definitionsTypes";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 interface PromotionState {
+  colors: ColorsApi;
   amountOfTime: number;
   timerGlobal: boolean;
   discountIsActive: boolean;
@@ -19,6 +20,11 @@ interface PromotionState {
 }
 
 const initialState: PromotionState = {
+  colors: {
+    primary: "black",
+    secondary: "white",
+    font: "montserrat",
+  },
   amountOfTime: 0,
   timerGlobal: false,
   discountIsActive: false,

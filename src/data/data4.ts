@@ -2,6 +2,11 @@ import { PromotionData } from "@/domain/definitionsTypes";
 
 export const getMockOfferData4 = (): PromotionData => ({
   _id: "67223aac87729c4433dcbc31",
+  colors: {
+    primary: "#2a2742",
+    secondary: "#00806e",
+    font: "roboto",
+  },
   targets: [
     {
       _id: "64de16e59ffb22f98387cc3c",
@@ -430,9 +435,21 @@ export const getMockOfferData4 = (): PromotionData => ({
       },
       images: [
         {
-          id: 70566714,
-          product_id: "40373371",
-          src: "/image4.png",
+          id: 70566712,
+          product_id: "40373369",
+          src: "https://acdn.mitiendanube.com/stores/001/073/722/products/rediseno-ok-tn-vitalis-abril-2024_-cosmetica-elementos_portadas-cosmetica-13-899c2d4ef2bdb77acf17170897577567-640-0.webp",
+          position: 1,
+          alt: [],
+          height: 3000,
+          width: 2000,
+          thumbnails_generated: 2,
+          created_at: "2023-10-01T00:00:00+0000",
+          updated_at: "2023-10-01T00:00:00+0000",
+        },
+        {
+          id: 70566712,
+          product_id: "40373369",
+          src: "https://acdn.mitiendanube.com/stores/001/073/722/products/rediseno-ok-tn-vitalis-abril-2024_-cosmetica-elementos_beneficios-pp-28-f6ceceec018e136ea517170962739163-640-0.webp",
           position: 1,
           alt: [],
           height: 3000,
@@ -510,9 +527,21 @@ export const getMockOfferData4 = (): PromotionData => ({
       },
       images: [
         {
-          id: 70566714,
-          product_id: "40373371",
-          src: "/image4.png",
+          id: 70566712,
+          product_id: "40373369",
+          src: "https://acdn.mitiendanube.com/stores/001/073/722/products/rediseno-ok-tn-vitalis-abril-2024_-cosmetica-elementos_portadas-cosmetica-13-899c2d4ef2bdb77acf17170897577567-640-0.webp",
+          position: 1,
+          alt: [],
+          height: 3000,
+          width: 2000,
+          thumbnails_generated: 2,
+          created_at: "2023-10-01T00:00:00+0000",
+          updated_at: "2023-10-01T00:00:00+0000",
+        },
+        {
+          id: 70566712,
+          product_id: "40373369",
+          src: "https://acdn.mitiendanube.com/stores/001/073/722/products/rediseno-ok-tn-vitalis-abril-2024_-cosmetica-elementos_beneficios-pp-27-e777dcec94a7e5303817170962715066-640-0.webp",
           position: 1,
           alt: [],
           height: 3000,
@@ -648,9 +677,21 @@ export const getMockOfferData4 = (): PromotionData => ({
       },
       images: [
         {
-          id: 70566711,
-          product_id: "40373368",
-          src: "/image.png",
+          id: 70566712,
+          product_id: "40373369",
+          src: "https://acdn.mitiendanube.com/stores/001/073/722/products/rediseno-ok-tn-vitalis-abril-2024_-cosmetica-elementos_beneficios-pp-27-e777dcec94a7e5303817170962715066-640-0.webp",
+          position: 1,
+          alt: [],
+          height: 3000,
+          width: 2000,
+          thumbnails_generated: 2,
+          created_at: "2023-10-01T00:00:00+0000",
+          updated_at: "2023-10-01T00:00:00+0000",
+        },
+        {
+          id: 70566712,
+          product_id: "40373369",
+          src: "https://acdn.mitiendanube.com/stores/001/073/722/products/rediseno-ok-tn-vitalis-abril-2024_-cosmetica-elementos_beneficios-pp-28-f6ceceec018e136ea517170962739163-640-0.webp",
           position: 1,
           alt: [],
           height: 3000,

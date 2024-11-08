@@ -5,6 +5,7 @@ import ProductAddedSkeleton from "../skeletons/ProductAddedSkeleton";
 import ProductCartSkeleton from "../skeletons/ProductCardSkeleton";
 import LineSkeleton from "../skeletons/LineSkeleton";
 import { MainProduct2, TargetProduct } from "@/domain/definitionsTypes";
+import { useDynamicFont } from "@/app/fonts/fonts";
 
 interface SheetContentProps {
   isLoading: boolean;
@@ -22,53 +23,60 @@ export const VerticalTemplate: React.FC<SheetContentProps> = ({
   handleOpenModalViewProduct,
   titleText,
   recommendedProducts,
-}) => (
-  <SheetContent className="w-full sm:max-w-md flex flex-col p-0 bg-background text-foreground">
-    <SheetHeader>
-      <SheetTitle></SheetTitle>
-    </SheetHeader>
-    <div className="flex-grow overflow-auto h-full">
-      <div className="w-full h-full max-w-md mx-auto bg-background flex flex-col">
-        {isLoading ? (
-          <ProductAddedSkeleton />
-        ) : (
-          mainProduct && (
-            <ProductAdded
-              onClose={handleClose}
-              mainProduct={mainProduct}
-              openModalViewProduct={() =>
-                handleOpenModalViewProduct(mainProduct)
-              }
-            />
-          )
-        )}
+}) => {
+  const dynamicFont = useDynamicFont(); // Aquí obtenemos la fuente dinámica
 
-        <div className="flex flex-col gap-6 px-4 sm:px-6 flex-grow">
-          <div className="h-[1px] text-[var(--primary-text)] w-full bg-border" />
+  return (
+    <SheetContent className="w-full sm:max-w-md flex flex-col p-0 bg-background text-foreground">
+      <SheetHeader>
+        <SheetTitle></SheetTitle>
+      </SheetHeader>
+      <div className="flex-grow overflow-auto h-full">
+        <div className="w-full h-full max-w-md mx-auto bg-background flex flex-col">
           {isLoading ? (
-            <LineSkeleton />
+            <ProductAddedSkeleton />
           ) : (
-            <div
-              className="text-foreground text-sm text-[var(--primary-text)] font-semibold"
-              style={{ color: "var(--primary-text)" }}
-            >
-              {titleText}
-            </div>
+            mainProduct && (
+              <ProductAdded
+                onClose={handleClose}
+                mainProduct={mainProduct}
+                openModalViewProduct={() =>
+                  handleOpenModalViewProduct(mainProduct)
+                }
+              />
+            )
           )}
 
-          <div className="w-full max-w-md mx-auto bg-background flex flex-col flex-grow">
+          <div className="flex flex-col gap-6 px-4 sm:px-6 flex-grow">
+            <div className="h-[1px] text-[var(--primary-text)] w-full bg-border" />
             {isLoading ? (
-              <ProductCartSkeleton />
+              <LineSkeleton />
             ) : (
-              <RecommendedProducts
-                products={recommendedProducts}
-                openModalViewProduct={handleOpenModalViewProduct}
-                onClose={handleClose}
-              />
+              <div
+                className="text-foreground text-sm text-[var(--primary-text)] font-semibold"
+                style={{
+                  color: "var(--primary-text)",
+                  fontFamily: dynamicFont.style.fontFamily,
+                }} // Aplicamos la fuente dinámica aquí
+              >
+                {titleText}
+              </div>
             )}
+
+            <div className="w-full max-w-md mx-auto bg-background flex flex-col flex-grow">
+              {isLoading ? (
+                <ProductCartSkeleton />
+              ) : (
+                <RecommendedProducts
+                  products={recommendedProducts}
+                  openModalViewProduct={handleOpenModalViewProduct}
+                  onClose={handleClose}
+                />
+              )}
+            </div>
           </div>
         </div>
       </div>
-    </div>
-  </SheetContent>
-);
+    </SheetContent>
+  );
+};

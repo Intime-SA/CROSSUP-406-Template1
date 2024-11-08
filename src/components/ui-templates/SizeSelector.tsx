@@ -1,5 +1,6 @@
 import React from "react";
 import { Variant } from "@/domain/definitionsTypes";
+import { useDynamicFont } from "@/app/fonts/fonts";
 
 interface SizeSelectorProps {
   variants: Variant[];
@@ -18,8 +19,10 @@ const SizeSelector: React.FC<SizeSelectorProps> = ({
     new Set(variants.map((variant) => variant.attr.Talle))
   );
 
+  const dynamicFont = useDynamicFont(); // Get the current font style
+
   return (
-    <div className="self-stretch justify-between items-center inline-flex">
+    <div className="self-stretch justify-between items-center inline-flex mb-10">
       <div className="text-sm font-medium text-foreground">Talle</div>
       <div className="justify-start items-center gap-2 flex">
         {allSizes.map((size) => (
@@ -40,8 +43,12 @@ const SizeSelector: React.FC<SizeSelectorProps> = ({
               }
             `}
             disabled={!availableSizes.includes(size)}
+            style={{ fontFamily: dynamicFont.style.fontFamily }}
           >
-            <div className="text-foreground text-xs font-semibold hover:text-gray-500 uppercase tracking-wide">
+            <div
+              className="text-foreground text-xs font-semibold hover:text-gray-500 uppercase tracking-wide"
+              style={{ fontFamily: dynamicFont.style.fontFamily }}
+            >
               {size}
             </div>
           </button>

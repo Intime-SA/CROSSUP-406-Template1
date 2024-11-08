@@ -2,6 +2,11 @@ import { PromotionData } from "@/domain/definitionsTypes";
 
 export const getMockOfferData3 = (): PromotionData => ({
   _id: "67223aac87729c4433dcbc31",
+  colors: {
+    primary: "yellow",
+    secondary: "grey",
+    font: "montserrat",
+  },
   targets: [
     {
       _id: "64de16e59ffb22f98387cc3c",

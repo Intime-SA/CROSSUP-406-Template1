@@ -26,8 +26,18 @@ export const useLogicTemplate = () => {
     (state: RootState) => state.promotion.titleText
   );
 
+  // Función para actualizar las variables CSS globales
+  const updateCSSVariables = (primary: string, secondary: string) => {
+    document.documentElement.style.setProperty("--primary-text", primary);
+    document.documentElement.style.setProperty(
+      "--border-components",
+      secondary
+    );
+  };
+
   const processData = (data: PromotionData) => {
     const stateUpdates = {
+      colors: data.colors,
       amountOfTime: data.timer.amountOfTime,
       timerGlobal: data.timer.hasTimer,
       discountIsActive: data.discount.isActive,
@@ -44,6 +54,11 @@ export const useLogicTemplate = () => {
     };
 
     dispatch(updateMultipleStates(stateUpdates));
+
+    // Actualizar las variables CSS globales con los colores recibidos
+    if (data.colors) {
+      updateCSSVariables(data.colors.primary, data.colors.secondary);
+    }
 
     if (data.shooters && data.shooters.length > 0) {
       setMainProduct(data.shooters[0]);

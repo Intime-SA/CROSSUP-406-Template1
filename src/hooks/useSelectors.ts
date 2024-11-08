@@ -9,6 +9,7 @@ export const useProductSelectors = () => {
   const visibilityDescription = useSelector(
     (state: RootState) => state.promotion.visibilityDescription
   );
+  const colors = useSelector((state: RootState) => state.promotion.colors);
 
   const amountOfTime = useSelector(
     (state: RootState) => state.promotion.amountOfTime
@@ -52,8 +53,13 @@ export const useProductSelectors = () => {
   const addToCartButton = useSelector(
     (state: RootState) => state.promotion.addToCartButton
   );
+  const fontFamily = useSelector(
+    (state: RootState) => state.promotion.colors?.font
+  );
 
   return {
+    fontFamily,
+    colors,
     quantity,
     visibilityDescription,
     amountOfTime,

@@ -3,7 +3,7 @@ import "./globals.css";
 import { ThemeToggle } from "@/components/ui-templates/ThemeToggle";
 import { ReduxProvider } from "@/redux/lib-redux/ReduxProvider";
 import { ThemeProvider } from "@/components/providers/providers";
-import { montserrat } from "./fonts/fonts";
+
 import Documentation from "@/components/ui-documentation/Documentation";
 import Image from "next/image";
 
@@ -18,13 +18,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html
-      lang="en"
-      suppressHydrationWarning
-      className={`${montserrat.variable} font-sans`}
-    >
+    <html lang="en" suppressHydrationWarning>
       <body
-        className={`min-h-screen font-sans bg-background text-foreground ${montserrat.variable} font-sans`}
+        className={`min-h-screen font-sans bg-background text-foreground font-sans`}
       >
         <ThemeProvider
           attribute="class"
