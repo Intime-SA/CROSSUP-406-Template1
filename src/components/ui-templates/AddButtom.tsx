@@ -2,12 +2,12 @@ import React from "react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { Plus } from "lucide-react";
-import { RecommendedProduct2 } from "@/domain/definitionsTypes";
+import { TargetProduct } from "@/domain/definitionsTypes";
 
 interface AddButtonProps {
-  product: RecommendedProduct2;
-  clickedProducts: Set<RecommendedProduct2>;
-  handleAddToCartAndClose: (id: RecommendedProduct2) => void;
+  product: TargetProduct;
+  clickedProducts: Set<TargetProduct>;
+  handleAddToCartAndClose: (id: TargetProduct) => void;
 }
 
 export default function AddButton({

@@ -4,15 +4,15 @@ import RecommendedProducts from "./RecomendedProducts";
 import ProductAddedSkeleton from "../skeletons/ProductAddedSkeleton";
 import ProductCartSkeleton from "../skeletons/ProductCardSkeleton";
 import LineSkeleton from "../skeletons/LineSkeleton";
-import { MainProduct2, RecommendedProduct2 } from "@/domain/definitionsTypes";
+import { MainProduct2, TargetProduct } from "@/domain/definitionsTypes";
 
 interface SheetContentProps {
   isLoading: boolean;
   mainProduct: MainProduct2 | null;
   handleClose: () => void;
-  handleOpenModalViewProduct: (product: RecommendedProduct2) => void;
+  handleOpenModalViewProduct: (product: TargetProduct) => void;
   titleText: string;
-  recommendedProducts: RecommendedProduct2[] | null;
+  recommendedProducts: TargetProduct[] | null;
 }
 
 export const VerticalTemplate: React.FC<SheetContentProps> = ({

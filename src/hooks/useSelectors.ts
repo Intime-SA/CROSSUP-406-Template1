@@ -46,6 +46,13 @@ export const useProductSelectors = () => {
     (state: RootState) => state.promotion.canModifyQuantity
   );
 
+  const selectedVariant = useSelector(
+    (state: RootState) => state.selectedTarget.selectedVariant
+  );
+  const addToCartButton = useSelector(
+    (state: RootState) => state.promotion.addToCartButton
+  );
+
   return {
     quantity,
     visibilityDescription,
@@ -58,5 +65,7 @@ export const useProductSelectors = () => {
     hasShortageText,
     hasShortageGlobal,
     canModifyQuantity,
+    selectedVariant,
+    addToCartButton,
   };
 };

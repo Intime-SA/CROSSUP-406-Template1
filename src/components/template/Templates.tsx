@@ -8,7 +8,9 @@ import { useLogicTemplate } from "@/hooks/useLogicTemplate";
 import { InicializadorButton } from "../ui-templates/InicializadorButton";
 import { VerticalTemplate } from "../ui-templates/VerticalTemplate";
 
-const Template1A = () => {
+const Templates = () => {
+  // traigo selectores y desestructuro aca para utilizarlos
+
   const {
     mainProduct,
     recommendedProducts,
@@ -55,4 +57,4 @@ const Template1A = () => {
   );
 };
 
-export default Template1A;
+export default Templates;

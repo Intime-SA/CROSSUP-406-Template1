@@ -1,23 +1,11 @@
 import React from "react";
-import { useSelector } from "react-redux";
 import { Button } from "@/components/ui/button";
-import { RootState } from "@/redux/store";
 import { addToCartHandler } from "@/lib/functions";
-
-interface AddToCartButtonProps {
-  onAddToCart: () => void;
-}
+import { useProductSelectors } from "@/hooks/useSelectors";
+import { AddToCartButtonProps } from "@/domain/definitionsTypes";
 
 const AddToCartButton: React.FC<AddToCartButtonProps> = ({ onAddToCart }) => {
-  const selectedVariant = useSelector(
-    (state: RootState) => state.selectedTarget.selectedVariant
-  );
-  const quantity = useSelector(
-    (state: RootState) => state.selectedTarget.quantity
-  );
-  const addToCartButton = useSelector(
-    (state: RootState) => state.promotion.addToCartButton
-  );
+  const { selectedVariant, quantity, addToCartButton } = useProductSelectors();
 
   const handleAddToCart = () => {
     if (selectedVariant) {

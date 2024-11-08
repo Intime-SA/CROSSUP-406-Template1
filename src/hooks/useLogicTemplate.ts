@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { onClosePopUp } from "@/lib/functions";
 import {
-  RecommendedProduct2,
+  TargetProduct,
   MainProduct2,
   PromotionData,
 } from "@/domain/definitionsTypes";
@@ -13,11 +13,12 @@ import { RootState } from "@/redux/store";
 export const useLogicTemplate = () => {
   const [mainProduct, setMainProduct] = useState<MainProduct2 | null>(null);
   const [recommendedProducts, setRecommendedProducts] = useState<
-    RecommendedProduct2[] | null
+    TargetProduct[] | null
   >(null);
   const [isOpen, setIsOpen] = useState(false);
-  const [selectedProduct, setSelectedProduct] =
-    useState<RecommendedProduct2 | null>(null);
+  const [selectedProduct, setSelectedProduct] = useState<TargetProduct | null>(
+    null
+  );
   const [isLoading, setIsLoading] = useState(false);
 
   const dispatch = useDispatch();
@@ -56,7 +57,7 @@ export const useLogicTemplate = () => {
     setIsLoading(false);
   };
 
-  const handleOpenModalViewProduct = (product: RecommendedProduct2) => {
+  const handleOpenModalViewProduct = (product: TargetProduct) => {
     setSelectedProduct(product);
   };
 

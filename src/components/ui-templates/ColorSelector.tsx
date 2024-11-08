@@ -1,12 +1,5 @@
 import React from "react";
-import { Variant } from "@/domain/definitionsTypes";
-
-interface ColorSelectorProps {
-  variants: Variant[];
-  availableColors: string[];
-  selectedColor: string;
-  onColorSelect: (color: string) => void;
-}
+import { ColorSelectorProps } from "@/domain/definitionsTypes";
 
 const ColorSelector: React.FC<ColorSelectorProps> = ({
   variants,

@@ -1,7 +1,7 @@
 import React from "react";
 import { ProductInfoProps } from "@/domain/definitionsTypes";
 import { formatPrice } from "@/lib/utils";
-import { useProductSelectors } from "@/redux/selectores";
+import { useProductSelectors } from "@/hooks/useSelectors";
 
 const ProductInfo: React.FC<ProductInfoProps> = ({
   product,

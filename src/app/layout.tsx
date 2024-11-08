@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { ThemeToggle } from "@/components/ui-templates/ThemeToggle";
-import { ReduxProvider } from "@/redux/ReduxProvider";
+import { ReduxProvider } from "@/redux/lib-redux/ReduxProvider";
 import { ThemeProvider } from "@/components/providers/providers";
 import { montserrat } from "./fonts/fonts";
 import Documentation from "@/components/ui-documentation/Documentation";

@@ -26,14 +26,16 @@ export const addToCartHandler = (
     return;
   }
 
+  // target seleccionado de la sugerencia
   const payload = selectedVariant;
 
   const message = {
-    type: "ADD_TO_CART",
-    payload: payload,
-    quantity: quantity,
+    type: "ADD_TO_CART", // CASE para el listener
+    payload: payload, // target seleccionado
+    quantity: quantity, // cantidad de unidades (por defecto 1)
   };
 
+  // log
   console.log(
     `se esta enviando este paylod al script: ${JSON.stringify(
       message

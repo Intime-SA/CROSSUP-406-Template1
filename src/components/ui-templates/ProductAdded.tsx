@@ -1,9 +1,8 @@
 import React from "react";
-import { useSelector } from "react-redux";
 import Image from "next/image";
 import { formatPrice } from "@/lib/utils";
 import { ProductAddedProps } from "@/domain/definitionsTypes";
-import { RootState } from "@/redux/store"; // Asegúrate de que la ruta sea correcta
+import { useProductSelectors } from "@/hooks/useSelectors";
 
 export const ProductAdded: React.FC<ProductAddedProps> = ({
   onClose,
@@ -12,9 +11,7 @@ export const ProductAdded: React.FC<ProductAddedProps> = ({
   mainProduct,
   openModalViewProduct,
 }) => {
-  const visibilityDescription = useSelector(
-    (state: RootState) => state.promotion.visibilityDescription
-  );
+  const { visibilityDescription } = useProductSelectors();
 
   return (
     <div className="w-full bg-white">

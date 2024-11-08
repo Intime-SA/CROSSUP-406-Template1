@@ -1,15 +1,15 @@
 import React, { useState } from "react";
 import Image from "next/image";
-import { RecommendedProduct2 } from "@/domain/definitionsTypes";
+import { TargetProduct } from "@/domain/definitionsTypes";
 import { formatPrice } from "@/lib/utils";
 import AddButton from "./AddButtom";
 import { CountdownTimer } from "./CountDownTimer";
 import { addToCartHandler } from "@/lib/functions";
-import { useProductSelectors } from "@/redux/selectores";
+import { useProductSelectors } from "@/hooks/useSelectors";
 
 interface RecommendedProductsProps {
-  products: RecommendedProduct2[] | null;
-  openModalViewProduct: (product: RecommendedProduct2) => void;
+  products: TargetProduct[] | null;
+  openModalViewProduct: (product: TargetProduct) => void;
   onClose: () => void;
 }
 
@@ -18,9 +18,9 @@ export default function RecommendedProducts({
   openModalViewProduct,
   onClose,
 }: RecommendedProductsProps) {
-  const [clickedProducts, setClickedProducts] = useState<
-    Set<RecommendedProduct2>
-  >(new Set());
+  const [clickedProducts, setClickedProducts] = useState<Set<TargetProduct>>(
+    new Set()
+  );
 
   const {
     quantity,
@@ -36,7 +36,7 @@ export default function RecommendedProducts({
     canModifyQuantity,
   } = useProductSelectors();
 
-  const handleAddToCartAndClose = (target: RecommendedProduct2) => {
+  const handleAddToCartAndClose = (target: TargetProduct) => {
     if (!target) {
       console.error("Producto no encontrado");
       return;
