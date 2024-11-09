@@ -4,7 +4,7 @@ export const getMockOfferData2 = (): PromotionData => ({
   _id: "67223aac87729c4433dcbc31",
   colors: {
     primary: "green",
-    secondary: "green",
+    secondary: "black",
     font: "Inter",
   },
   targets: [
