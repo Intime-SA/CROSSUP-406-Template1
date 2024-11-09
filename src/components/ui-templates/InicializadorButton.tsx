@@ -2,7 +2,6 @@
 
 import { Button } from "@/components/ui/button";
 import { SheetTrigger } from "@/components/ui/sheet";
-import { useDynamicFont } from "@/app/fonts/fonts";
 
 interface TemplateButtonProps {
   label: string;
@@ -15,10 +14,6 @@ export const InicializadorButton: React.FC<TemplateButtonProps> = ({
   type,
   onClick,
 }) => {
-  const dynamicFont = useDynamicFont(); // Get the current font style
-
-  console.log(dynamicFont);
-
   return (
     <SheetTrigger asChild>
       <Button
@@ -27,7 +22,6 @@ export const InicializadorButton: React.FC<TemplateButtonProps> = ({
           borderTopLeftRadius: 0,
           borderTopRightRadius: 0,
           marginTop: "10px",
-          fontFamily: dynamicFont.style.fontFamily, // Apply the selected font
         }}
         onClick={() => onClick(type)}
       >

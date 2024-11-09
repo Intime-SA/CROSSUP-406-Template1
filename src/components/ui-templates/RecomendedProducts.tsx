@@ -6,7 +6,6 @@ import AddButton from "./AddButtom";
 import { CountdownTimer } from "./CountDownTimer";
 import { addToCartHandler } from "@/lib/functions";
 import { useProductSelectors } from "@/hooks/useSelectors";
-import { useDynamicFont } from "@/app/fonts/fonts";
 
 interface RecommendedProductsProps {
   products: TargetProduct[] | null;
@@ -22,8 +21,6 @@ export default function RecommendedProducts({
   const [clickedProducts, setClickedProducts] = useState<Set<TargetProduct>>(
     new Set()
   );
-
-  const dynamicFont = useDynamicFont(); // Get the current font style
 
   const {
     quantity,
@@ -56,10 +53,7 @@ export default function RecommendedProducts({
   };
 
   return (
-    <div
-      className="flex flex-col gap-4"
-      style={{ fontFamily: dynamicFont.style.fontFamily }}
-    >
+    <div className="flex flex-col gap-4">
       <div className="mb-4 flex items-center gap-2">
         {timerGlobal && amountOfTime !== 0 && (
           <div className="h-[30px] px-2 py-1 border border-[var(--border-components)] justify-start items-center gap-1 inline-flex">

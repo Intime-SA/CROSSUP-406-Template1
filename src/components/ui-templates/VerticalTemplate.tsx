@@ -5,7 +5,6 @@ import ProductAddedSkeleton from "../skeletons/ProductAddedSkeleton";
 import ProductCartSkeleton from "../skeletons/ProductCardSkeleton";
 import LineSkeleton from "../skeletons/LineSkeleton";
 import { MainProduct2, TargetProduct } from "@/domain/definitionsTypes";
-import { useDynamicFont } from "@/app/fonts/fonts";
 
 interface SheetContentProps {
   isLoading: boolean;
@@ -24,8 +23,6 @@ export const VerticalTemplate: React.FC<SheetContentProps> = ({
   titleText,
   recommendedProducts,
 }) => {
-  const dynamicFont = useDynamicFont(); // Aquí obtenemos la fuente dinámica
-
   return (
     <SheetContent className="w-full sm:max-w-md flex flex-col p-0 bg-background text-foreground">
       <SheetHeader>
@@ -56,7 +53,6 @@ export const VerticalTemplate: React.FC<SheetContentProps> = ({
                 className="text-foreground text-sm text-[var(--primary-text)] font-semibold"
                 style={{
                   color: "var(--primary-text)",
-                  fontFamily: dynamicFont.style.fontFamily,
                 }} // Aplicamos la fuente dinámica aquí
               >
                 {titleText}

@@ -88,3 +88,11 @@ body {
     @apply bg-background text-foreground;
   }
 }
+
+:root {
+  --font-family: var(--font-montserrat);
+}
+
+body {
+  font-family: var(--font-family);
+}
