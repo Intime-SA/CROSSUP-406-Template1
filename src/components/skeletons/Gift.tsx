@@ -3,7 +3,6 @@ import React from "react";
 const Gift = () => {
   return (
     <div className="text-[var(--primary-text)]">
-      (
       <div style={{ color: "var(--primary-text)" }}>
         <svg
           width="328"
