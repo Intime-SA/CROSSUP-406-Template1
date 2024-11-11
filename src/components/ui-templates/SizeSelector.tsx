@@ -41,8 +41,8 @@ const SizeSelector: React.FC<SizeSelectorProps> = ({
             `}
             disabled={!availableSizes.includes(size)}
           >
-            <div className="text-foreground text-xs font-semibold hover:text-gray-500 uppercase tracking-wide">
-              {size}
+            <div className="text-foreground text-xs hover:text-gray-500 uppercase tracking-wide ">
+              <span className="text-[var(--primary-text)]">{size}</span>
             </div>
           </button>
         ))}

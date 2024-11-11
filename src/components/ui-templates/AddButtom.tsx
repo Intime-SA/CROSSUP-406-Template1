@@ -1,5 +1,6 @@
+"use client";
+
 import React from "react";
-import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { Plus } from "lucide-react";
 import { TargetProduct } from "@/domain/definitionsTypes";
@@ -15,22 +16,24 @@ export default function AddButton({
   clickedProducts,
   handleAddToCartAndClose,
 }: AddButtonProps) {
+  const isClicked = clickedProducts.has(product);
+
   return (
     <AnimatePresence>
       <motion.button
         className={`p-4 rounded-3xl border overflow-hidden ${
-          clickedProducts.has(product)
-            ? "bg-[var(--components-bg)] text-white border-[var(--neutrals-disabled)]"
-            : "border-[var(--border-components)] hover:border-[var(--neutrals-disabled)] hover:bg-[var(--neutrals-disabled)] hover:text-white"
+          isClicked
+            ? "bg-[var(--components-bg)] border-[var(--neutrals-disabled)]"
+            : "border-[var(--border-components)] hover:border-[var(--neutrals-disabled)] hover:bg-[var(--neutrals-disabled)]"
         }`}
         onClick={() => handleAddToCartAndClose(product)}
-        disabled={clickedProducts.has(product)}
+        disabled={isClicked}
         initial={{ scale: 1, opacity: 1 }}
         animate={
-          clickedProducts.has(product)
+          isClicked
             ? {
-                scale: [1, 1.2, 0.8, 0], // Agranda, reduce y luego desaparece
-                opacity: [1, 1, 1, 0], // Mantiene opacidad hasta desaparecer
+                scale: [1, 1.2, 0.8, 0],
+                opacity: [1, 1, 1, 0],
               }
             : { scale: 1, opacity: 1 }
         }
@@ -38,19 +41,16 @@ export default function AddButton({
         transition={{
           duration: 0.4,
           ease: "easeInOut",
-          times: [0, 0.3, 0.7, 1], // Tiempos de transición para agrandar y reducir
+          times: [0, 0.3, 0.7, 1],
         }}
       >
-        {clickedProducts ? (
-          <Image
-            src="/bottomAddCart.svg"
-            alt="Add to Cart"
-            width={16}
-            height={16}
-          />
-        ) : (
-          <Plus className="h-4 w-4 text-primary-foreground" />
-        )}
+        <Plus
+          className={`h-4 w-4 ${
+            isClicked
+              ? "text-white"
+              : "text-[var(--border-components)] group-hover:text-white"
+          }`}
+        />
       </motion.button>
     </AnimatePresence>
   );

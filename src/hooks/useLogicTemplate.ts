@@ -45,12 +45,14 @@ export const useLogicTemplate = () => {
       discountAmount: data.discount.amount,
       hasShortageGlobal:
         data.shortage.hasShortage && data.showingPlace === "checkout",
+      canModifyQuantity: data.canModifyQuantity,
       hasShortage: data.shortage.hasShortage,
       hasShortageText: data.shortage.text,
       visibilityDescription: true,
       quantityProducts: data.targets ? data.targets.length : 0,
       titleText: data.text.title,
       addToCartButton: data.text.buttonAccept,
+      designType: data.desingType,
     };
 
     dispatch(updateMultipleStates(stateUpdates));

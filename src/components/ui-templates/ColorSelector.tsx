@@ -35,7 +35,7 @@ const ColorSelector: React.FC<ColorSelectorProps> = ({
             aria-label={`Select color ${color}`}
             disabled={!availableColors.includes(color)}
           >
-            <span className="text-xs font-medium overflow-hidden w-full text-center">
+            <span className="text-xs font-medium overflow-hidden w-full text-center text-[var(--primary-text)]">
               {color}
             </span>
           </button>

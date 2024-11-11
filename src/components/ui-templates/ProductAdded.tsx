@@ -3,10 +3,10 @@ import Image from "next/image";
 import { formatPrice } from "@/lib/utils";
 import { ProductAddedProps } from "@/domain/definitionsTypes";
 import { useProductSelectors } from "@/hooks/useSelectors";
+import { Check } from "lucide-react";
 
 export const ProductAdded: React.FC<ProductAddedProps> = ({
   onClose,
-  checkIconSrc = "/checkIconFlowy.svg",
   closeIconSrc = "/bottomClose.svg",
   mainProduct,
   openModalViewProduct,
@@ -16,8 +16,13 @@ export const ProductAdded: React.FC<ProductAddedProps> = ({
   return (
     <div className="w-full bg-white">
       <div className="px-4 sm:px-6 py-4 flex justify-between items-center border-b border-gray-100">
-        <div className="flex items-center gap-2">
-          <Image src={checkIconSrc} alt="Check Icon" width={24} height={24} />
+        <div className="flex items-center gap-2 text-[var(--border-components)]">
+          <div className="w-6 h-6 rounded-full bg-white flex items-center justify-center border-2 border-[var(--border-components)]">
+            <Check
+              className={`h-4 w-4 "text-[var(--border-components)]"
+  }`}
+            />
+          </div>
           <span className="text-base text-[var(--primary-text)] font-semibold">
             Producto añadido al carrito
           </span>

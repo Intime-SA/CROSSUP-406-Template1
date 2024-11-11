@@ -62,9 +62,9 @@ export default function RecommendedProducts({
         )}
         {hasShortageGlobal && (
           <div className="h-[30px] px-2 py-1 border border-[var(--border-components)] justify-start items-center gap-1 inline-flex">
-            <div className="text-[var(--border-components)] text-xs text-[var(--primary-text)] font-semibold uppercase tracking-wide">
+            <p className=" text-xs text-[var(--border-components)] font-semibold uppercase tracking-wide">
               {hasShortageText}
-            </div>
+            </p>
           </div>
         )}
       </div>

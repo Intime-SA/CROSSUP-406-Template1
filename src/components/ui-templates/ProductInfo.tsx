@@ -17,18 +17,22 @@ const ProductInfo: React.FC<ProductInfoProps> = ({
   } = useProductSelectors();
 
   return (
-    <div className="self-stretch flex-col justify-start items-start gap-2 flex">
-      <div className="self-stretch font-semibold text-foreground">
-        {product.name.es}
-        {visibilityDescription &&
-          product.description.es &&
-          ` + ${product.description.es}`}
+    <div className="self-stretch flex-col justify-start items-start gap-2 flex text-[var(--primary-text)]">
+      <div className="self-stretch font-semibold text-foreground text-[var(--primary-text)]">
+        <span className="text-[var(--primary-text)]">
+          {product.name.es}
+          {visibilityDescription &&
+            product.description.es &&
+            ` + ${product.description.es}`}
+        </span>
       </div>
 
       {hasShortage && (
         <div className="inline-flex items-center px-1.5 py-0.5 border border-[var(--border-components)] w-fit">
           <div className="text-[var(--border-components)] text-xs text-center font-semibold uppercase tracking-wide">
-            {hasShortageText}
+            <span className="text-[var(--border-components)]">
+              {hasShortageText}
+            </span>
           </div>
         </div>
       )}
@@ -36,13 +40,13 @@ const ProductInfo: React.FC<ProductInfoProps> = ({
       <div className="self-stretch justify-between items-center flex">
         <div className="flex items-center gap-2">
           {isFixedDiscount ? (
-            <div className="text-sm font-semibold text-primary">
+            <span className="text-sm font-semibold text-[var(--primary-text)] ">
               {formatPrice((selectedVariant?.price || 0) - discountAmount)}
-            </div>
+            </span>
           ) : (
-            <div className="text-sm font-semibold text-primary">
+            <span className="text-sm font-semibold text-[var(--primary-text)]">
               {formatPrice(selectedVariant?.price || 0)}
-            </div>
+            </span>
           )}
 
           {!isFixedDiscount ? (

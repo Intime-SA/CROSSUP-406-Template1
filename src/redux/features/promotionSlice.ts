@@ -1,4 +1,8 @@
-import { ColorsApi, PromotionData } from "@/domain/definitionsTypes";
+import {
+  ColorsApi,
+  DesignType,
+  PromotionData,
+} from "@/domain/definitionsTypes";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 interface PromotionState {
@@ -17,6 +21,7 @@ interface PromotionState {
   titleText: string;
   addToCartButton: string;
   targets: PromotionData[];
+  desingType: DesignType;
 }
 
 const initialState: PromotionState = {
@@ -39,6 +44,7 @@ const initialState: PromotionState = {
   titleText: "",
   addToCartButton: "",
   targets: [],
+  desingType: DesignType.VERTICAL,
 };
 
 const promotionSlice = createSlice({

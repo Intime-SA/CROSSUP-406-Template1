@@ -82,6 +82,7 @@ interface Text {
 export interface PromotionData {
   _id: string;
   colors: ColorsApi;
+  desingType: DesignType;
   targets: TargetProduct[];
   privateName: string;
   showingPlace: string;
