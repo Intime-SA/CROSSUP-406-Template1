@@ -7,7 +7,6 @@ import {
   PromotionData,
 } from "@/domain/definitionsTypes";
 import { updateMultipleStates } from "@/redux/features/promotionSlice";
-import { fetchDataFromJson } from "@/app/actions/actions";
 import { RootState } from "@/redux/store";
 
 export const useLogicTemplate = () => {
@@ -36,6 +35,7 @@ export const useLogicTemplate = () => {
   };
 
   const processData = (data: PromotionData) => {
+    console.log(data);
     const stateUpdates = {
       colors: data.colors,
       amountOfTime: data.timer.amountOfTime,
@@ -84,10 +84,10 @@ export const useLogicTemplate = () => {
     setSelectedProduct(null);
   };
 
-  const handleInitializeTiendaNube = async (typeTemplate: string) => {
+  const handleInitializeTiendaNube = async (dataString: string) => {
     try {
       setIsLoading(true);
-      const data = await fetchDataFromJson(typeTemplate);
+      const data: PromotionData = JSON.parse(dataString);
       processData(data);
     } catch (error) {
       console.error("Error al inicializar Tienda Nube:", error);
