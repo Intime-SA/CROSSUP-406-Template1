@@ -23,7 +23,7 @@ const initialState: PromotionState = {
   colors: {
     primary: "black",
     secondary: "white",
-    font: "montserrat",
+    font: "Montserrat",
   },
   amountOfTime: 0,
   timerGlobal: false,

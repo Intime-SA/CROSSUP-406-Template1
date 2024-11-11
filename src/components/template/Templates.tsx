@@ -25,7 +25,7 @@ const Templates = () => {
   } = useLogicTemplate();
 
   return (
-    <div className="flex flex-col items-center justify-center w-full h-full m-0 p-10 text-primaryText">
+    <div className="flex flex-col items-center justify-center w-full h-full m-0 p-10">
       <h2>Template 1</h2>
       <Sheet open={isOpen} onOpenChange={setIsOpen}>
         {Object.entries(templateOptions).map(([key, option]) => (

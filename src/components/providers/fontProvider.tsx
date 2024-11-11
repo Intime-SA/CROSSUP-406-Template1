@@ -1,17 +1,23 @@
 "use client";
 
 import { useEffect } from "react";
-import { useDynamicFont, fonts, Font } from "@/app/fonts/fonts";
+import { useDynamicFont } from "@/app/fonts/fonts";
 
 export function FontProvider({ children }: { children: React.ReactNode }) {
-  const font = useDynamicFont();
+  const { fontFamily, isLoaded } = useDynamicFont();
 
   useEffect(() => {
-    document.documentElement.classList.remove(
-      ...Object.values(fonts).map((f: Font) => f.className)
-    );
-    document.documentElement.classList.add(font.className);
-  }, [font]);
+    if (isLoaded) {
+      document.body.style.setProperty(
+        "font-family",
+        `'${fontFamily}', sans-serif`
+      );
+    }
+  }, [fontFamily, isLoaded]);
+
+  if (!isLoaded) {
+    return <div>Loading font...</div>;
+  }
 
   return <>{children}</>;
 }

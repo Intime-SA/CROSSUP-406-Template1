@@ -1,113 +1,45 @@
+"use client";
+
+import { useState, useEffect } from "react";
 import { useProductSelectors } from "@/hooks/useSelectors";
-import {
-  Inter,
-  Roboto,
-  Lato,
-  Poppins,
-  Montserrat,
-  Open_Sans,
-  Raleway,
-  Oswald,
-  Merriweather,
-  Source_Sans_3,
-} from "next/font/google";
-
-
-//vove ms
-type FontFamilies =
-  | "Inter"
-  | "Roboto"
-  | "Lato"
-  | "Poppins"
-  | "Montserrat"
-  | "OpenSans"
-  | "Raleway"
-  | "Oswald"
-  | "Merriweather"
-  | "SourceSansPro";
-
-const interFont = Inter({
-  subsets: ["latin"],
-  display: "swap",
-  variable: "--font-inter",
-});
-
-const robotoFont = Roboto({
-  weight: ["400", "700"],
-  subsets: ["latin"],
-  display: "swap",
-  variable: "--font-roboto",
-});
-
-const latoFont = Lato({
-  weight: ["400", "700"],
-  subsets: ["latin"],
-  display: "swap",
-  variable: "--font-lato",
-});
-
-const poppinsFont = Poppins({
-  weight: ["400", "600"],
-  subsets: ["latin"],
-  display: "swap",
-  variable: "--font-poppins",
-});
-
-const montserratFont = Montserrat({
-  subsets: ["latin"],
-  display: "swap",
-  variable: "--font-montserrat",
-});
-
-const openSansFont = Open_Sans({
-  subsets: ["latin"],
-  display: "swap",
-  variable: "--font-open-sans",
-});
-
-const ralewayFont = Raleway({
-  subsets: ["latin"],
-  display: "swap",
-  variable: "--font-raleway",
-});
-
-const oswaldFont = Oswald({
-  subsets: ["latin"],
-  display: "swap",
-  variable: "--font-oswald",
-});
-
-const merriweatherFont = Merriweather({
-  weight: ["400", "700"],
-  subsets: ["latin"],
-  display: "swap",
-  variable: "--font-merriweather",
-});
-
-const sourceSansProFont = Source_Sans_3({
-  weight: ["400", "600"],
-  subsets: ["latin"],
-  display: "swap",
-  variable: "--font-source-sans-pro",
-});
-
-export const fonts = {
-  Inter: interFont,
-  Roboto: robotoFont,
-  Lato: latoFont,
-  Poppins: poppinsFont,
-  Montserrat: montserratFont,
-  OpenSans: openSansFont,
-  Raleway: ralewayFont,
-  Oswald: oswaldFont,
-  Merriweather: merriweatherFont,
-  SourceSansPro: sourceSansProFont,
-};
-
-export type Font = typeof interFont;
 
 export function useDynamicFont() {
   const colors = useProductSelectors();
-  const selectedFont = colors.fontFamily as FontFamilies;
-  return fonts[selectedFont] || fonts["Inter"];
+  const selectedFont = colors.fontFamily as string;
+  const [fontLoaded, setFontLoaded] = useState(false);
+
+  useEffect(() => {
+    if (!selectedFont) return;
+
+    const link = document.createElement("link");
+    link.href = `https://fonts.googleapis.com/css2?family=${selectedFont.replace(
+      /\s+/g,
+      "+"
+    )}:wght@400;700&display=swap`;
+    link.rel = "stylesheet";
+    link.onload = () => setFontLoaded(true);
+    link.onerror = () => console.error(`Failed to load font: ${selectedFont}`);
+    document.head.appendChild(link);
+
+    return () => {
+      document.head.removeChild(link);
+    };
+  }, [selectedFont]);
+
+  return {
+    fontFamily: selectedFont,
+    isLoaded: fontLoaded,
+  };
+}
+
+export function DynamicFontLoader({ children }: { children: React.ReactNode }) {
+  const { fontFamily, isLoaded } = useDynamicFont();
+
+  if (!isLoaded) {
+    return <div>Loading font...</div>; // O cualquier indicador de carga
+  }
+
+  return (
+    <div style={{ fontFamily: `'${fontFamily}', sans-serif` }}>{children}</div>
+  );
 }
