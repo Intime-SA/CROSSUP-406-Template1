@@ -24,7 +24,7 @@ export const VerticalTemplate: React.FC<SheetContentProps> = ({
   recommendedProducts,
 }) => {
   return (
-    <SheetContent className="w-full sm:max-w-md flex flex-col p-0 bg-background text-foreground">
+    <SheetContent fullSize>
       <SheetHeader>
         <SheetTitle></SheetTitle>
       </SheetHeader>
