@@ -5,6 +5,7 @@ import { Sheet } from "@/components/ui/sheet";
 import ProductView from "@/components/ui-templates/ProductView";
 import { useLogicTemplate } from "@/hooks/useLogicTemplate";
 import { VerticalTemplate } from "../ui-templates/VerticalTemplate";
+
 const Templates = () => {
   const {
     mainProduct,
@@ -20,7 +21,7 @@ const Templates = () => {
   } = useLogicTemplate();
 
   useEffect(() => {
-    handleInitializeTiendaNube("template1D");
+    handleInitializeTiendaNube();
   }, []);
 
   return (
