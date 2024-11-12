@@ -1,16 +1,12 @@
 "use client";
 
+import React from "react";
 import Templates from "@/components/template/Templates";
 
-// Llamada a la función con la ruta al archivo JSON
-
-const TemplateMobilePage = () => {
+export default function PaginaPrincipal() {
   return (
-    <div className="flex flex-col items-center justify-center w-full h-full m-0 p-10 text-primaryText">
-      {" "}
+    <main className="min-h-screen bg-background">
       <Templates />
-    </div>
+    </main>
   );
-};
-
-export default TemplateMobilePage;
+}

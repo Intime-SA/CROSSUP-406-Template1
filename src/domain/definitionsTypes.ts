@@ -236,3 +236,9 @@ export enum DesignType {
   HORIZONTAL = "template2",
   HISTORY = "template3",
 }
+
+export interface Colors {
+  primary: string;
+  secondary: string;
+  font: string;
+}

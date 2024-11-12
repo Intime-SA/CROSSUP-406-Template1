@@ -1,51 +1,139 @@
 "use client";
 
-import React, { useEffect } from "react";
-import { Sheet } from "@/components/ui/sheet";
-import ProductView from "@/components/ui-templates/ProductView";
-import { useLogicTemplate } from "@/hooks/useLogicTemplate";
-import { VerticalTemplate } from "../ui-templates/VerticalTemplate";
+import React, { useEffect, useRef, useState } from "react";
+import { fetchDataFromJson } from "@/app/actions/actions";
+import { PromotionData } from "@/domain/definitionsTypes";
+import { Button } from "@/components/ui/button";
 
-const Templates = () => {
-  const {
-    mainProduct,
-    recommendedProducts,
-    isOpen,
-    setIsOpen,
-    selectedProduct,
-    isLoading,
-    titleText,
-    handleOpenModalViewProduct,
-    handleClose,
-    handleInitializeTiendaNube,
-  } = useLogicTemplate();
+const SplitViewTemplates = () => {
+  const mobileIframeRef = useRef<HTMLIFrameElement>(null);
+  const desktopIframeRef = useRef<HTMLIFrameElement>(null);
+  const [hijoListo, setHijoListo] = useState({ mobile: false, desktop: false });
+  const [mensajeEnviado, setMensajeEnviado] = useState(false);
+  const [respuestas, setRespuestas] = useState<{
+    mobile: string | null;
+    desktop: string | null;
+  }>({ mobile: null, desktop: null });
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    handleInitializeTiendaNube();
+    const handleMessage = (event: MessageEvent) => {
+      if (event.data && event.data.type === "HIJO_LISTO") {
+        const source = event.source;
+        if (source === mobileIframeRef.current?.contentWindow) {
+          setHijoListo((prev) => ({ ...prev, mobile: true }));
+        } else if (source === desktopIframeRef.current?.contentWindow) {
+          setHijoListo((prev) => ({ ...prev, desktop: true }));
+        }
+      } else if (event.data && event.data.type === "RESPUESTA_HIJO") {
+        const source = event.source;
+        if (source === mobileIframeRef.current?.contentWindow) {
+          setRespuestas((prev) => ({ ...prev, mobile: event.data.mensaje }));
+        } else if (source === desktopIframeRef.current?.contentWindow) {
+          setRespuestas((prev) => ({ ...prev, desktop: event.data.mensaje }));
+        }
+      }
+    };
+
+    window.addEventListener("message", handleMessage);
+    return () => window.removeEventListener("message", handleMessage);
   }, []);
 
-  return (
-    <div className="flex flex-col items-center justify-center w-full h-full m-0 p-10">
-      <Sheet open={isOpen} onOpenChange={setIsOpen}>
-        <VerticalTemplate
-          isLoading={isLoading}
-          mainProduct={mainProduct}
-          handleClose={handleClose}
-          handleOpenModalViewProduct={handleOpenModalViewProduct}
-          titleText={titleText}
-          recommendedProducts={recommendedProducts}
-        />
-      </Sheet>
+  const enviarMensajeAHijos = async () => {
+    try {
+      const data: PromotionData = await fetchDataFromJson("template1D");
+      const dataPayload = JSON.stringify(data);
 
-      {selectedProduct && (
-        <ProductView
-          product={selectedProduct}
-          isOpen={!!selectedProduct}
-          onClose={handleClose}
-        />
-      )}
+      [mobileIframeRef, desktopIframeRef].forEach((ref) => {
+        if (ref.current?.contentWindow) {
+          ref.current.contentWindow.postMessage(
+            { type: "NEW_OFFER", payload: dataPayload },
+            "*"
+          );
+        }
+      });
+
+      setMensajeEnviado(true);
+      setRespuestas({ mobile: null, desktop: null });
+      setError(null);
+    } catch (err) {
+      console.error("Error al obtener o enviar datos:", err);
+      setError(
+        "Hubo un error al enviar el mensaje. Por favor, intenta de nuevo."
+      );
+    }
+  };
+
+  return (
+    <div className="flex flex-col h-screen bg-background p-4">
+      <div className="flex flex-col gap-4 mb-6">
+        <h1 className="text-2xl font-bold">
+          Vista Dividida - Mobile y Desktop
+        </h1>
+        <div className="flex gap-4 items-center">
+          <Button
+            onClick={enviarMensajeAHijos}
+            disabled={!hijoListo.mobile || !hijoListo.desktop || mensajeEnviado}
+          >
+            Enviar mensaje a ambas vistas
+          </Button>
+          {error && <p className="text-red-500">{error}</p>}
+        </div>
+        {mensajeEnviado && (
+          <div className="grid grid-cols-2 gap-4 text-sm">
+            <div>
+              <strong>Mobile:</strong>{" "}
+              {respuestas.mobile || "Esperando respuesta..."}
+            </div>
+            <div>
+              <strong>Desktop:</strong>{" "}
+              {respuestas.desktop || "Esperando respuesta..."}
+            </div>
+          </div>
+        )}
+      </div>
+
+      <div className="flex flex-1 gap-4 min-h-0">
+        {/* Vista Mobile */}
+        <div className="w-1/4 bg-background rounded-lg shadow-lg overflow-hidden">
+          <div className="h-full flex flex-col">
+            <div className="bg-muted px-4 py-2 text-sm font-medium">
+              Vista Mobile
+            </div>
+            <div className="relative flex-1" style={{ aspectRatio: "9/16" }}>
+              <iframe
+                ref={mobileIframeRef}
+                src="/hijo"
+                className="absolute inset-0 w-full h-full border-0"
+                style={{ backgroundColor: "white" }}
+              />
+            </div>
+          </div>
+        </div>
+
+        {/* Vista Desktop */}
+        <div className="flex-1 bg-background rounded-lg shadow-lg overflow-hidden">
+          <div className="h-full flex flex-col">
+            <div className="bg-muted px-4 py-2 text-sm font-medium">
+              Vista Desktop
+            </div>
+            <div className="relative flex-1">
+              <iframe
+                ref={desktopIframeRef}
+                src="/hijo"
+                className="absolute inset-0 w-full h-full border-0"
+                style={{
+                  backgroundColor: "white",
+                  display: "flex",
+                  justifyContent: "flex-end",
+                }}
+              />
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };
 
-export default Templates;
+export default SplitViewTemplates;

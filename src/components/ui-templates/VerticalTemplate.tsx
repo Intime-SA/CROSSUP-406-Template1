@@ -1,3 +1,5 @@
+"use client";
+
 import { SheetContent, SheetHeader, SheetTitle } from "@/components/ui/sheet";
 import ProductAdded from "@/components/ui-templates/ProductAdded";
 import RecommendedProducts from "./RecomendedProducts";
@@ -5,6 +7,7 @@ import ProductAddedSkeleton from "../skeletons/ProductAddedSkeleton";
 import ProductCartSkeleton from "../skeletons/ProductCardSkeleton";
 import LineSkeleton from "../skeletons/LineSkeleton";
 import { MainProduct2, TargetProduct } from "@/domain/definitionsTypes";
+import { useMediaQuery } from "@/hooks/use-media-query";
 
 interface SheetContentProps {
   isLoading: boolean;
@@ -23,8 +26,14 @@ export const VerticalTemplate: React.FC<SheetContentProps> = ({
   titleText,
   recommendedProducts,
 }) => {
+  const isDesktop = useMediaQuery("(min-width: 768px)");
+
   return (
-    <SheetContent fullSize>
+    <SheetContent
+      side={isDesktop ? "right" : "bottom"}
+      className={isDesktop ? "w-[400px] sm:max-w-[400px]" : "h-[100vh]"}
+      fullSize={!isDesktop}
+    >
       <SheetHeader>
         <SheetTitle></SheetTitle>
       </SheetHeader>
