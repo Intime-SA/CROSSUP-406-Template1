@@ -4,11 +4,12 @@ import React, { useEffect, useRef, useState } from "react";
 import { fetchDataFromJson } from "@/app/actions/actions";
 import { PromotionData } from "@/domain/definitionsTypes";
 import { Button } from "@/components/ui/button";
+import { useDynamicFont } from "@/app/fonts/fonts";
+import { useLogicTemplate } from "@/hooks/useLogicTemplate";
 
 const SplitViewTemplates = () => {
   const mobileIframeRef = useRef<HTMLIFrameElement>(null);
   const desktopIframeRef = useRef<HTMLIFrameElement>(null);
-  const [hijoListo, setHijoListo] = useState({ mobile: false, desktop: false });
   const [mensajeEnviado, setMensajeEnviado] = useState(false);
   const [respuestas, setRespuestas] = useState<{
     mobile: string | null;
@@ -16,17 +17,14 @@ const SplitViewTemplates = () => {
   }>({ mobile: null, desktop: null });
   const [error, setError] = useState<string | null>(null);
 
+  const { isLoaded } = useDynamicFont();
+  const { isLoading } = useLogicTemplate();
+
   useEffect(() => {
     const handleMessage = (event: MessageEvent) => {
       if (event.data && event.data.type === "HIJO_LISTO") {
         const source = event.source;
-        if (source === mobileIframeRef.current?.contentWindow) {
-          setHijoListo((prev) => ({ ...prev, mobile: true }));
-        } else if (source === desktopIframeRef.current?.contentWindow) {
-          setHijoListo((prev) => ({ ...prev, desktop: true }));
-        }
-      } else if (event.data && event.data.type === "RESPUESTA_HIJO") {
-        const source = event.source;
+
         if (source === mobileIframeRef.current?.contentWindow) {
           setRespuestas((prev) => ({ ...prev, mobile: event.data.mensaje }));
         } else if (source === desktopIframeRef.current?.contentWindow) {
@@ -39,7 +37,8 @@ const SplitViewTemplates = () => {
     return () => window.removeEventListener("message", handleMessage);
   }, []);
 
-  const enviarMensajeAHijos = async () => {
+  // simula la accion del parent, enviando un payload string que recibe como response de una llamada a la api de cross up
+  const sendMessageChildren = async () => {
     try {
       const data: PromotionData = await fetchDataFromJson("template1D");
       const dataPayload = JSON.stringify(data);
@@ -64,6 +63,16 @@ const SplitViewTemplates = () => {
     }
   };
 
+  // ejecuta funcion de forma automatica.
+  useEffect(() => {
+    if (isLoaded && !isLoading) {
+      // Agregar un retraso para asegurar que los iframes estén listos
+      setTimeout(() => {
+        sendMessageChildren();
+      }, 1500); // tiempo para actualizar promotion states en el cliente
+    }
+  }, [isLoaded, isLoading]);
+
   return (
     <div className="flex flex-col h-screen bg-background p-4">
       <div className="flex flex-col gap-4 mb-6">
@@ -71,10 +80,7 @@ const SplitViewTemplates = () => {
           Vista Dividida - Mobile y Desktop
         </h1>
         <div className="flex gap-4 items-center">
-          <Button
-            onClick={enviarMensajeAHijos}
-            disabled={!hijoListo.mobile || !hijoListo.desktop || mensajeEnviado}
-          >
+          <Button onClick={sendMessageChildren} disabled={mensajeEnviado}>
             Enviar mensaje a ambas vistas
           </Button>
           {error && <p className="text-red-500">{error}</p>}
@@ -103,7 +109,7 @@ const SplitViewTemplates = () => {
             <div className="relative flex-1" style={{ aspectRatio: "9/16" }}>
               <iframe
                 ref={mobileIframeRef}
-                src="/hijo"
+                src="/children"
                 className="absolute inset-0 w-full h-full border-0"
                 style={{ backgroundColor: "white" }}
               />
@@ -120,7 +126,7 @@ const SplitViewTemplates = () => {
             <div className="relative flex-1">
               <iframe
                 ref={desktopIframeRef}
-                src="/hijo"
+                src="/children"
                 className="absolute inset-0 w-full h-full border-0"
                 style={{
                   backgroundColor: "white",
