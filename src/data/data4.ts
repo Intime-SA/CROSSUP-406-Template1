@@ -696,6 +696,18 @@ export const getMockOfferData4 = (): PromotionData => ({
       },
       images: [
         {
+          id: 70566711,
+          product_id: "40373368",
+          src: "/image.png",
+          position: 1,
+          alt: [],
+          height: 3000,
+          width: 2000,
+          thumbnails_generated: 2,
+          created_at: "2023-10-01T00:00:00+0000",
+          updated_at: "2023-10-01T00:00:00+0000",
+        },
+        {
           id: 70566712,
           product_id: "40373369",
           src: "https://acdn.mitiendanube.com/stores/001/073/722/products/rediseno-ok-tn-vitalis-abril-2024_-cosmetica-elementos_beneficios-pp-27-e777dcec94a7e5303817170962715066-640-0.webp",

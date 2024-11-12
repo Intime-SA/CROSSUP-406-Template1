@@ -480,9 +480,9 @@ export const getMockOfferData2 = (): PromotionData => ({
       },
       images: [
         {
-          id: 70566712,
-          product_id: "40373369",
-          src: "https://acdn.mitiendanube.com/stores/001/073/722/products/rediseno-ok-tn-vitalis-abril-2024_-cosmetica-elementos_portadas-cosmetica-13-899c2d4ef2bdb77acf17170897577567-640-0.webp",
+          id: 70566711,
+          product_id: "40373368",
+          src: "/image.png",
           position: 1,
           alt: [],
           height: 3000,
