@@ -20,7 +20,7 @@ const SplitViewTemplates = () => {
 
   useEffect(() => {
     const handleMessage = (event: MessageEvent) => {
-      if (event.origin !== "http://localhost:3000") return;
+      if (event.origin !== "https://crossup-406-template1.vercel.app/") return;
 
       let parsedData;
       if (typeof event.data === "string") {
