@@ -20,7 +20,7 @@ const SplitViewTemplates = () => {
 
   useEffect(() => {
     const handleMessage = (event: MessageEvent) => {
-      if (event.origin !== "https://crossup-406-template1.vercel.app/") return;
+      if (event.origin !== "https://crossup-406-template1.vercel.app") return;
 
       let parsedData;
       if (typeof event.data === "string") {
@@ -88,7 +88,7 @@ const SplitViewTemplates = () => {
         if (ref.current?.contentWindow) {
           ref.current.contentWindow.postMessage(
             { type: "NEW_OFFER", payload: dataPayload },
-            "https://crossup-406-template1.vercel.app/"
+            "https://crossup-406-template1.vercel.app"
           );
         }
       });

@@ -1,7 +1,7 @@
 import { TargetProduct, Variant } from "@/domain/definitionsTypes";
 
 // URL DE PRUEBA. DEBERIA SER DINAMICA CON LA URL DE TIENDA NUBE
-const FRAME_URL = "https://crossup-406-template1.vercel.app/";
+const FRAME_URL = "https://crossup-406-template1.vercel.app";
 
 // METODO PARA CERRAR POPUP Y AVISAR AL PARENT
 export const onClosePopUp = (mensaje: string): void => {
