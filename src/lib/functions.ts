@@ -2,7 +2,8 @@ import { TargetProduct, Variant } from "@/domain/definitionsTypes";
 
 // URL DE PRUEBA. DEBERIA SER DINAMICA CON LA URL DE TIENDA NUBE
 
-const FRAME_URL = process.env.NEXT_PUBLIC_PARENT_URL || "http://localhost:3000";
+const FRAME_URL =
+  process.env.NEXT_PUBLIC_URL_PARENT_DEPLOY || "http://localhost:3000";
 
 // METODO PARA CERRAR POPUP Y AVISAR AL PARENT
 export const onClosePopUp = (mensaje: string): void => {
