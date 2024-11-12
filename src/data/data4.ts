@@ -635,7 +635,7 @@ export const getMockOfferData4 = (): PromotionData => ({
     hasShortage: true,
     text: "Ultimas Unidades",
   },
-  canModifyQuantity: false,
+  canModifyQuantity: true,
   discount: {
     isActive: true,
     isFixedDiscount: true,
