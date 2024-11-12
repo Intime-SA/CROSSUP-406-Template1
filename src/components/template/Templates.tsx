@@ -18,7 +18,8 @@ const SplitViewTemplates = () => {
   const { isLoaded } = useDynamicFont();
   const { isLoading } = useLogicTemplate();
 
-  const PARENT_URL = process.env.NEXT_PUBLIC_PARENT_URL;
+  const PARENT_URL =
+    process.env.NEXT_PUBLIC_PARENT_URL || "http://localhost:3000";
 
   useEffect(() => {
     const handleMessage = (event: MessageEvent) => {
