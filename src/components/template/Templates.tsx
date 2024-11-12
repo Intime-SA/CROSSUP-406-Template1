@@ -88,7 +88,7 @@ const SplitViewTemplates = () => {
         if (ref.current?.contentWindow) {
           ref.current.contentWindow.postMessage(
             { type: "NEW_OFFER", payload: dataPayload },
-            "http://localhost:3000"
+            "https://crossup-406-template1.vercel.app/"
           );
         }
       });
@@ -147,7 +147,7 @@ const SplitViewTemplates = () => {
             <div className="relative flex-1" style={{ aspectRatio: "9/16" }}>
               <iframe
                 ref={mobileIframeRef}
-                src="http://localhost:3000/children"
+                src="https://crossup-406-template1.vercel.app/children"
                 className="absolute inset-0 w-full h-full border-0"
                 style={{ backgroundColor: "white" }}
                 sandbox="allow-scripts allow-same-origin allow-forms"
@@ -165,7 +165,7 @@ const SplitViewTemplates = () => {
             <div className="relative flex-1">
               <iframe
                 ref={desktopIframeRef}
-                src="http://localhost:3000/children"
+                src="https://crossup-406-template1.vercel.app/children"
                 className="absolute inset-0 w-full h-full border-0"
                 style={{
                   backgroundColor: "white",
