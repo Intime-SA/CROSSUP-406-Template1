@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { onClosePopUp } from "@/lib/functions";
+import { handleWatchMore, onClosePopUp } from "@/lib/functions";
 import {
   TargetProduct,
   MainProduct2,
@@ -114,6 +114,7 @@ export const useLogicTemplate = () => {
 
   const handleOpenModalViewProduct = useCallback((product: TargetProduct) => {
     setSelectedProduct(product);
+    handleWatchMore(product);
   }, []);
 
   const handleClose = useCallback(() => {

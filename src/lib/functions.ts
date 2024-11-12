@@ -1,22 +1,20 @@
-import { Variant } from "@/domain/definitionsTypes";
+import { TargetProduct, Variant } from "@/domain/definitionsTypes";
 
-// endpoint a donde envia mensaje que reciba script
-const FRAME_URL =
-  process.env.NEXT_PUBLIC_FRAME_URL || "https://tiendanube.com/storeId";
+// URL DE PRUEBA. DEBERIA SER DINAMICA CON LA URL DE TIENDA NUBE
+const FRAME_URL = "http://localhost:3000";
 
-// funcion que avisa de cierre de popUp al script
+// METODO PARA CERRAR POPUP Y AVISAR AL PARENT
 export const onClosePopUp = (mensaje: string): void => {
   const message = {
     type: "IGNORE_OFFER",
     payload: {},
   };
 
-  // Enviamos el mensaje al padre
   window.parent.postMessage(JSON.stringify(message), FRAME_URL);
   console.log("Close modal ViewProduct", mensaje);
 };
 
-// agregar al carrito y enviar string con payload
+// agregar al carrito
 export const addToCartHandler = (
   selectedVariant: Variant,
   quantity: number
@@ -26,22 +24,27 @@ export const addToCartHandler = (
     return;
   }
 
-  // target seleccionado de la sugerencia
-  const payload = selectedVariant;
-
   const message = {
-    type: "ADD_TO_CART", // CASE para el listener
-    payload: payload, // target seleccionado
-    quantity: quantity, // cantidad de unidades (por defecto 1)
+    type: "ADD_TO_CART",
+    payload: {
+      quantity: quantity,
+      variant: selectedVariant,
+    },
   };
 
-  // log
-  console.log(
-    `se esta enviando este paylod al script: ${JSON.stringify(
-      message
-    )} a la Url/Endpoint/parent ${FRAME_URL}`
-  );
-
-  // Enviamos el mensaje al padre
   window.parent.postMessage(JSON.stringify(message), FRAME_URL);
+};
+
+// ver historia de target o intentar agregar al cart uno con variantes.
+export const handleWatchMore = (product: TargetProduct): void => {
+  const message = {
+    type: "WATCH_MORE",
+    payload: {
+      productId: product.id,
+      productName: product.name,
+    },
+  };
+
+  window.parent.postMessage(JSON.stringify(message), FRAME_URL);
+  console.log("Watch More clicked for product:", product.name);
 };

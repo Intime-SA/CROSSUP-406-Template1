@@ -46,9 +46,9 @@ export default function RecommendedProducts({
       openModalViewProduct(target);
     } else {
       const variantToAdd = target.variants[0] || target;
+      setTimeout(onClose, 500);
       addToCartHandler(variantToAdd, quantity);
       setClickedProducts((prev) => new Set(prev).add(target));
-      setTimeout(onClose, 500);
     }
   };
 

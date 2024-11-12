@@ -176,6 +176,7 @@ export interface TargetProduct {
 // Maneja instancia del popUp (como padre)
 export interface ViewProductProps {
   product: TargetProduct;
+  setIsOpen: (state: boolean) => void;
   isOpen: boolean; // Indica si el modal está abierto
   onClose: () => void; // Función para cerrar el modal
 }

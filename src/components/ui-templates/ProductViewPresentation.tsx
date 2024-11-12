@@ -17,6 +17,7 @@ export const ProductViewPresentation: React.FC<
   product,
   isOpen,
   onClose,
+  setIsOpen,
   variants,
   selectedVariant,
   quantity,
@@ -32,7 +33,7 @@ export const ProductViewPresentation: React.FC<
   console.log(canModifyQuantity);
 
   return (
-    <Dialog open={isOpen} onOpenChange={onClose}>
+    <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogContent className="w-full mt-[10vh] h-[80vh] max-h-[888px] md:max-h-[808px] md:!mt-0 md:h-full md:w-[430px] p-0 bg-background text-foreground max-w-full flex flex-col">
         <Button
           variant="outline"

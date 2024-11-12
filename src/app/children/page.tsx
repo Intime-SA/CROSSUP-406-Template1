@@ -38,9 +38,6 @@ export default function Hijo() {
 
     window.addEventListener("message", handleMessage);
 
-    // Notificar al padre que el hijo está listo
-    window.parent.postMessage({ type: "HIJO_LISTO" }, "*");
-
     return () => {
       window.removeEventListener("message", handleMessage);
     };
@@ -62,8 +59,9 @@ export default function Hijo() {
       {selectedProduct && (
         <ProductView
           product={selectedProduct}
-          isOpen={!!selectedProduct}
+          isOpen={isOpen}
           onClose={handleClose}
+          setIsOpen={setIsOpen}
         />
       )}
     </div>

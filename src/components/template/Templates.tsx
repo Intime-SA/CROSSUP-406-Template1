@@ -3,7 +3,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { fetchDataFromJson } from "@/app/actions/actions";
 import { PromotionData } from "@/domain/definitionsTypes";
-import { Button } from "@/components/ui/button";
 import { useDynamicFont } from "@/app/fonts/fonts";
 import { useLogicTemplate } from "@/hooks/useLogicTemplate";
 
@@ -16,20 +15,62 @@ const SplitViewTemplates = () => {
     desktop: string | null;
   }>({ mobile: null, desktop: null });
   const [error, setError] = useState<string | null>(null);
-
   const { isLoaded } = useDynamicFont();
   const { isLoading } = useLogicTemplate();
 
   useEffect(() => {
     const handleMessage = (event: MessageEvent) => {
-      if (event.data && event.data.type === "HIJO_LISTO") {
-        const source = event.source;
+      if (event.origin !== "http://localhost:3000") return;
 
-        if (source === mobileIframeRef.current?.contentWindow) {
-          setRespuestas((prev) => ({ ...prev, mobile: event.data.mensaje }));
-        } else if (source === desktopIframeRef.current?.contentWindow) {
-          setRespuestas((prev) => ({ ...prev, desktop: event.data.mensaje }));
+      let parsedData;
+      if (typeof event.data === "string") {
+        try {
+          console.log(event.data);
+          parsedData = JSON.parse(event.data);
+        } catch (error) {
+          console.error("Error parsing message:", error);
+          return;
         }
+      } else {
+        parsedData = event.data;
+      }
+
+      if (!parsedData || !parsedData.type) {
+        console.error("Invalid message format");
+        return;
+      }
+
+      const source = event.source as Window;
+      let responseMessage = "";
+
+      console.log(parsedData);
+      switch (parsedData.type) {
+        case "ADD_TO_CART":
+          const { quantity, variant } = parsedData.payload;
+          responseMessage = `type: ADD_TO_CART, payload: "${quantity} of variant ${variant.id} to cart"`;
+          break;
+        case "IGNORE_OFFER":
+          responseMessage = "IGNORE_OFFER";
+          break;
+        case "WATCH_MORE":
+          const { productId, productName } = parsedData.payload;
+          responseMessage = `type: WATCH_MORE, payload: "${productName.es}, ID: ${productId}"`;
+          break;
+        default:
+          console.error("Unknown message type:", parsedData.type);
+          return;
+      }
+
+      updateResponse(source, responseMessage);
+    };
+
+    const updateResponse = (source: Window, message: string) => {
+      if (source === mobileIframeRef.current?.contentWindow) {
+        setRespuestas((prev) => ({ ...prev, mobile: message }));
+      } else if (source === desktopIframeRef.current?.contentWindow) {
+        setRespuestas((prev) => ({ ...prev, desktop: message }));
+      } else {
+        console.error("Message received from unknown source");
       }
     };
 
@@ -47,7 +88,7 @@ const SplitViewTemplates = () => {
         if (ref.current?.contentWindow) {
           ref.current.contentWindow.postMessage(
             { type: "NEW_OFFER", payload: dataPayload },
-            "*"
+            "http://localhost:3000"
           );
         }
       });
@@ -80,9 +121,6 @@ const SplitViewTemplates = () => {
           Vista Dividida - Mobile y Desktop
         </h1>
         <div className="flex gap-4 items-center">
-          <Button onClick={sendMessageChildren} disabled={mensajeEnviado}>
-            Enviar mensaje a ambas vistas
-          </Button>
           {error && <p className="text-red-500">{error}</p>}
         </div>
         {mensajeEnviado && (
@@ -109,9 +147,10 @@ const SplitViewTemplates = () => {
             <div className="relative flex-1" style={{ aspectRatio: "9/16" }}>
               <iframe
                 ref={mobileIframeRef}
-                src="/children"
+                src="http://localhost:3000/children"
                 className="absolute inset-0 w-full h-full border-0"
                 style={{ backgroundColor: "white" }}
+                sandbox="allow-scripts allow-same-origin allow-forms"
               />
             </div>
           </div>
@@ -126,13 +165,14 @@ const SplitViewTemplates = () => {
             <div className="relative flex-1">
               <iframe
                 ref={desktopIframeRef}
-                src="/children"
+                src="http://localhost:3000/children"
                 className="absolute inset-0 w-full h-full border-0"
                 style={{
                   backgroundColor: "white",
                   display: "flex",
                   justifyContent: "flex-end",
                 }}
+                sandbox="allow-scripts allow-same-origin allow-forms"
               />
             </div>
           </div>

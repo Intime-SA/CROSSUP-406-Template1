@@ -5,6 +5,7 @@ import { ProductViewPresentation } from "./ProductViewPresentation";
 
 export const ProductView: React.FC<ViewProductProps> = ({
   product,
+  setIsOpen,
   isOpen,
   onClose,
 }) => {
@@ -21,13 +22,14 @@ export const ProductView: React.FC<ViewProductProps> = ({
   } = useProductView(product);
 
   const handleAddToCartAndClose = () => {
-    onClose();
+    setIsOpen(false);
   };
 
   return (
     <ProductViewPresentation
       product={product}
       isOpen={isOpen}
+      setIsOpen={setIsOpen}
       onClose={onClose}
       variants={variants}
       selectedVariant={selectedVariant}
