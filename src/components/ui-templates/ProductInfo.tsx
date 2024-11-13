@@ -6,6 +6,7 @@ import { useProductSelectors } from "@/hooks/useSelectors";
 const ProductInfo: React.FC<ProductInfoProps> = ({
   product,
   selectedVariant,
+  showMessage,
 }) => {
   const {
     visibilityDescription,
@@ -40,12 +41,17 @@ const ProductInfo: React.FC<ProductInfoProps> = ({
       <div className="self-stretch justify-between items-center flex">
         <div className="flex items-center gap-2">
           {isFixedDiscount ? (
-            <span className="text-sm font-semibold text-[var(--primary-text)] ">
-              {formatPrice((selectedVariant?.price || 0) - discountAmount)}
+            <span className="text-sm font-semibold text-[var(--primary-text)]">
+              {formatPrice(
+                (selectedVariant?.price || product.variants[0]?.price || 0) -
+                  discountAmount
+              )}
             </span>
           ) : (
             <span className="text-sm font-semibold text-[var(--primary-text)]">
-              {formatPrice(selectedVariant?.price || 0)}
+              {formatPrice(
+                selectedVariant?.price || product.variants[0]?.price || 0
+              )}
             </span>
           )}
 
@@ -63,7 +69,18 @@ const ProductInfo: React.FC<ProductInfoProps> = ({
 
       {discountIsActive && (
         <div className="text-[var(--neutrals-disabled)] text-xs font-medium line-through">
-          {formatPrice(selectedVariant?.price || 0)}
+          {formatPrice(
+            selectedVariant?.price || product.variants[0]?.price || 0
+          )}
+        </div>
+      )}
+      {showMessage && (
+        <div className="absolute inset-0 flex items-center justify-center z-10">
+          <div className="h-[37px] p-2 bg-[#f9f8ff] rounded-lg shadow border border-[#e3e3e3] justify-start items-center gap-1 inline-flex">
+            <div className="grow shrink basis-0 text-[#2a2742] text-sm font-normal">
+              Por favor, selecciona una opción de cada variación
+            </div>
+          </div>
         </div>
       )}
     </div>

@@ -15,6 +15,7 @@ export const useProductView = (product: ViewProductProps["product"]) => {
   );
   const [availableSizes, setAvailableSizes] = useState<string[]>([]);
   const [availableColors, setAvailableColors] = useState<string[]>([]);
+  const [showMessage, setShowMessage] = useState(false);
 
   const handleIncrease = () =>
     dispatch(setQuantity(Math.min(quantity + 1, selectedVariant?.stock || 1)));
@@ -22,7 +23,7 @@ export const useProductView = (product: ViewProductProps["product"]) => {
 
   useEffect(() => {
     dispatch(setVariants(product.variants));
-    dispatch(setSelectedVariant(product.variants[0]));
+    /*     dispatch(setSelectedVariant(product.variants[0])); */
     updateAvailableOptions(product.variants);
   }, [product, dispatch]);
 
@@ -81,5 +82,7 @@ export const useProductView = (product: ViewProductProps["product"]) => {
     handleDecrease,
     handleColorSelect,
     handleSizeSelect,
+    showMessage,
+    setShowMessage,
   };
 };

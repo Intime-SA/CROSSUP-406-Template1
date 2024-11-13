@@ -215,6 +215,7 @@ export interface TemplateButtonProps {
 // interface para instancia en Boton de PopUp de confirmacion
 export interface AddToCartButtonProps {
   onAddToCart: () => void;
+  setShowMessage: (state: boolean) => void;
 }
 
 // interface para instanciar presentacion de popUp (como hijo)
@@ -229,6 +230,8 @@ export interface ProductViewPresentationProps extends ViewProductProps {
   handleColorSelect: (color: string) => void;
   handleSizeSelect: (size: string) => void;
   handleAddToCartAndClose: () => void;
+  setShowMessage: (state: boolean) => void;
+  showMessage: boolean;
 }
 
 // enum para los diferentes tipos de template

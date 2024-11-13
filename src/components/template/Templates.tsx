@@ -77,7 +77,7 @@ export default function SplitViewTemplates() {
         responseMessage = `type: ADD_TO_CART, payload: "${quantity} of variant ${variant.id} to cart"`;
         break;
       case IGNORE_OFFER:
-        responseMessage = "IGNORE_OFFER";
+        responseMessage = `type: IGNORE_OFFER`;
         break;
       case WATCH_MORE:
         const { productId, productName } = parsedData.payload;

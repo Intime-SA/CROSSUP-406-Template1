@@ -19,6 +19,8 @@ export const ProductView: React.FC<ViewProductProps> = ({
     handleDecrease,
     handleColorSelect,
     handleSizeSelect,
+    showMessage,
+    setShowMessage,
   } = useProductView(product);
 
   const handleAddToCartAndClose = () => {
@@ -28,6 +30,8 @@ export const ProductView: React.FC<ViewProductProps> = ({
   return (
     <ProductViewPresentation
       product={product}
+      showMessage={showMessage}
+      setShowMessage={setShowMessage}
       isOpen={isOpen}
       setIsOpen={setIsOpen}
       onClose={onClose}

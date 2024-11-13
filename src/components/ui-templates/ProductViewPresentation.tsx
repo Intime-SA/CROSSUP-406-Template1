@@ -28,6 +28,8 @@ export const ProductViewPresentation: React.FC<
   handleColorSelect,
   handleSizeSelect,
   handleAddToCartAndClose,
+  setShowMessage,
+  showMessage,
 }) => {
   const { canModifyQuantity } = useProductSelectors();
   console.log(canModifyQuantity);
@@ -53,7 +55,17 @@ export const ProductViewPresentation: React.FC<
               selectedVariant={selectedVariant}
               quantity={quantity}
             />
-
+            <div className="w-full">
+              {showMessage && (
+                <div className=" inset-0 flex items-center justify-center z-10">
+                  <div className="h-[37px] p-2 bg-[#f9f8ff] rounded-lg shadow border border-[#e3e3e3] justify-start items-center gap-1 inline-flex">
+                    <div className="grow shrink basis-0 text-[#2a2742] text-sm font-normal">
+                      Por favor, selecciona una opción de cada variación
+                    </div>
+                  </div>
+                </div>
+              )}
+            </div>
             {canModifyQuantity && (
               <QuantitySelector
                 variant={selectedVariant}
@@ -69,17 +81,20 @@ export const ProductViewPresentation: React.FC<
               selectedColor={selectedVariant?.attr.Color || ""}
               onColorSelect={handleColorSelect}
             />
+
             <SizeSelector
               variants={variants}
               availableSizes={availableSizes}
               selectedSize={selectedVariant?.attr.Talle || ""}
               onSizeSelect={handleSizeSelect}
             />
-            {/* <StockInfo selectedVariant={selectedVariant} /> */}
           </div>
         </div>
 
-        <AddToCartButton onAddToCart={handleAddToCartAndClose} />
+        <AddToCartButton
+          onAddToCart={handleAddToCartAndClose}
+          setShowMessage={setShowMessage}
+        />
       </DialogContent>
     </Dialog>
   );
