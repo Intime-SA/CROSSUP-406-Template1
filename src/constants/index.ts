@@ -10,12 +10,11 @@ export const MAX_PRODUCT_NAME_LENGTH = 200;
 export const MAX_BUTTON_ACCEPT_LENGTH = 80;
 export const MAX_BUTTON_IGNORE_LENGTH = 100;
 
-//Messages
-
 //   Send Messages
-export const ADD_TO_CART = "ADD_TO_CART";
-export const WATCH_MORE = "WATCH_MORE";
-export const IGNORE_OFFER = "IGNORE_OFFER";
+export const ADD_TO_CART = "ADD_TO_CART"; // usada
+export const WATCH_MORE = "WATCH_MORE"; // usada
+export const IGNORE_OFFER = "IGNORE_OFFER"; // usada
+
 export const EDIT_TITLE = "EDIT_TITLE";
 export const EDIT_DESCRIPTION = "EDIT_DESCRIPTION";
 export const EDIT_BUTTON_ACCEPT_TEXT = "EDIT_BUTTON_ACCEPT_TEXT";
@@ -26,7 +25,8 @@ export const ERROR = "ERROR";
 export const MESSAGE_READ = "MESSAGE_READ";
 
 //   Receive Messages
-export const NEW_OFFER = "NEW_OFFER";
+export const NEW_OFFER = "NEW_OFFER"; // usada
+
 export const EDIT_MODE = "EDIT_MODE";
 export const ON_ADD_TO_CART_TEXT = "ON_ADD_TO_CART_TEXT";
 export const CHANGE_ESTHETIC = "CHANGE_ESTHETIC";
