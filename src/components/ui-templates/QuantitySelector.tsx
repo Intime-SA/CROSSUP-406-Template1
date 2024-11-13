@@ -2,7 +2,7 @@
 
 import React from "react";
 import { Button } from "@/components/ui/button";
-import { QuantitySelectorProps, Variant } from "@/domain/definitionsTypes";
+import { QuantitySelectorProps } from "@/domain/definitionsTypes";
 import { Minus, Plus } from "lucide-react";
 
 // componente selector de quantity

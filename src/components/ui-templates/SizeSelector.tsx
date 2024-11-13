@@ -1,5 +1,5 @@
 import React from "react";
-import { SizeSelectorProps, Variant } from "@/domain/definitionsTypes";
+import { SizeSelectorProps } from "@/domain/definitionsTypes";
 
 // Componente de talles
 const SizeSelector: React.FC<SizeSelectorProps> = ({

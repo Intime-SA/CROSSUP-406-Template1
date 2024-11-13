@@ -6,11 +6,7 @@ import RecommendedProducts from "./RecomendedProducts";
 import ProductAddedSkeleton from "../skeletons/ProductAddedSkeleton";
 import ProductCartSkeleton from "../skeletons/ProductCardSkeleton";
 import LineSkeleton from "../skeletons/LineSkeleton";
-import {
-  MainProduct2,
-  SheetContentProps,
-  TargetProduct,
-} from "@/domain/definitionsTypes";
+import { SheetContentProps } from "@/domain/definitionsTypes";
 import { useMediaQuery } from "@/hooks/use-media-query";
 
 export const VerticalTemplate: React.FC<SheetContentProps> = ({

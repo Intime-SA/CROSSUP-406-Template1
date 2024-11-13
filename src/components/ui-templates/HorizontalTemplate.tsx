@@ -1,13 +1,8 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
 import ProductAdded from "./ProductAdded";
-import {
-  MainProduct2,
-  SheetContentPropsHorizontal,
-  TargetProduct,
-} from "@/domain/definitionsTypes";
+import { SheetContentPropsHorizontal } from "@/domain/definitionsTypes";
 import ProductCartSkeleton from "../skeletons/ProductCardSkeleton";
 import LineSkeleton from "../skeletons/LineSkeleton";
 import RecommendedProductsHorizontal from "./RecomendedProductsHorizontal";

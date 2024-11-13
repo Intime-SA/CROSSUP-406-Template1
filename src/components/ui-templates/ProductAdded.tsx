@@ -10,7 +10,6 @@ export const ProductAdded: React.FC<ProductAddedProps> = ({
   onClose,
   closeIconSrc = "/bottomClose.svg",
   mainProduct,
-  openModalViewProduct,
 }) => {
   // Mostrar o no mostrar la descripcion
   const { visibilityDescription } = useProductSelectors();
