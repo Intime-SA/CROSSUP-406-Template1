@@ -3,10 +3,12 @@ import { ProductInfoProps } from "@/domain/definitionsTypes";
 import { formatPrice } from "@/lib/utils";
 import { useProductSelectors } from "@/hooks/useSelectors";
 
+// componente info de producto.
 const ProductInfo: React.FC<ProductInfoProps> = ({
   product,
   selectedVariant,
 }) => {
+  // selectores de states global promotionSlice
   const {
     visibilityDescription,
     hasShortage,

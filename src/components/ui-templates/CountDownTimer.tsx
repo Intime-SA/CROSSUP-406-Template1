@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react";
 
+// COMPONENTE DE MANEJADOR DE TIMER
 export const CountdownTimer: React.FC<{ initialTime: number }> = ({
   initialTime,
 }) => {
   const [timeLeft, setTimeLeft] = useState(initialTime);
 
+  // REINICIALIZA
   useEffect(() => {
     if (timeLeft > 0) {
       const timerId = setTimeout(() => setTimeLeft(timeLeft - 1), 1000);

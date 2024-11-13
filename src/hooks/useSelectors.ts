@@ -1,10 +1,14 @@
 import { useSelector } from "react-redux";
 import { RootState } from "@/redux/store";
 
+// hook para exportar states
 export const useProductSelectors = () => {
-  // selected Tareget / variant seleccionada.
+  // persistencia del selected Tareget / variant seleccionada.
   const quantity = useSelector(
     (state: RootState) => state.selectedTarget.quantity
+  );
+  const selectedVariant = useSelector(
+    (state: RootState) => state.selectedTarget.selectedVariant
   );
 
   // persistencia de screemshot de la offer/sugerencia/promocion
@@ -12,7 +16,6 @@ export const useProductSelectors = () => {
   const desingType = useSelector(
     (state: RootState) => state.promotion.desingType
   );
-
   const visibilityDescription = useSelector(
     (state: RootState) => state.promotion.visibilityDescription
   );
@@ -54,9 +57,6 @@ export const useProductSelectors = () => {
     (state: RootState) => state.promotion.canModifyQuantity
   );
 
-  const selectedVariant = useSelector(
-    (state: RootState) => state.selectedTarget.selectedVariant
-  );
   const addToCartButton = useSelector(
     (state: RootState) => state.promotion.addToCartButton
   );
@@ -64,6 +64,7 @@ export const useProductSelectors = () => {
     (state: RootState) => state.promotion.colors?.font
   );
 
+  // return de states
   return {
     fontFamily,
     colors,

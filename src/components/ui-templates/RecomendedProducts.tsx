@@ -1,17 +1,14 @@
 import React, { useState } from "react";
 import Image from "next/image";
-import { TargetProduct } from "@/domain/definitionsTypes";
+import {
+  RecommendedProductsProps,
+  TargetProduct,
+} from "@/domain/definitionsTypes";
 import { formatPrice } from "@/lib/utils";
 import AddButton from "./AddButtom";
 import { CountdownTimer } from "./CountDownTimer";
 import { addToCartHandler } from "@/lib/functions";
 import { useProductSelectors } from "@/hooks/useSelectors";
-
-interface RecommendedProductsProps {
-  products: TargetProduct[] | null;
-  openModalViewProduct: (product: TargetProduct) => void;
-  onClose: () => void;
-}
 
 export default function RecommendedProducts({
   products,

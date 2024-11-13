@@ -1,5 +1,6 @@
 "use client";
 
+// hook para manejar errores, capturarlos con .error y mostrarlo por pantalla.
 import * as React from "react";
 
 import type { ToastActionElement, ToastProps } from "@/components/ui/toast";

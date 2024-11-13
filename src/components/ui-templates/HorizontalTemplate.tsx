@@ -3,35 +3,30 @@
 import React, { useState, useEffect } from "react";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
 import ProductAdded from "./ProductAdded";
-import { MainProduct2, TargetProduct } from "@/domain/definitionsTypes";
+import {
+  MainProduct2,
+  SheetContentPropsHorizontal,
+  TargetProduct,
+} from "@/domain/definitionsTypes";
 import ProductCartSkeleton from "../skeletons/ProductCardSkeleton";
 import LineSkeleton from "../skeletons/LineSkeleton";
 import RecommendedProductsHorizontal from "./RecomendedProductsHorizontal";
 
-interface SheetConntentProps {
-  mainProduct: MainProduct2 | null;
-  handleClose: () => void;
-  handleOpenModalViewProduct: (product: TargetProduct) => void;
-  recommendedProducts: TargetProduct[] | null;
-  isLoading: boolean;
-  titleText: string;
-}
-
-export const HorizontalTemplate: React.FC<SheetConntentProps> = ({
+// componente de recomendacion de productos horizontal
+export const HorizontalTemplate: React.FC<SheetContentPropsHorizontal> = ({
   mainProduct,
   handleClose,
   handleOpenModalViewProduct,
   recommendedProducts,
   isLoading,
   titleText,
+  isOpen,
+  setIsOpen,
 }) => {
-  const [isOpen, setIsOpen] = useState(false);
+  //
 
-  useEffect(() => {
-    setIsOpen(true);
-  }, []);
-
-  const handleDelete = () => {
+  // ejecuta cierre modal y closea el dialog
+  const onClose = () => {
     handleClose();
     setIsOpen(false);
   };
@@ -42,7 +37,7 @@ export const HorizontalTemplate: React.FC<SheetConntentProps> = ({
         <div className="w-full flex flex-col gap-6">
           {mainProduct && (
             <ProductAdded
-              onClose={handleDelete}
+              onClose={onClose}
               mainProduct={mainProduct}
               openModalViewProduct={() =>
                 handleOpenModalViewProduct(mainProduct)

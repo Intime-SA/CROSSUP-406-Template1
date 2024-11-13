@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 
+// hook para manejar sizes
 export function useMediaQuery(query: string): boolean {
   const [matches, setMatches] = useState(false);
 

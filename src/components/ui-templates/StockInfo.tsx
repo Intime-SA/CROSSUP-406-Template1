@@ -1,10 +1,7 @@
 import React from "react";
-import { Variant } from "@/domain/definitionsTypes";
+import { StockInfoProps } from "@/domain/definitionsTypes";
 
-interface StockInfoProps {
-  selectedVariant: Variant | null;
-}
-
+// info stock, no se usa este componente por ahora.
 const StockInfo: React.FC<StockInfoProps> = ({ selectedVariant }) => {
   if (!selectedVariant) return null;
 

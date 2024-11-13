@@ -1,5 +1,6 @@
 import { Skeleton } from "./Skeleton";
 
+// PRODUCT CART SKELETON PARA RECOMENDACION DE PRODUCTOS VERTICAL
 export default function ProductCartSkeleton() {
   return (
     <div className="w-full max-w-md p-4 space-y-4 bg-white rounded-lg">

@@ -11,6 +11,7 @@ interface AddButtonProps {
   handleAddToCartAndClose: (id: TargetProduct) => void;
 }
 
+// COMPONENTE BOTON AGREGAR PRODUCTO Y/O ABRIR MODAL SI NO HAY VARIANTES
 export default function AddButton({
   product,
   clickedProducts,

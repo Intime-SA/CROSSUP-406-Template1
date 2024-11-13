@@ -3,12 +3,16 @@ import { addToCartHandler } from "@/lib/functions";
 import { useProductSelectors } from "@/hooks/useSelectors";
 import { AddToCartButtonProps } from "@/domain/definitionsTypes";
 
+// COMPONENTE AGREGAR AL CARRITO FINAL
 const AddToCartButton: React.FC<AddToCartButtonProps> = ({
   onAddToCart,
   setShowMessage,
 }) => {
+  // TRAIGO LOS STATES QUE NECESITO DE REDUX
   const { selectedVariant, quantity, addToCartButton } = useProductSelectors();
 
+  // FUNCION PARA AGREGAR AL CARRITO SEGUN EL CONEXTO. SI HAY VARIANTE SELECCIONADA
+  // AGREGA AL CARRITO Y SI NO HAY VARIANTE, TIRA MENSAJE.
   const handleAddToCart = () => {
     if (selectedVariant) {
       addToCartHandler(selectedVariant, quantity);

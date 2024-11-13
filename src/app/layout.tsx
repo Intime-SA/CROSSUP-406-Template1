@@ -5,8 +5,9 @@ import { ThemeProvider } from "@/components/providers/providers";
 import { FontProvider } from "@/components/providers/fontProvider";
 
 export const metadata: Metadata = {
-  title: "CrossUp-406 Template 1",
-  description: "Desarrollo en codigo de templates para tienda nube",
+  title: "CrossUp - Templates",
+  description:
+    "Desarrollo en codigo de templates para tienda nube, nueva version de producto",
 };
 
 export default function RootLayout({

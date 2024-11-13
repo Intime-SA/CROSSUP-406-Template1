@@ -6,17 +6,12 @@ import RecommendedProducts from "./RecomendedProducts";
 import ProductAddedSkeleton from "../skeletons/ProductAddedSkeleton";
 import ProductCartSkeleton from "../skeletons/ProductCardSkeleton";
 import LineSkeleton from "../skeletons/LineSkeleton";
-import { MainProduct2, TargetProduct } from "@/domain/definitionsTypes";
+import {
+  MainProduct2,
+  SheetContentProps,
+  TargetProduct,
+} from "@/domain/definitionsTypes";
 import { useMediaQuery } from "@/hooks/use-media-query";
-
-interface SheetContentProps {
-  isLoading: boolean;
-  mainProduct: MainProduct2 | null;
-  handleClose: () => void;
-  handleOpenModalViewProduct: (product: TargetProduct) => void;
-  titleText: string;
-  recommendedProducts: TargetProduct[] | null;
-}
 
 export const VerticalTemplate: React.FC<SheetContentProps> = ({
   isLoading,
@@ -26,6 +21,7 @@ export const VerticalTemplate: React.FC<SheetContentProps> = ({
   titleText,
   recommendedProducts,
 }) => {
+  // define en base al view portWidth del
   const isDesktop = useMediaQuery("(min-width: 768px)");
 
   return (

@@ -3,43 +3,35 @@
 import { useState, useEffect } from "react";
 import { useProductSelectors } from "@/hooks/useSelectors";
 
+// creacion de hook
 export function useDynamicFont() {
+  // traemos state colors
   const colors = useProductSelectors();
-  const selectedFont = colors.fontFamily as string;
-  const [fontLoaded, setFontLoaded] = useState(false);
+  const selectedFont = colors.fontFamily as string; // traemos a la font que viaja de la data
+  const [fontLoaded, setFontLoaded] = useState(false); // estado de carga
 
+  // una vez que tenemos la selectedFont persistida, generamos la peticion a google para traer la font
   useEffect(() => {
-    if (!selectedFont) return;
+    if (!selectedFont) return; // cortamos ejecucion si no hay font
 
-    const link = document.createElement("link");
+    const link = document.createElement("link"); // creamos link
     link.href = `https://fonts.googleapis.com/css2?family=${selectedFont.replace(
       /\s+/g,
       "+"
     )}:wght@400;700&display=swap`;
-    link.rel = "stylesheet";
-    link.onload = () => setFontLoaded(true);
-    link.onerror = () => console.error(`Failed to load font: ${selectedFont}`);
-    document.head.appendChild(link);
+    link.rel = "stylesheet"; // config api google
+    link.onload = () => setFontLoaded(true); // loader
+    link.onerror = () => console.error(`Failed to load font: ${selectedFont}`); // tira error sino puede cargar la font
+    document.head.appendChild(link); // crea el head importando el link de google
 
     return () => {
-      document.head.removeChild(link);
+      document.head.removeChild(link); // aplica el link head
     };
   }, [selectedFont]);
 
+  // hook retorna si esta cargando o si esta fontFamily
   return {
     fontFamily: selectedFont,
     isLoaded: fontLoaded,
   };
-}
-
-export function DynamicFontLoader({ children }: { children: React.ReactNode }) {
-  const { fontFamily, isLoaded } = useDynamicFont();
-
-  if (!isLoaded) {
-    return <div>Loading font...</div>; // O cualquier indicador de carga
-  }
-
-  return (
-    <div style={{ fontFamily: `'${fontFamily}', sans-serif` }}>{children}</div>
-  );
 }

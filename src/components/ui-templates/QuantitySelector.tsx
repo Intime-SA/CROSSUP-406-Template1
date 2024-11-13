@@ -2,16 +2,10 @@
 
 import React from "react";
 import { Button } from "@/components/ui/button";
-import { Variant } from "@/domain/definitionsTypes";
+import { QuantitySelectorProps, Variant } from "@/domain/definitionsTypes";
 import { Minus, Plus } from "lucide-react";
 
-interface QuantitySelectorProps {
-  variant: Variant | null;
-  quantity: number;
-  onIncrease: () => void;
-  onDecrease: () => void;
-}
-
+// componente selector de quantity
 const QuantitySelector: React.FC<QuantitySelectorProps> = ({
   variant,
   quantity,

@@ -246,3 +246,53 @@ export interface Colors {
   secondary: string;
   font: string;
 }
+
+export interface QuantitySelectorProps {
+  variant: Variant | null;
+  quantity: number;
+  onIncrease: () => void;
+  onDecrease: () => void;
+}
+
+export interface RecommendedProductsProps {
+  products: TargetProduct[] | null;
+  openModalViewProduct: (product: TargetProduct) => void;
+  onClose: () => void;
+}
+
+export interface RecommendedProductsProps {
+  products: TargetProduct[] | null;
+  openModalViewProduct: (product: TargetProduct) => void;
+  onClose: () => void;
+}
+
+export interface SizeSelectorProps {
+  variants: Variant[];
+  availableSizes: string[];
+  selectedSize: string;
+  onSizeSelect: (size: string) => void;
+}
+
+export interface StockInfoProps {
+  selectedVariant: Variant | null;
+}
+
+export interface SheetContentProps {
+  isLoading: boolean;
+  mainProduct: MainProduct2 | null;
+  handleClose: () => void;
+  handleOpenModalViewProduct: (product: TargetProduct) => void;
+  titleText: string;
+  recommendedProducts: TargetProduct[] | null;
+}
+
+export interface SheetContentPropsHorizontal {
+  mainProduct: MainProduct2 | null;
+  handleClose: () => void;
+  handleOpenModalViewProduct: (product: TargetProduct) => void;
+  recommendedProducts: TargetProduct[] | null;
+  isLoading: boolean;
+  titleText: string;
+  isOpen: boolean;
+  setIsOpen: (state: boolean) => void;
+}

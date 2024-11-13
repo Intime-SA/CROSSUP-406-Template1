@@ -2,6 +2,7 @@ import React from "react";
 import { Skeleton } from "./Skeleton";
 import { X } from "lucide-react";
 
+// PRODUCT SHOOTER SKELETON
 const ProductAddedSkeleton: React.FC = () => {
   return (
     <div className="w-full p-4 bg-background">

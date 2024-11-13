@@ -30,8 +30,6 @@ export default function Hijo() {
       if (event.data && event.data.type === "NEW_OFFER") {
         try {
           const datos: PromotionData = JSON.parse(event.data.payload);
-          console.log("Datos recibidos del padre:", datos);
-
           // Ejecutamos processData con los datos recibidos
           processData(datos);
         } catch (error) {
@@ -64,6 +62,8 @@ export default function Hijo() {
         {/* APLICA LOGICA DE TEMPLATE HORIZONTAL */}
         {template === DesignType.HORIZONTAL && (
           <HorizontalTemplate
+            setIsOpen={setIsOpen}
+            isOpen={isOpen}
             mainProduct={mainProduct}
             handleClose={handleClose}
             handleOpenModalViewProduct={handleOpenModalViewProduct}
@@ -74,6 +74,7 @@ export default function Hijo() {
         )}
       </Sheet>
 
+      {/* APLICA LOGICA DE OPEN PRODUCTO ESPECIFICO HORIZONTAL Y VERTICAL */}
       {selectedProduct && (
         <ProductView
           product={selectedProduct}

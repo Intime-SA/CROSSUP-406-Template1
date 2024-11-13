@@ -5,12 +5,14 @@ import { ProductAddedProps } from "@/domain/definitionsTypes";
 import { useProductSelectors } from "@/hooks/useSelectors";
 import { Check } from "lucide-react";
 
+// componente señalador del shooter
 export const ProductAdded: React.FC<ProductAddedProps> = ({
   onClose,
   closeIconSrc = "/bottomClose.svg",
   mainProduct,
   openModalViewProduct,
 }) => {
+  // Mostrar o no mostrar la descripcion
   const { visibilityDescription } = useProductSelectors();
 
   return (
@@ -47,8 +49,7 @@ export const ProductAdded: React.FC<ProductAddedProps> = ({
             />
           </div>
           <div className="flex-1 flex flex-col gap-2">
-            <button
-              onClick={() => openModalViewProduct(mainProduct)}
+            <span
               className={`text-left text-[var(--primary-text)] text-sm font-medium focus:outline-none transition-colors duration-200 ease-in-out hover:text-[#4a4760] ${
                 visibilityDescription ? "line-clamp-3" : ""
               }`}
@@ -57,7 +58,7 @@ export const ProductAdded: React.FC<ProductAddedProps> = ({
               {visibilityDescription &&
                 mainProduct.description.es &&
                 ` + ${mainProduct.description.es}`}
-            </button>
+            </span>
             <div className="text-[var(--primary-text)] text-sm font-semibold">
               1 x {formatPrice(mainProduct.variants[0].price)}
             </div>

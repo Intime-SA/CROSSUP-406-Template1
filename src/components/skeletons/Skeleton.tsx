@@ -1,5 +1,6 @@
 import { cn } from "@/lib/utils";
 
+// SKELETON GENERAL
 function Skeleton({
   className,
   ...props

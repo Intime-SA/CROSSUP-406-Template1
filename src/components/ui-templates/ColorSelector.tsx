@@ -1,6 +1,7 @@
 import React from "react";
 import { ColorSelectorProps } from "@/domain/definitionsTypes";
 
+// Componente de selector de color
 const ColorSelector: React.FC<ColorSelectorProps> = ({
   variants,
   availableColors,

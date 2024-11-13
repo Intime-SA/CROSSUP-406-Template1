@@ -14,6 +14,7 @@ const PARENT_URL =
   process.env.NEXT_PUBLIC_URL_PARENT_DEPLOY ||
   "https://crossup-406-template1.vercel.app/";
 
+// SIMULADOR DE PARENT
 export default function SplitViewTemplates() {
   const mobileIframeRef = useRef<HTMLIFrameElement>(null); // SIMULACION MOBILE IFRAME
   const desktopIframeRef = useRef<HTMLIFrameElement>(null); // SIMULACION DESKTOP IFRAME
@@ -44,30 +45,21 @@ export default function SplitViewTemplates() {
 
   // RECEPCION DE MENSAJES
   const handleMessage = useCallback((event: MessageEvent) => {
-    console.log("Received message:", event);
-
-    // SI SON MENSAJES DISTINTOS A LA URL DEL PARENT, RETURN.
-    if (event.origin !== PARENT_URL) {
-      console.log("Origin mismatch:", event.origin, PARENT_URL);
-      return;
-    }
-
     // SI EL MENSAJE ES UN STRING, PARSEARLO. SINO ERROR.
     let parsedData;
     if (typeof event.data === "string") {
       try {
         parsedData = JSON.parse(event.data);
       } catch (error) {
-        console.error("Error parsing message:", error);
+        console.log("Error parsing message:", error);
         return;
       }
     } else {
       parsedData = event.data;
     }
 
-    // SI NO ES UN STRING, QUE TIRE ERROR
+    // SI NO ES UN STRING, QUE FINALICE LA FUNCTION
     if (!parsedData || !parsedData.type) {
-      console.error("Invalid message format");
       return;
     }
 
@@ -97,7 +89,7 @@ export default function SplitViewTemplates() {
     updateResponse(source, responseMessage);
   }, []);
 
-  // ACTUALIZAR RESPUESTAS CON MENSAJE Y WINDOW.
+  // ACTUALIZAR RESPUESTAS CON MENSAJE Y WINDOW
   const updateResponse = useCallback((source: Window, message: string) => {
     if (source === mobileIframeRef.current?.contentWindow) {
       setRespuestas((prev) => ({ ...prev, mobile: message }));

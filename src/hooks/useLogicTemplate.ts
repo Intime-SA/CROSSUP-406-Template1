@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, useCallback } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { handleWatchMore, onClosePopUp } from "@/lib/functions";
 import {
   TargetProduct,
@@ -10,27 +10,38 @@ import {
   Colors,
 } from "@/domain/definitionsTypes";
 import { updateMultipleStates } from "@/redux/features/promotionSlice";
-import { RootState } from "@/redux/store";
 import { NEW_OFFER } from "@/constants";
 
+// hook de logica
 export const useLogicTemplate = () => {
+  // guarda en un estado el product disparador de oferta "shooter"
   const [mainProduct, setMainProduct] = useState<MainProduct2 | null>(null);
+
+  // guarda en un estado el array de productos recomendados "targets"
   const [recommendedProducts, setRecommendedProducts] = useState<
     TargetProduct[]
   >([]);
+
+  // guarda en un estado para abrir y cerrar modals/popUp
   const [isOpen, setIsOpen] = useState(false);
+
+  // selecciona a un producto recomendado y/o producto disparador para pasarle como prop a la vista
   const [selectedProduct, setSelectedProduct] = useState<TargetProduct | null>(
     null
   );
+
+  // maneja estado de carga para dar aviso cuando se terminan de procesar la data.
   const [isLoading, setIsLoading] = useState(false);
 
+  // persiste el tipo de template a utilizar
   const [template, setTemplate] = useState("");
 
-  const dispatch = useDispatch();
-  const titleText = useSelector(
-    (state: RootState) => state.promotion.titleText
-  );
+  const [titleText, setTitleText] = useState("");
 
+  // inicializa dispatch para ejecutar update state de redux.
+  const dispatch = useDispatch();
+
+  // update variables globales del global.css
   const updateCSSVariables = useCallback((colors: Colors) => {
     document.documentElement.style.setProperty(
       "--primary-text",
@@ -42,6 +53,7 @@ export const useLogicTemplate = () => {
     );
   }, []);
 
+  // procesa data recibida del parent y la mapea para actualizar el state promotionSlice de redux
   const processData = useCallback(
     (data: PromotionData | null) => {
       if (!data) {
@@ -49,6 +61,7 @@ export const useLogicTemplate = () => {
         return;
       }
 
+      // states de promotionSlice.ts
       const stateUpdates = {
         amountOfTime: data.timer?.amountOfTime ?? 0,
         timerGlobal: data.timer?.hasTimer ?? false,
@@ -68,30 +81,44 @@ export const useLogicTemplate = () => {
         colors: data.colors ?? { primary: "", secondary: "" },
       };
 
+      // dispatch para actualizar state global.
       dispatch(updateMultipleStates(stateUpdates));
 
+      // aplica estado global sobre los colores.
       if (data.colors) {
         updateCSSVariables(data.colors);
       }
 
+      // aplica al main product (shooter)
       if (data.shooters && data.shooters.length > 0) {
         setMainProduct(data.shooters[0]);
       }
 
+      // aplica a los recomended products (targets)
       if (data.targets && data.targets.length > 0) {
         setRecommendedProducts(data.targets);
       }
 
+      // aplica el template segun el desingType
       if (data.desingType) {
         setTemplate(data.desingType);
       }
 
+      // aplica el titleText de la promocion.
+      if (data.text.title) {
+        setTitleText(data.text.title);
+      }
+
+      // pasa a true estado para abrir PopUp / Sheet, segun corresponda.
       setIsOpen(true);
+
+      // determina que ya se aplico correctamente los estados
       setIsLoading(false);
     },
     [dispatch, updateCSSVariables]
   );
 
+  // funcion para enviar mensaje
   const handleMessage = useCallback(
     (event: MessageEvent) => {
       if (
@@ -109,6 +136,7 @@ export const useLogicTemplate = () => {
     [processData]
   );
 
+  // queda a la escucha de mensajes
   useEffect(() => {
     window.addEventListener("message", handleMessage);
 
@@ -117,17 +145,20 @@ export const useLogicTemplate = () => {
     };
   }, [handleMessage]);
 
+  // funcion para abrir los modal a traves de selectProduct o watchMore
   const handleOpenModalViewProduct = useCallback((product: TargetProduct) => {
     setSelectedProduct(product);
     handleWatchMore(product);
   }, []);
 
+  // funcion para cerrar popUps
   const handleClose = useCallback(() => {
     onClosePopUp("closeModal");
     setIsOpen(false);
     setSelectedProduct(null);
   }, []);
 
+  // exportacion de los metodos del hook.
   return {
     mainProduct,
     recommendedProducts,

@@ -2,19 +2,17 @@
 
 import React, { useState, useRef } from "react";
 import Image from "next/image";
-import { TargetProduct } from "@/domain/definitionsTypes";
+import {
+  RecommendedProductsProps,
+  TargetProduct,
+} from "@/domain/definitionsTypes";
 import { formatPrice } from "@/lib/utils";
 import { CountdownTimer } from "./CountDownTimer";
 import { addToCartHandler } from "@/lib/functions";
 import { useProductSelectors } from "@/hooks/useSelectors";
 import { ChevronLeft, ChevronRight, Plus } from "lucide-react";
 
-interface RecommendedProductsProps {
-  products: TargetProduct[] | null;
-  openModalViewProduct: (product: TargetProduct) => void;
-  onClose: () => void;
-}
-
+// componente productos recomendados template horizontal
 export default function RecommendedProductsHorizontal({
   products,
   openModalViewProduct,
@@ -23,8 +21,11 @@ export default function RecommendedProductsHorizontal({
   const [clickedProducts, setClickedProducts] = useState<Set<TargetProduct>>(
     new Set()
   );
+
+  // localizador de posicion para el carrusel
   const scrollContainerRef = useRef<HTMLDivElement>(null);
 
+  // trae states redux glboales de promotion.
   const {
     quantity,
     visibilityDescription,
@@ -39,6 +40,7 @@ export default function RecommendedProductsHorizontal({
     canModifyQuantity,
   } = useProductSelectors();
 
+  // metodo para agregar al carrito
   const handleAddToCartAndClose = (target: TargetProduct) => {
     if (!target) {
       console.error("Producto no encontrado");
@@ -55,6 +57,7 @@ export default function RecommendedProductsHorizontal({
     }
   };
 
+  // metodo para scrollear en horizontal
   const scroll = (direction: "left" | "right") => {
     if (scrollContainerRef.current) {
       const scrollAmount = scrollContainerRef.current.offsetWidth * 0.8;

@@ -1,13 +1,7 @@
 import React from "react";
-import { Variant } from "@/domain/definitionsTypes";
+import { SizeSelectorProps, Variant } from "@/domain/definitionsTypes";
 
-interface SizeSelectorProps {
-  variants: Variant[];
-  availableSizes: string[];
-  selectedSize: string;
-  onSizeSelect: (size: string) => void;
-}
-
+// Componente de talles
 const SizeSelector: React.FC<SizeSelectorProps> = ({
   variants,
   availableSizes,

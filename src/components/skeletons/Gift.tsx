@@ -1,5 +1,6 @@
 import React from "react";
 
+// CARRITO LOADER DE QUE SE UTILIZA CUANDO INICIALIZA EL PROYECT
 const Gift = () => {
   return (
     <div className="text-[var(--primary-text)]">

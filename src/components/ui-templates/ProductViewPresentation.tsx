@@ -11,6 +11,7 @@ import AddToCartButton from "./AddToCartButtom";
 import { ProductViewPresentationProps } from "@/domain/definitionsTypes";
 import { useProductSelectors } from "@/hooks/useSelectors";
 
+// Componente de producto especifico template 1 y 2
 export const ProductViewPresentation: React.FC<
   ProductViewPresentationProps
 > = ({
@@ -31,6 +32,7 @@ export const ProductViewPresentation: React.FC<
   setShowMessage,
   showMessage,
 }) => {
+  // selector de modificador de cantidad.
   const { canModifyQuantity } = useProductSelectors();
   console.log(canModifyQuantity);
 

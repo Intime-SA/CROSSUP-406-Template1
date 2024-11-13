@@ -7,6 +7,7 @@ import { TargetProduct } from "@/domain/definitionsTypes";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
+// componente carrusel de imagenes
 export default function ProductCarousel({
   product,
 }: {
@@ -14,6 +15,7 @@ export default function ProductCarousel({
 }) {
   const sliderRef = useRef<Slider | null>(null);
 
+  // configuracion del slider de imagenes
   const settings = {
     infinite: true,
     speed: 500,

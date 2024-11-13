@@ -26,7 +26,7 @@ export const templateOptions = {
     type: "template1A",
   },
   template1B: {
-    label: "Con limites y maximos de textos (1B)",
+    label: "Con limites y maximos de textos (2B)",
     type: "template1B",
   },
   template1C: {
@@ -34,7 +34,7 @@ export const templateOptions = {
     type: "template1C",
   },
   template1D: {
-    label: "Con descuentos y widgets globales (1D°)",
+    label: "Con descuentos y widgets globales (2D°)",
     type: "template1D",
   },
 };
