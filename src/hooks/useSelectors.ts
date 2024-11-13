@@ -2,8 +2,15 @@ import { useSelector } from "react-redux";
 import { RootState } from "@/redux/store";
 
 export const useProductSelectors = () => {
+  // selected Tareget / variant seleccionada.
   const quantity = useSelector(
     (state: RootState) => state.selectedTarget.quantity
+  );
+
+  // persistencia de screemshot de la offer/sugerencia/promocion
+
+  const desingType = useSelector(
+    (state: RootState) => state.promotion.desingType
   );
 
   const visibilityDescription = useSelector(
@@ -61,6 +68,7 @@ export const useProductSelectors = () => {
     fontFamily,
     colors,
     quantity,
+    desingType,
     visibilityDescription,
     amountOfTime,
     timerGlobal,

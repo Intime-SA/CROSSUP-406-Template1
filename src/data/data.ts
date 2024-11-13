@@ -1,4 +1,4 @@
-import { DesignType, PromotionData } from "@/domain/definitionsTypes";
+import { PromotionData } from "@/domain/definitionsTypes";
 
 export const getMockOfferData = (): PromotionData => ({
   _id: "67223aac87729c4433dcbc31",
@@ -7,7 +7,7 @@ export const getMockOfferData = (): PromotionData => ({
     secondary: "red",
     font: "Merriweather",
   },
-  desingType: DesignType.VERTICAL,
+  desingType: "vertical",
   targets: [
     {
       _id: "64de16e59ffb22f98387cc3e",

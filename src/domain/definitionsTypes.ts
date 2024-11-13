@@ -82,7 +82,7 @@ interface Text {
 export interface PromotionData {
   _id: string;
   colors: ColorsApi;
-  desingType: DesignType;
+  desingType: string;
   targets: TargetProduct[];
   privateName: string;
   showingPlace: string;
@@ -236,8 +236,8 @@ export interface ProductViewPresentationProps extends ViewProductProps {
 
 // enum para los diferentes tipos de template
 export enum DesignType {
-  VERTICAL = "template1",
-  HORIZONTAL = "template2",
+  VERTICAL = "vertical",
+  HORIZONTAL = "horizontal",
   HISTORY = "template3",
 }
 

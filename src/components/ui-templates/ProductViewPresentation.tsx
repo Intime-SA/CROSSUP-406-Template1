@@ -90,7 +90,6 @@ export const ProductViewPresentation: React.FC<
             />
           </div>
         </div>
-
         <AddToCartButton
           onAddToCart={handleAddToCartAndClose}
           setShowMessage={setShowMessage}

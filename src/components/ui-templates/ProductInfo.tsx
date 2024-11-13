@@ -6,7 +6,6 @@ import { useProductSelectors } from "@/hooks/useSelectors";
 const ProductInfo: React.FC<ProductInfoProps> = ({
   product,
   selectedVariant,
-  showMessage,
 }) => {
   const {
     visibilityDescription,
@@ -40,19 +39,22 @@ const ProductInfo: React.FC<ProductInfoProps> = ({
 
       <div className="self-stretch justify-between items-center flex">
         <div className="flex items-center gap-2">
-          {isFixedDiscount ? (
-            <span className="text-sm font-semibold text-[var(--primary-text)]">
-              {formatPrice(
-                (selectedVariant?.price || product.variants[0]?.price || 0) -
-                  discountAmount
-              )}
-            </span>
+          {discountIsActive && !isFixedDiscount ? (
+            <div
+              className="text-xs font-semibold"
+              style={{ color: "var(--primary-text)" }}
+            >
+              {formatPrice(product.variants[0].price * (1 - discountAmount))}
+            </div>
           ) : (
-            <span className="text-sm font-semibold text-[var(--primary-text)]">
-              {formatPrice(
-                selectedVariant?.price || product.variants[0]?.price || 0
-              )}
-            </span>
+            <div
+              className="text-xs font-semibold"
+              style={{ color: "var(--primary-text)" }}
+            >
+              {isFixedDiscount
+                ? formatPrice(product.variants[0].price - discountAmount)
+                : formatPrice(product.variants[0].price)}
+            </div>
           )}
 
           {!isFixedDiscount ? (
@@ -72,15 +74,6 @@ const ProductInfo: React.FC<ProductInfoProps> = ({
           {formatPrice(
             selectedVariant?.price || product.variants[0]?.price || 0
           )}
-        </div>
-      )}
-      {showMessage && (
-        <div className="absolute inset-0 flex items-center justify-center z-10">
-          <div className="h-[37px] p-2 bg-[#f9f8ff] rounded-lg shadow border border-[#e3e3e3] justify-start items-center gap-1 inline-flex">
-            <div className="grow shrink basis-0 text-[#2a2742] text-sm font-normal">
-              Por favor, selecciona una opción de cada variación
-            </div>
-          </div>
         </div>
       )}
     </div>

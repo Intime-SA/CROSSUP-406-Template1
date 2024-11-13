@@ -31,7 +31,7 @@ export const VerticalTemplate: React.FC<SheetContentProps> = ({
   return (
     <SheetContent
       side={isDesktop ? "right" : "bottom"}
-      className={isDesktop ? "w-[400px] sm:max-w-[400px]" : "h-[100vh]"}
+      className={isDesktop ? "w-[500px] sm:max-w-[500px]" : "h-[100vh]"}
       fullSize={!isDesktop}
     >
       <SheetHeader>

@@ -24,6 +24,8 @@ export const useLogicTemplate = () => {
   );
   const [isLoading, setIsLoading] = useState(false);
 
+  const [template, setTemplate] = useState("");
+
   const dispatch = useDispatch();
   const titleText = useSelector(
     (state: RootState) => state.promotion.titleText
@@ -54,8 +56,7 @@ export const useLogicTemplate = () => {
         fixedDiscount: data.discount?.isFixedDiscount ?? false,
         discountAmount: data.discount?.amount ?? 0,
         hasShortageGlobal:
-          (data.shortage?.hasShortage && data.showingPlace === "checkout") ??
-          false,
+          (data.shortage?.hasShortage && data.showingPlace === "cart") ?? false,
         canModifyQuantity: data.canModifyQuantity ?? false,
         hasShortage: data.shortage?.hasShortage ?? false,
         hasShortageText: data.shortage?.text ?? "",
@@ -79,6 +80,10 @@ export const useLogicTemplate = () => {
 
       if (data.targets && data.targets.length > 0) {
         setRecommendedProducts(data.targets);
+      }
+
+      if (data.desingType) {
+        setTemplate(data.desingType);
       }
 
       setIsOpen(true);
@@ -134,5 +139,6 @@ export const useLogicTemplate = () => {
     handleOpenModalViewProduct,
     handleClose,
     processData,
+    template,
   };
 };

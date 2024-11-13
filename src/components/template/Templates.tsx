@@ -9,47 +9,50 @@ import { Button } from "@/components/ui/button";
 import { ADD_TO_CART, IGNORE_OFFER, NEW_OFFER, WATCH_MORE } from "@/constants";
 import { templateOptions } from "@/lib/utils";
 
+// URL IFRAME
 const PARENT_URL =
   process.env.NEXT_PUBLIC_URL_PARENT_DEPLOY ||
   "https://crossup-406-template1.vercel.app/";
 
 export default function SplitViewTemplates() {
-  const mobileIframeRef = useRef<HTMLIFrameElement>(null);
-  const desktopIframeRef = useRef<HTMLIFrameElement>(null);
-  const [mensajeEnviado, setMensajeEnviado] = useState(false);
+  const mobileIframeRef = useRef<HTMLIFrameElement>(null); // SIMULACION MOBILE IFRAME
+  const desktopIframeRef = useRef<HTMLIFrameElement>(null); // SIMULACION DESKTOP IFRAME
+  const [mensajeEnviado, setMensajeEnviado] = useState(false); // MENSAJE ENVIADO AL HIJO
+
+  // RESPUESTAS DEL HIJO PARA RENDERIZAR
   const [respuestas, setRespuestas] = useState<{
     mobile: string | null;
     desktop: string | null;
   }>({ mobile: null, desktop: null });
+
+  // ERRORES
   const [error, setError] = useState<string | null>(null);
+
+  // IMPORTACION DE STATE LOADED DE FONTS
   const { isLoaded } = useDynamicFont();
+
+  // IMPORTACION DE STATE LOADING DE LOGICA
   const { isLoading } = useLogicTemplate();
+
+  // SELECCION DE TEMPLATE PARA MOSTRAR
   const [selectedTemplate, setSelectedTemplate] =
     useState<string>("template1D");
-
-  useEffect(() => {
-    const savedTemplate = localStorage.getItem("selectedTemplate");
-    if (
-      savedTemplate &&
-      templateOptions[savedTemplate as keyof typeof templateOptions]
-    ) {
-      setSelectedTemplate(savedTemplate);
-    } else {
-      window.location.reload();
-    }
-  }, []);
 
   useEffect(() => {
     localStorage.setItem("selectedTemplate", selectedTemplate);
   }, [selectedTemplate]);
 
+  // RECEPCION DE MENSAJES
   const handleMessage = useCallback((event: MessageEvent) => {
     console.log("Received message:", event);
+
+    // SI SON MENSAJES DISTINTOS A LA URL DEL PARENT, RETURN.
     if (event.origin !== PARENT_URL) {
       console.log("Origin mismatch:", event.origin, PARENT_URL);
       return;
     }
 
+    // SI EL MENSAJE ES UN STRING, PARSEARLO. SINO ERROR.
     let parsedData;
     if (typeof event.data === "string") {
       try {
@@ -62,22 +65,24 @@ export default function SplitViewTemplates() {
       parsedData = event.data;
     }
 
+    // SI NO ES UN STRING, QUE TIRE ERROR
     if (!parsedData || !parsedData.type) {
       console.error("Invalid message format");
       return;
     }
 
+    // SIMULAR EL SOURCE CON UN
     const source = event.source as Window;
     let responseMessage = "";
 
-    console.log("Parsed data:", parsedData);
+    // MANEJO DE RESPUESTA
     switch (parsedData.type) {
       case ADD_TO_CART:
         const { quantity, variant } = parsedData.payload;
         responseMessage = `type: ADD_TO_CART, payload: "${quantity} of variant ${variant.id} to cart"`;
         break;
       case IGNORE_OFFER:
-        responseMessage = `type: IGNORE_OFFER`;
+        responseMessage = "type: IGNORE_OFFER";
         break;
       case WATCH_MORE:
         const { productId, productName } = parsedData.payload;
@@ -88,9 +93,11 @@ export default function SplitViewTemplates() {
         return;
     }
 
+    // ENVIO DE PARAMETROS PARA ACTUALIZAR RESPONSE
     updateResponse(source, responseMessage);
   }, []);
 
+  // ACTUALIZAR RESPUESTAS CON MENSAJE Y WINDOW.
   const updateResponse = useCallback((source: Window, message: string) => {
     if (source === mobileIframeRef.current?.contentWindow) {
       setRespuestas((prev) => ({ ...prev, mobile: message }));
@@ -101,11 +108,13 @@ export default function SplitViewTemplates() {
     }
   }, []);
 
+  // EVENTO DE ESCUCHA DE MENSAJES.
   useEffect(() => {
     window.addEventListener("message", handleMessage);
     return () => window.removeEventListener("message", handleMessage);
   }, [handleMessage]);
 
+  // SELECCION DE METODO PARA ENVIAR AL CHILDREN
   const sendMessageChildren = useCallback(async () => {
     try {
       const data: PromotionData = await fetchDataFromJson(selectedTemplate);
@@ -119,7 +128,6 @@ export default function SplitViewTemplates() {
           );
         }
       });
-
       setMensajeEnviado(true);
       setRespuestas({ mobile: null, desktop: null });
       setError(null);
@@ -131,6 +139,7 @@ export default function SplitViewTemplates() {
     }
   }, [selectedTemplate]);
 
+  // TIMEOUT PARA ENVIAR MENSAJE DESPUES DE APLICAR LOS STATES.
   useEffect(() => {
     if (isLoaded && !isLoading) {
       setTimeout(() => {
@@ -174,7 +183,7 @@ export default function SplitViewTemplates() {
       </div>
 
       <div className="flex flex-1 gap-4 min-h-0">
-        <div className="w-1/4 bg-background rounded-lg shadow-lg overflow-hidden">
+        <div className="w-1/6 bg-background rounded-lg shadow-lg overflow-hidden">
           <div className="h-full flex flex-col">
             <div className="bg-muted px-4 py-2 text-sm font-medium">
               Vista Mobile
