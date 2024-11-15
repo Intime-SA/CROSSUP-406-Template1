@@ -16,12 +16,13 @@ const ProductInfo: React.FC<ProductInfoProps> = ({
     discountAmount,
     isFixedDiscount,
     hasShortageText,
+    hasShortageGlobal,
   } = useProductSelectors();
 
   return (
     <div className="self-stretch flex-col justify-start items-start gap-2 flex text-[var(--primary-text)]">
       <div className="self-stretch font-semibold text-foreground text-[var(--primary-text)]">
-        <span className="text-[var(--primary-text)]">
+        <span className="text-[var(--primary-text)] line-clamp-3">
           {product.name.es}
           {visibilityDescription &&
             product.description.es &&
@@ -29,9 +30,9 @@ const ProductInfo: React.FC<ProductInfoProps> = ({
         </span>
       </div>
 
-      {hasShortage && (
+      {hasShortage && !hasShortageGlobal && (
         <div className="inline-flex items-center px-1.5 py-0.5 border border-[var(--border-components)] w-fit">
-          <div className="text-[var(--border-components)] text-xs text-center font-semibold uppercase tracking-wide">
+          <div className="text-[var(--border-components)] text-xs text-center uppercase tracking-wide">
             <span className="text-[var(--border-components)]">
               {hasShortageText}
             </span>

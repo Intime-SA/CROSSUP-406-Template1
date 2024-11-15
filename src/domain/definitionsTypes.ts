@@ -238,7 +238,7 @@ export interface ProductViewPresentationProps extends ViewProductProps {
 export enum DesignType {
   VERTICAL = "vertical",
   HORIZONTAL = "horizontal",
-  HISTORY = "template3",
+  HISTORY = "history",
 }
 
 export interface Colors {
@@ -295,4 +295,19 @@ export interface SheetContentPropsHorizontal {
   titleText: string;
   isOpen: boolean;
   setIsOpen: (state: boolean) => void;
+  template: string;
+}
+
+export interface ProductHistoryProps {
+  key: string;
+  product: TargetProduct;
+  setIsOpen: (isOpen: boolean) => void;
+  onClose: () => void;
+  template: string;
+}
+
+export interface CarouselApi {
+  scrollTo: (index: number) => void;
+  on: (event: string, callback: () => void) => void;
+  selectedScrollSnap: () => number;
 }

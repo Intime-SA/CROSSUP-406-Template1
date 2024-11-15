@@ -22,19 +22,27 @@ export const formatPrice = (price: number) => {
 
 export const templateOptions = {
   template1A: {
-    label: "Template sugerencias y Producto especifico (1A)",
+    label: "Template sugerencias y Producto especifico (1)",
     type: "template1A",
   },
   template1B: {
-    label: "Con limites y maximos de textos (2B)",
+    label: "Con limites y maximos de textos (2)",
     type: "template1B",
   },
   template1C: {
-    label: "Con descuentos y widgets (1C°)",
+    label: "Con descuentos y widgets (1)",
     type: "template1C",
   },
   template1D: {
-    label: "Con descuentos y widgets globales (2D°)",
+    label: "Con descuentos y widgets globales (2)",
     type: "template1D",
+  },
+  template1E: {
+    label: "Con descuentos y widgets Globales (3)",
+    type: "template1E",
+  },
+  template1F: {
+    label: "Con descuentos y widgets (3)",
+    type: "template1F",
   },
 };

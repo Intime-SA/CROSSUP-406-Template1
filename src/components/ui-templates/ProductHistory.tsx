@@ -1,0 +1,105 @@
+import React from "react";
+import { Button } from "@/components/ui/button";
+import { X } from "lucide-react";
+import ProductImage from "./ProductImage";
+import ProductInfo from "./ProductInfo";
+import QuantitySelector from "./QuantitySelector";
+import ColorSelector from "./ColorSelector";
+import SizeSelector from "./SizeSelector";
+import AddToCartButton from "./AddToCartButtom";
+import { useProductView } from "@/hooks/useProductView";
+import { DesignType, ProductHistoryProps } from "@/domain/definitionsTypes";
+import { useProductSelectors } from "@/hooks/useSelectors";
+
+const ProductHistory: React.FC<ProductHistoryProps> = ({
+  product,
+  setIsOpen,
+  onClose,
+  template,
+}) => {
+  const {
+    variants,
+    selectedVariant,
+    quantity,
+    availableSizes,
+    availableColors,
+    handleIncrease,
+    handleDecrease,
+    handleColorSelect,
+    handleSizeSelect,
+    showMessage,
+    setShowMessage,
+  } = useProductView(product); // Use product.id as a unique identifier
+
+  const { canModifyQuantity } = useProductSelectors();
+
+  const handleAddToCartAndClose = () => {
+    setIsOpen(false);
+  };
+
+  return (
+    <div className="w-full max-w-[330px] mx-auto">
+      <div className="flex flex-col h-full">
+        <div className="relative flex-grow">
+          {template !== DesignType.HISTORY && (
+            <Button
+              variant="outline"
+              size="icon"
+              className="absolute right-2 -top-4 p-2 rounded-full border border-border bg-background z-50 hover:bg-secondary"
+              onClick={onClose}
+            >
+              <X className="h-4 w-4 text-foreground" />
+              <span className="sr-only">Close</span>
+            </Button>
+          )}
+
+          <div className="flex-grow overflow-y-auto scrollbar-thin scrollbar-thumb-zinc-300 scrollbar-thumb-rounded-full hover:scrollbar-thumb-zinc-400 dark:scrollbar-thumb-zinc-700 dark:hover:scrollbar-thumb-zinc-600">
+            <div className="p-4 flex flex-col justify-start items-start gap-4 pb-24 pr-2">
+              <ProductImage product={product} />
+              <ProductInfo
+                product={product}
+                selectedVariant={selectedVariant}
+                quantity={quantity}
+              />
+              {showMessage && (
+                <div className="w-full">
+                  <div className="h-[37px] p-2 bg-[#f9f8ff] rounded-lg shadow border border-[#e3e3e3] flex items-center justify-center">
+                    <p className="text-[#2a2742] text-sm font-normal">
+                      Por favor, selecciona una opción de cada variación
+                    </p>
+                  </div>
+                </div>
+              )}
+              {canModifyQuantity && (
+                <QuantitySelector
+                  variant={selectedVariant}
+                  quantity={quantity}
+                  onIncrease={handleIncrease}
+                  onDecrease={handleDecrease}
+                />
+              )}
+              <ColorSelector
+                variants={variants}
+                availableColors={availableColors}
+                selectedColor={selectedVariant?.attr.Color || ""}
+                onColorSelect={handleColorSelect}
+              />
+              <SizeSelector
+                variants={variants}
+                availableSizes={availableSizes}
+                selectedSize={selectedVariant?.attr.Talle || ""}
+                onSizeSelect={handleSizeSelect}
+              />
+            </div>
+          </div>
+          <AddToCartButton
+            onAddToCart={handleAddToCartAndClose}
+            setShowMessage={setShowMessage}
+          />
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default ProductHistory;

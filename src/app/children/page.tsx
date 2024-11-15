@@ -7,6 +7,7 @@ import ProductView from "@/components/ui-templates/ProductView";
 import { useLogicTemplate } from "@/hooks/useLogicTemplate";
 import { DesignType, PromotionData } from "@/domain/definitionsTypes";
 import { HorizontalTemplate } from "@/components/ui-templates/HorizontalTemplate";
+import HistoryTemplate from "@/components/ui-templates/HistoryTemplate";
 
 export default function Hijo() {
   // TRAE TODOS LOS ESTADOS Y VARIABLES DE INTERES DEL HOOK useLogicTemplate();
@@ -70,6 +71,21 @@ export default function Hijo() {
             recommendedProducts={recommendedProducts}
             isLoading={isLoading}
             titleText={titleText}
+            template={template}
+          />
+        )}
+
+        {template === DesignType.HISTORY && (
+          <HistoryTemplate
+            setIsOpen={setIsOpen}
+            isOpen={isOpen}
+            mainProduct={mainProduct}
+            handleClose={handleClose}
+            handleOpenModalViewProduct={handleOpenModalViewProduct}
+            recommendedProducts={recommendedProducts}
+            isLoading={isLoading}
+            titleText={titleText}
+            template={template}
           />
         )}
       </Sheet>
