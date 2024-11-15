@@ -97,6 +97,7 @@ export default function Hijo() {
           isOpen={isOpen}
           onClose={handleClose}
           setIsOpen={setIsOpen}
+          template={template}
         />
       )}
     </div>

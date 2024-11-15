@@ -178,7 +178,8 @@ export interface ViewProductProps {
   product: TargetProduct;
   setIsOpen: (state: boolean) => void;
   isOpen: boolean; // Indica si el modal está abierto
-  onClose: () => void; // Función para cerrar el modal
+  onClose: () => void;
+  template: string; // Función para cerrar el modal
 }
 
 //
@@ -232,6 +233,7 @@ export interface ProductViewPresentationProps extends ViewProductProps {
   handleAddToCartAndClose: () => void;
   setShowMessage: (state: boolean) => void;
   showMessage: boolean;
+  template: string;
 }
 
 // enum para los diferentes tipos de template

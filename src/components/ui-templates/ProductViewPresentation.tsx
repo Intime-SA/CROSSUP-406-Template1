@@ -7,7 +7,7 @@ import ProductHistory from "./ProductHistory";
 
 export const ProductViewPresentation: React.FC<
   ProductViewPresentationProps
-> = ({ product, isOpen, setIsOpen, onClose }) => {
+> = ({ product, isOpen, setIsOpen, onClose, template }) => {
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogContent className="flex flex-col w-full p-0 mt-[10vh] h-[80vh] max-h-[888px] md:max-h-[808px] md:mt-0 md:h-full md:w-[430px] bg-background text-foreground max-w-full">
@@ -16,6 +16,7 @@ export const ProductViewPresentation: React.FC<
           product={product}
           setIsOpen={setIsOpen}
           onClose={onClose}
+          template={template}
         />
       </DialogContent>
     </Dialog>
