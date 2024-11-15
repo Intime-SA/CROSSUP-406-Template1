@@ -8,6 +8,7 @@ export const ProductView: React.FC<ViewProductProps> = ({
   setIsOpen,
   isOpen,
   onClose,
+  template,
 }) => {
   const {
     variants,
@@ -45,6 +46,7 @@ export const ProductView: React.FC<ViewProductProps> = ({
       handleColorSelect={handleColorSelect}
       handleSizeSelect={handleSizeSelect}
       handleAddToCartAndClose={handleAddToCartAndClose}
+      template={template}
     />
   );
 };
