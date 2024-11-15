@@ -103,7 +103,9 @@ export const HistoryTemplate: React.FC<SheetContentPropsHorizontal> = ({
           </Button>
           <DialogTitle className="flex flex-center flex-col text-center text-xl font-semibold px-12 space-y-4">
             <div className="mb-2 flex justify-between w-5/6">
-              {titleText || "Recommended Products"}{" "}
+              <span className="line-clamp-1">
+                {titleText || "Recommended Products"}{" "}
+              </span>
               {template === DesignType.HISTORY && (
                 <div className="flex items-center gap-3">
                   {" "}

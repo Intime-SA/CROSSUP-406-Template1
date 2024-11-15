@@ -703,7 +703,8 @@ export const getMockOfferData5 = (): PromotionData => ({
   exceptions: null,
   isUpsell: false,
   text: {
-    title: "ATENCION",
+    title:
+      "Aprovecha esta oportunidad exclusiva para vosAprovecha esta oportunidad exclusiva para vosAprovecha esta oportunidad exclusiva para vosAprovecha esta oportunidad exclusiva para vosAprovecha esta oportunidad exclusiva para vosAprovecha esta oportunidad exclusiva para vosAprovecha esta oportunidad exclusiva para vos",
     description: "Aprovecha esta oportunidad exclusiva para vos",
     buttonAccept: "ADD TO CART",
     buttonIgnore: "Ignorar oferta y seguir comprando",
