@@ -69,7 +69,9 @@ export const HistoryTemplate: React.FC<SheetContentPropsHorizontal> = ({
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogContent
-        className={`max-w-[1300px] ${isMobile ? "p-6" : "p-16"} bg-[#f9f8ff]`}
+        className={`${isMobile ? "w-full" : "max-w-[1300px]"} ${
+          isMobile ? "p-0" : "p-16"
+        } bg-[#f9f8ff]`}
       >
         {isMobile && (
           <div className="fixed top-0 left-0 right-0 z-50 flex gap-1 p-2 bg-transparent">
@@ -99,8 +101,8 @@ export const HistoryTemplate: React.FC<SheetContentPropsHorizontal> = ({
             <X className="h-4 w-4" />
             <span className="sr-only">Close</span>
           </Button>
-          <DialogTitle className="flex flex-col text-center text-xl font-semibold px-12 space-y-4">
-            <div className="mb-2 flex justify-between">
+          <DialogTitle className="flex flex-center flex-col text-center text-xl font-semibold px-12 space-y-4">
+            <div className="mb-2 flex justify-between w-5/6">
               {titleText || "Recommended Products"}{" "}
               {template === DesignType.HISTORY && (
                 <div className="flex items-center gap-3">
@@ -140,27 +142,32 @@ export const HistoryTemplate: React.FC<SheetContentPropsHorizontal> = ({
           </DialogTitle>
         </DialogHeader>
 
-        <div className="relative mt-0">
+        <div className="relative mt-0 flex justify-center">
           <Carousel
             setApi={setApi}
             opts={{
-              align: "start",
+              align: "center", // Asegura que el carrusel se alinee al centro
               loop: true,
               slidesToScroll: 1,
               dragFree: isMobile,
             }}
-            className="w-full max-w-[1200px] mx-auto"
+            className="w-full mx-auto max-w-[1200px]" // Centrado y tamaño máximo
           >
-            <CarouselContent className="-ml-4">
+            <CarouselContent
+              className="flex"
+              style={{ marginLeft: "auto", marginRight: "auto" }}
+            >
               {recommendedProducts?.map((product) => (
                 <CarouselItem
                   key={product.id}
-                  className={`px-0 ${isMobile ? "basis-full" : "basis-1/3"}`}
+                  className={`px-0 ${
+                    isMobile ? "basis-full" : "basis-1/3"
+                  } flex`} // Ocupa toda la pantalla en móvil
                 >
                   <div
                     className={`${
-                      isMobile ? "p-10" : "p-4 my-2"
-                    } bg-white flex-col justify-center items-start gap-6 inline-flex rounded-lg shadow-sm`}
+                      isMobile ? "p-0" : "p-4 my-2"
+                    } bg-white flex-col justify-center items-start gap-2 inline-flex rounded-lg shadow-sm`}
                   >
                     <ProductHistory
                       key={product.id}
@@ -173,12 +180,13 @@ export const HistoryTemplate: React.FC<SheetContentPropsHorizontal> = ({
                 </CarouselItem>
               ))}
             </CarouselContent>
+
             {!isMobile && (
               <>
-                <div className="absolute -left-12 top-1/2 -translate-y-1/2">
+                <div className="absolute left-0 top-1/2 -translate-y-1/2">
                   <CarouselPrevious />
                 </div>
-                <div className="absolute -right-12 top-1/2 -translate-y-1/2">
+                <div className="absolute right-0 top-1/2 -translate-y-1/2">
                   <CarouselNext />
                 </div>
               </>

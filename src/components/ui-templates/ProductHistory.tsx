@@ -10,6 +10,7 @@ import AddToCartButton from "./AddToCartButtom";
 import { useProductView } from "@/hooks/useProductView";
 import { DesignType, ProductHistoryProps } from "@/domain/definitionsTypes";
 import { useProductSelectors } from "@/hooks/useSelectors";
+import { useMediaQuery } from "@/hooks/use-media-query";
 
 const ProductHistory: React.FC<ProductHistoryProps> = ({
   product,
@@ -37,8 +38,14 @@ const ProductHistory: React.FC<ProductHistoryProps> = ({
     setIsOpen(false);
   };
 
+  const isMobile = useMediaQuery("(max-width: 767px)");
   return (
-    <div className="w-full max-w-[330px] mx-auto">
+    <div
+      style={{
+        maxWidth: isMobile ? "100vw" : "330px", // En mobile, max-width es igual al ancho del viewport
+      }}
+      className="w-full mx-auto"
+    >
       <div className="flex flex-col h-full">
         <div className="relative flex-grow">
           {template !== DesignType.HISTORY && (
