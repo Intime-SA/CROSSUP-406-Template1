@@ -71,7 +71,7 @@ const ProductHistory: React.FC<ProductHistoryProps> = ({
                 <div className="w-full">
                   <div className="h-[37px] p-2 bg-[#f9f8ff] rounded-lg shadow border border-[#e3e3e3] flex items-center justify-center">
                     <p className="text-[#2a2742] text-sm font-normal">
-                      asdasdsadasdsaasdasda
+                      asdasdsadasdsaasdasdaadsadsa
                     </p>
                   </div>
                 </div>

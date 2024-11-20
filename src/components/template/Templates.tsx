@@ -8,11 +8,11 @@ import { useLogicTemplate } from "@/hooks/useLogicTemplate";
 import { Button } from "@/components/ui/button";
 import { ADD_TO_CART, IGNORE_OFFER, NEW_OFFER, WATCH_MORE } from "@/constants";
 import { templateOptions } from "@/lib/utils";
+import { useTranslations } from "next-intl";
 
 // URL IFRAME
 const PARENT_URL =
-  process.env.NEXT_PUBLIC_URL_PARENT_DEPLOY ||
-  "https://crossup-406-template1.vercel.app/";
+  process.env.NEXT_PUBLIC_URL_PARENT_DEPLOY || "http://localhost:3000";
 
 // SIMULADOR DE PARENT
 export default function SplitViewTemplates() {
@@ -140,11 +140,13 @@ export default function SplitViewTemplates() {
     }
   }, [isLoaded, isLoading, selectedTemplate, sendMessageChildren]);
 
+  const t = useTranslations("HomePage");
+
   return (
     <div className="flex flex-col h-screen bg-background p-4">
       <div className="flex flex-col gap-4 mb-6">
         <h1 className="text-2xl font-bold">
-          Vista Dividida - Mobile y Desktop
+          <h1>{t("about")}</h1>
         </h1>
         <div className="flex gap-2 flex-wrap">
           {Object.entries(templateOptions).map(([key, { label, type }]) => (
