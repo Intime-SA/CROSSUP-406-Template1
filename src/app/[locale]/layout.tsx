@@ -8,6 +8,19 @@ import { routing } from "@/i18n/routing";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
 
+// Define the type for supported locales
+type SupportedLocale = 'es' | 'pt';
+
+// Define a type for the routing object
+type RoutingConfig = {
+  locales: readonly SupportedLocale[];
+  defaultLocale: SupportedLocale;
+  // Add other properties as needed
+};
+
+// Cast the routing object to our defined type
+const typedRouting = routing as RoutingConfig;
+
 export const metadata: Metadata = {
   title: "CrossUp - Templates",
   description:
@@ -24,15 +37,20 @@ export default async function LocaleLayout({
   // Await the params object
   const { locale } = await params;
 
+  // Type guard function to check if the locale is supported
+  function isSupportedLocale(loc: string): loc is SupportedLocale {
+    return typedRouting.locales.includes(loc as SupportedLocale);
+  }
+
   // Ensure that the incoming `locale` is valid
-  if (!routing.locales.includes(locale as any)) {
+  if (!isSupportedLocale(locale)) {
     notFound();
   }
 
   const messages = await getMessages();
 
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang={locale} suppressHydrationWarning>
       <body
         className={`min-h-screen font-sans bg-background text-foreground font-sans`}
       >
