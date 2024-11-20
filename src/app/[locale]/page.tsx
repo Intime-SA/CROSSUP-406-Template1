@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 import Templates from "@/components/template/Templates";
 import { useTranslations } from "next-intl";
