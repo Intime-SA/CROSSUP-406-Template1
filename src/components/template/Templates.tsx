@@ -31,6 +31,8 @@ export default function SplitViewTemplates() {
     desktop: string | null;
   }>({ mobile: null, desktop: null });
 
+  console.log(mensajeEnviado, respuestas);
+
   // ERRORES
   const [error, setError] = useState<string | null>(null);
 
