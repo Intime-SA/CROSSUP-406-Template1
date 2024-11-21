@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import "./globals.css";
+import "../globals.css";
 import { ReduxProvider } from "@/redux/lib-redux/ReduxProvider";
 import { ThemeProvider } from "@/components/providers/providers";
 import { FontProvider } from "@/components/providers/fontProvider";
@@ -21,8 +21,7 @@ export default async function LocaleLayout({
   children: React.ReactNode;
   params: { locale: string };
 }) {
-  // Await the params object
-  const { locale } = await params;
+  const { locale } = params;
 
   // Ensure that the incoming `locale` is valid
   if (!routing.locales.includes(locale as "es" | "pt")) {
@@ -32,7 +31,7 @@ export default async function LocaleLayout({
   const messages = await getMessages();
 
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang={locale} suppressHydrationWarning>
       <body
         className={`min-h-screen font-sans bg-background text-foreground font-sans`}
       >
@@ -46,7 +45,7 @@ export default async function LocaleLayout({
             <FontProvider>
               <div className="flex flex-col min-h-screen">
                 <main className="flex-grow p-4">
-                  <NextIntlClientProvider messages={messages}>
+                  <NextIntlClientProvider messages={messages} locale={locale}>
                     {children}
                   </NextIntlClientProvider>
                 </main>
