@@ -19,12 +19,11 @@ export default async function LocaleLayout({
   children,
   params: { locale },
 }: {
-  children: ReactNode;
+  children: React.ReactNode;
   params: { locale: string };
 }) {
-  type Locale = "es" | "pt";
   // Ensure that the incoming `locale` is valid
-  if (!routing.locales.includes(locale as Locale)) {
+  if (!routing.locales.includes(locale as any)) {
     notFound();
   }
 
