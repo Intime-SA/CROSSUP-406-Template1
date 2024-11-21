@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { ReactNode } from "react";
 import "../globals.css";
 import { ReduxProvider } from "@/redux/lib-redux/ReduxProvider";
 import { ThemeProvider } from "@/components/providers/providers";
@@ -23,7 +22,7 @@ export default async function LocaleLayout({
   params: { locale: string };
 }) {
   // Ensure that the incoming `locale` is valid
-  if (!routing.locales.includes(locale as any)) {
+  if (!routing.locales.includes(locale as "es" | "pt")) {
     notFound();
   }
 
