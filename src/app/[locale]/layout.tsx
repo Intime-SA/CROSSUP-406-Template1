@@ -19,7 +19,7 @@ export default async function LocaleLayout({
   children,
   params: { locale },
 }: {
-  children: React.ReactNode;
+  children: ReactNode;
   params: { locale: string };
 }) {
   type Locale = "es" | "pt";
