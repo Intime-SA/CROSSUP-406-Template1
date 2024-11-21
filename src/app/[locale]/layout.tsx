@@ -15,7 +15,7 @@ export const metadata: Metadata = {
     "Desarrollo en codigo de templates para tienda nube, nueva version de producto",
 };
 
-export default async function LocaleLayout({
+export default async function RootLayout({
   children,
   params: { locale },
 }: {
