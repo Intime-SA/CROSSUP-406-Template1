@@ -6,7 +6,8 @@ import { ThemeProvider } from "@/components/providers/providers";
 import { FontProvider } from "@/components/providers/fontProvider";
 import { notFound } from "next/navigation";
 import { routing } from "@/i18n/routing";
-import { NextIntlClientProvider, useMessages } from "next-intl";
+import { NextIntlClientProvider } from "next-intl";
+import { getMessages } from "next-intl/server";
 
 export const metadata: Metadata = {
   title: "CrossUp - Templates",
@@ -14,24 +15,22 @@ export const metadata: Metadata = {
     "Desarrollo en codigo de templates para tienda nube, nueva version de producto",
 };
 
-type LocaleLayoutProps = {
-  children: ReactNode;
+export default async function LocaleLayout({
+  children,
+  params: { locale },
+}: {
+  children: React.ReactNode;
   params: { locale: string };
-};
-
-export async function generateStaticParams() {
-  return routing.locales.map((locale) => ({ locale }));
-}
-
-export default function LocaleLayout({ children, params }: LocaleLayoutProps) {
-  const { locale } = params;
-  const messages = useMessages();
-
+}) {
+  type Locale = "es" | "pt";
   // Ensure that the incoming `locale` is valid
-  if (!routing.locales.includes(locale as "es" | "pt")) {
+  if (!routing.locales.includes(locale as Locale)) {
     notFound();
   }
 
+  // Providing all messages to the client
+  // side is the easiest way to get started
+  const messages = await getMessages();
   return (
     <html lang={locale} suppressHydrationWarning>
       <body
