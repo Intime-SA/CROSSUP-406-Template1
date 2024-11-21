@@ -7,7 +7,6 @@ import { notFound } from "next/navigation";
 import { routing } from "@/i18n/routing";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
-import { ReactNode } from "react";
 
 export const metadata: Metadata = {
   title: "CrossUp - Templates",
@@ -19,11 +18,11 @@ export default async function LocaleLayout({
   children,
   params: { locale },
 }: {
-  children: ReactNode;
+  children: React.ReactNode;
   params: { locale: string };
 }) {
   // Ensure that the incoming `locale` is valid
-  if (!routing.locales.includes(locale as "es" | "pt")) {
+  if (!routing.locales.includes(locale as any)) {
     notFound();
   }
 
