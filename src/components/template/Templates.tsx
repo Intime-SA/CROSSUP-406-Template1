@@ -2,13 +2,18 @@
 
 import React, { useEffect, useRef, useState, useCallback } from "react";
 import { fetchDataFromJson } from "@/app/actions/actions";
-import { PromotionData } from "@/domain/definitionsTypes";
+import { DesignType, PromotionData } from "@/domain/definitionsTypes";
 import { useDynamicFont } from "@/app/fonts/fonts";
 import { useLogicTemplate } from "@/hooks/useLogicTemplate";
 import { Button } from "@/components/ui/button";
 import { ADD_TO_CART, IGNORE_OFFER, NEW_OFFER, WATCH_MORE } from "@/constants";
 import { templateOptions } from "@/lib/utils";
 import { useTranslations } from "next-intl";
+import { Sheet } from "../ui/sheet";
+import { VerticalTemplate } from "../ui-templates/VerticalTemplate";
+import HorizontalTemplate from "../ui-templates/HorizontalTemplate";
+import HistoryTemplate from "../ui-templates/HistoryTemplate";
+import ProductView from "../ui-templates/ProductView";
 
 // URL IFRAME
 const PARENT_URL =
@@ -33,11 +38,24 @@ export default function SplitViewTemplates() {
   const { isLoaded } = useDynamicFont();
 
   // IMPORTACION DE STATE LOADING DE LOGICA
-  const { isLoading } = useLogicTemplate();
-
+  const {
+    mainProduct,
+    recommendedProducts,
+    isOpen,
+    setIsOpen,
+    selectedProduct,
+    isLoading,
+    titleText,
+    handleOpenModalViewProduct,
+    handleClose,
+    processData,
+    template,
+    selectedTemplate,
+    setSelectedTemplate,
+  } = useLogicTemplate();
   // SELECCION DE TEMPLATE PARA MOSTRAR
-  const [selectedTemplate, setSelectedTemplate] =
-    useState<string>("template1D");
+  /*   const [selectedTemplate, setSelectedTemplate] =
+    useState<string>("template1D"); */
 
   useEffect(() => {
     localStorage.setItem("selectedTemplate", selectedTemplate);
@@ -142,6 +160,26 @@ export default function SplitViewTemplates() {
 
   const t = useTranslations("HomePage");
 
+  // RECIBE MENSAJE DEL PADRE, SI ES NEW_OFFER, ACTUALIZA EL STATE PROMOTION CON TODOS LOS DATOS.
+  useEffect(() => {
+    const handleMessage = (event: MessageEvent) => {
+      if (event.data && event.data.type === "NEW_OFFER") {
+        try {
+          const datos: PromotionData = JSON.parse(event.data.payload);
+          // Ejecutamos processData con los datos recibidos
+          processData(datos);
+        } catch (error) {
+          console.error("Error al parsear los datos recibidos:", error);
+        }
+      }
+    };
+    window.addEventListener("message", handleMessage);
+
+    return () => {
+      window.removeEventListener("message", handleMessage);
+    };
+  }, [processData]);
+
   return (
     <div className="flex flex-col h-screen bg-background p-4">
       <div className="flex flex-col gap-4 mb-6">
@@ -162,7 +200,7 @@ export default function SplitViewTemplates() {
         <div className="flex gap-4 items-center">
           {error && <p className="text-red-500">{error}</p>}
         </div>
-        {mensajeEnviado && (
+        {/*         {mensajeEnviado && (
           <div className="grid grid-cols-2 gap-4 text-sm">
             <div>
               <strong>Mobile:</strong>{" "}
@@ -173,49 +211,63 @@ export default function SplitViewTemplates() {
               {respuestas.desktop || "Esperando respuesta..."}
             </div>
           </div>
-        )}
+        )} */}
       </div>
 
-      <div className="flex flex-1 gap-4 min-h-0">
-        <div className="w-1/6 bg-background rounded-lg shadow-lg overflow-hidden">
-          <div className="h-full flex flex-col">
-            <div className="bg-muted px-4 py-2 text-sm font-medium">
-              Vista Mobile
-            </div>
-            <div className="relative flex-1" style={{ aspectRatio: "9/16" }}>
-              <iframe
-                ref={mobileIframeRef}
-                src={`${PARENT_URL}/children`}
-                className="absolute inset-0 w-full h-full border-0"
-                style={{ backgroundColor: "white" }}
-                sandbox="allow-scripts allow-same-origin allow-forms"
-              />
-            </div>
-          </div>
-        </div>
+      <div className="flex flex-col items-center justify-center w-full h-full m-0 p-10">
+        <Sheet open={isOpen} onOpenChange={setIsOpen}>
+          {/* APLICA LOGICA DE TEMPLATE VERTICAL */}
+          {template === DesignType.VERTICAL && (
+            <VerticalTemplate
+              isLoading={isLoading}
+              mainProduct={mainProduct}
+              handleClose={handleClose}
+              handleOpenModalViewProduct={handleOpenModalViewProduct}
+              titleText={titleText}
+              recommendedProducts={recommendedProducts}
+            />
+          )}
 
-        <div className="flex flex-1 gap-4 min-h-0">
-          <div className="flex-1 bg-background rounded-lg shadow-lg overflow-hidden">
-            <div className="h-full flex flex-col">
-              <div className="bg-muted px-4 py-2 text-sm font-medium">
-                Vista Desktop
-              </div>
-              <div className="relative flex-1">
-                <iframe
-                  ref={desktopIframeRef}
-                  src={`${PARENT_URL}/children`}
-                  className="absolute inset-0 w-full h-full border-0"
-                  style={{
-                    backgroundColor: "white",
-                    display: "flex",
-                    justifyContent: "flex-end",
-                  }}
-                  sandbox="allow-scripts allow-same-origin allow-forms"
-                />
-              </div>
-            </div>
-          </div>
-        </div>
+          {/* APLICA LOGICA DE TEMPLATE HORIZONTAL */}
+          {template === DesignType.HORIZONTAL && (
+            <HorizontalTemplate
+              setIsOpen={setIsOpen}
+              isOpen={isOpen}
+              mainProduct={mainProduct}
+              handleClose={handleClose}
+              handleOpenModalViewProduct={handleOpenModalViewProduct}
+              recommendedProducts={recommendedProducts}
+              isLoading={isLoading}
+              titleText={titleText}
+              template={template}
+            />
+          )}
+
+          {template === DesignType.HISTORY && (
+            <HistoryTemplate
+              setIsOpen={setIsOpen}
+              isOpen={isOpen}
+              mainProduct={mainProduct}
+              handleClose={handleClose}
+              handleOpenModalViewProduct={handleOpenModalViewProduct}
+              recommendedProducts={recommendedProducts}
+              isLoading={isLoading}
+              titleText={titleText}
+              template={template}
+            />
+          )}
+        </Sheet>
+
+        {/* APLICA LOGICA DE OPEN PRODUCTO ESPECIFICO HORIZONTAL Y VERTICAL */}
+        {selectedProduct && (
+          <ProductView
+            product={selectedProduct}
+            isOpen={isOpen}
+            onClose={handleClose}
+            setIsOpen={setIsOpen}
+            template={template}
+          />
+        )}
       </div>
     </div>
   );

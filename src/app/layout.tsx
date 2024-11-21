@@ -3,6 +3,7 @@ import "./globals.css";
 import { ReduxProvider } from "@/redux/lib-redux/ReduxProvider";
 import { ThemeProvider } from "@/components/providers/providers";
 import { FontProvider } from "@/components/providers/fontProvider";
+import { ReactNode } from "react";
 
 export const metadata: Metadata = {
   title: "CrossUp - Templates",
@@ -10,11 +11,7 @@ export const metadata: Metadata = {
     "Desarrollo en codigo de templates para tienda nube, nueva version de producto",
 };
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en" suppressHydrationWarning>
       <body

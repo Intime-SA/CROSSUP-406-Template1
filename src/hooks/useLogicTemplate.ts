@@ -11,6 +11,7 @@ import {
 } from "@/domain/definitionsTypes";
 import { updateMultipleStates } from "@/redux/features/promotionSlice";
 import { NEW_OFFER } from "@/constants";
+import { fetchDataFromJson } from "@/app/actions/actions";
 
 // hook de logica
 export const useLogicTemplate = () => {
@@ -145,6 +146,23 @@ export const useLogicTemplate = () => {
     };
   }, [handleMessage]);
 
+  const [selectedTemplate, setSelectedTemplate] =
+    useState<string>("template1D");
+
+  useEffect(() => {
+    const fetchAndProcessData = async () => {
+      try {
+        const data: PromotionData = await fetchDataFromJson(selectedTemplate);
+        processData(data);
+      } catch (error) {
+        console.error("Error fetching or processing data:", error);
+        // Handle the error appropriately, e.g., set an error state
+      }
+    };
+
+    fetchAndProcessData();
+  }, [selectedTemplate]);
+
   // funcion para abrir los modal a traves de selectProduct o watchMore
   const handleOpenModalViewProduct = useCallback((product: TargetProduct) => {
     setSelectedProduct(product);
@@ -171,5 +189,7 @@ export const useLogicTemplate = () => {
     handleClose,
     processData,
     template,
+    selectedTemplate,
+    setSelectedTemplate,
   };
 };
