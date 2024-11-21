@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { ReactNode } from "react";
 import "../globals.css";
 import { ReduxProvider } from "@/redux/lib-redux/ReduxProvider";
 import { ThemeProvider } from "@/components/providers/providers";
@@ -16,13 +17,11 @@ export const metadata: Metadata = {
 
 export default async function LocaleLayout({
   children,
-  params,
+  params: { locale },
 }: {
-  children: React.ReactNode;
+  children: ReactNode;
   params: { locale: string };
 }) {
-  const { locale } = params;
-
   // Ensure that the incoming `locale` is valid
   if (!routing.locales.includes(locale as "es" | "pt")) {
     notFound();
