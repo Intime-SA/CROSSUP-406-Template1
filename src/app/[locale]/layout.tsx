@@ -1,40 +1,44 @@
 import type { Metadata } from "next";
-import "../globals.css";
-import { ReduxProvider } from "@/redux/lib-redux/ReduxProvider";
+import { ReactNode } from "react";
+import { notFound } from "next/navigation";
+import { getMessages } from "next-intl/server";
+import { NextIntlClientProvider } from "next-intl";
 import { ThemeProvider } from "@/components/providers/providers";
 import { FontProvider } from "@/components/providers/fontProvider";
-import { notFound } from "next/navigation";
+import { ReduxProvider } from "@/redux/lib-redux/ReduxProvider";
 import { routing } from "@/i18n/routing";
-import { NextIntlClientProvider } from "next-intl";
-import { getMessages } from "next-intl/server";
-import { ReactNode } from "react";
+import "../globals.css";
 
-export const metadata: Metadata = {
-  title: "CrossUp - Templates",
-  description:
-    "Desarrollo en codigo de templates para tienda nube, nueva version de producto",
-};
-
-export default async function RootLayout({
-  children,
-  params: { locale },
-}: {
+type Props = {
   children: ReactNode;
   params: { locale: string };
-}) {
-  // Ensure that the incoming `locale` is valid
+};
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { locale } = params;
+  console.log(locale);
+
+  return {
+    title: "CrossUp - Templates",
+    description:
+      "Desarrollo en código de templates para tienda nube, nueva versión de producto",
+  };
+}
+
+export default async function RootLayout({ children, params }: Props) {
+  const { locale } = params;
+
+  // Validar el `locale`
   if (!routing.locales.includes(locale as "es" | "pt")) {
     notFound();
   }
 
-  // Providing all messages to the client
-  // side is the easiest way to get started
+  // Obtener los mensajes de internacionalización
   const messages = await getMessages();
+
   return (
     <html lang={locale} suppressHydrationWarning>
-      <body
-        className={`min-h-screen font-sans bg-background text-foreground font-sans`}
-      >
+      <body className="min-h-screen font-sans bg-background text-foreground font-sans">
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
