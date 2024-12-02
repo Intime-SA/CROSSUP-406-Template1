@@ -17,7 +17,6 @@ export const VerticalTemplate: React.FC<SheetContentProps> = ({
   titleText,
   recommendedProducts,
 }) => {
-  // define en base al view portWidth del
   const isDesktop = useMediaQuery("(min-width: 768px)");
 
   return (
@@ -29,7 +28,7 @@ export const VerticalTemplate: React.FC<SheetContentProps> = ({
       <SheetHeader>
         <SheetTitle></SheetTitle>
       </SheetHeader>
-      <div className="flex-grow overflow-auto h-full">
+      <div className="flex-grow overflow-auto h-full custom-scrollbar">
         <div className="w-full h-full max-w-md mx-auto bg-background flex flex-col">
           {isLoading ? (
             <ProductAddedSkeleton />
@@ -54,7 +53,7 @@ export const VerticalTemplate: React.FC<SheetContentProps> = ({
                 className="text-foreground text-sm text-[var(--primary-text)] font-semibold"
                 style={{
                   color: "var(--primary-text)",
-                }} // Aplicamos la fuente dinámica aquí
+                }}
               >
                 {titleText}
               </div>
@@ -74,6 +73,20 @@ export const VerticalTemplate: React.FC<SheetContentProps> = ({
           </div>
         </div>
       </div>
+      <style jsx>{`
+        .custom-scrollbar::-webkit-scrollbar {
+          width: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+          background: transparent;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+          background-color: rgba(155, 155, 155, 0.5);
+          border-radius: 20px;
+          border: transparent;
+        }
+      `}</style>
     </SheetContent>
   );
 };
+

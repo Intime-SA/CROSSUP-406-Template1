@@ -16,6 +16,23 @@ const nextConfig = {
       "downloads.intercomcdn.com",
     ],
   },
+  async headers() {
+    return [
+      {
+        source: "/:path*",
+        headers: [
+          {
+            key: "X-Frame-Options",
+            value: "ALLOW-FROM *",
+          },
+          {
+            key: "Content-Security-Policy",
+            value: "frame-ancestors 'self' *",
+          },
+        ],
+      },
+    ];
+  },
 };
 
 export default withNextIntl(nextConfig);
