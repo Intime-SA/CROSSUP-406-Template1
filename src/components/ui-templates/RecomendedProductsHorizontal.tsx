@@ -112,7 +112,7 @@ export default function RecommendedProductsHorizontal({
                   <div className="absolute top-0 right-0 bottom-0 w-8 bg-gradient-to-r from-transparent to-white z-10 sm:block" />
                 )}
                 <div className="flex flex-col gap-2">
-                  <div className="w-full h-[150px] relative">
+                  {/* <div className="w-full h-[150px] relative">
                     <Image
                       className="border border-[var(--neutrals-disabled)] rounded-sm object-cover"
                       src={product.images[0].src}
@@ -135,8 +135,9 @@ export default function RecommendedProductsHorizontal({
                         }`}
                       />
                     </button>
-                  </div>
-                  <div className="flex flex-col gap-1">
+                  </div> */}
+                  <div className="w-[73.65px] h-[73.65px] bg-[#f0f0f0]" />
+                  {/* <div className="flex flex-col gap-1">
                     <button
                       onClick={() => openModalViewProduct(product)}
                       className={`text-left text-xs font-medium focus:outline-none transition-colors duration-200 ease-in-out hover:text-[#4a4760] ${
@@ -194,6 +195,12 @@ export default function RecommendedProductsHorizontal({
                           : `${discountAmount * 100}% OFF`}
                       </span>
                     )}
+                  </div> */}
+                  <div>
+                    <div className="w-[128.72px] h-[15.24px] bg-[#f0f0f0] mb-2" />
+
+                    <div className="w-[128.72px] h-[15.24px] bg-[#f0f0f0]" />
+                    <span className="font-semibold">$ X.XXX,XX</span>
                   </div>
                 </div>
               </div>

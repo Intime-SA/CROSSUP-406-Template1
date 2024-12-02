@@ -53,8 +53,15 @@ const promotionSlice = createSlice({
     ) => {
       return { ...state, ...action.payload };
     },
+    updateTitleText: (state, action: PayloadAction<string>) => {
+      state.titleText = action.payload;
+    },
+    updateAddToCartButton: (state, action: PayloadAction<string>) => {
+      state.addToCartButton = action.payload;
+    },
   },
 });
 
-export const { updateMultipleStates } = promotionSlice.actions;
+export const { updateMultipleStates, updateTitleText, updateAddToCartButton } =
+  promotionSlice.actions;
 export default promotionSlice.reducer;

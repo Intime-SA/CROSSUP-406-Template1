@@ -33,14 +33,14 @@ export const templateOptions = {
     label: "Con descuentos y widgets (1)",
     type: "template1C",
   },
-  template1D: {
+  /*   template1D: {
     label: "Con descuentos y widgets globales (2)",
     type: "template1D",
   },
   template1E: {
     label: "Con descuentos y widgets Globales (3)",
     type: "template1E",
-  },
+  }, */
   /*   template1F: {
     label: "Con descuentos y widgets (3)",
     type: "template1F",

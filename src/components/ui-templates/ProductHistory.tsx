@@ -63,12 +63,23 @@ const ProductHistory: React.FC<ProductHistoryProps> = ({
 
           <div className="flex-grow overflow-y-auto scrollbar-thin scrollbar-thumb-zinc-300 scrollbar-thumb-rounded-full hover:scrollbar-thumb-zinc-400 dark:scrollbar-thumb-zinc-700 dark:hover:scrollbar-thumb-zinc-600">
             <div className="p-4 flex flex-col justify-start items-start gap-4 pb-24 pr-2">
-              <ProductImage product={product} />
-              <ProductInfo
+              {/* <ProductImage product={product} /> */}
+              <div className="flex items-center justify-center">
+                <div className="w-[365px] h-[365px] bg-[#f0f0f0]" />
+              </div>
+
+              {/* <ProductInfo
                 product={product}
                 selectedVariant={selectedVariant}
                 quantity={quantity}
-              />
+              /> */}
+              <div>
+                <div className="w-[300.72px] h-[15.24px] bg-[#f0f0f0] mb-2" />
+
+                <div className="w-[208.72px] h-[15.24px] bg-[#f0f0f0]" />
+                <br />
+                <span className="font-semibold mt-2">$ X.XXX,XX</span>
+              </div>
               {showMessage && (
                 <div className="w-full">
                   <div className="h-[37px] p-2 bg-[#f9f8ff] rounded-lg shadow border border-[#e3e3e3] flex items-center justify-center">

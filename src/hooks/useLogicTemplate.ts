@@ -147,7 +147,7 @@ export const useLogicTemplate = () => {
   }, [handleMessage]);
 
   const [selectedTemplate, setSelectedTemplate] =
-    useState<string>("template1D");
+    useState<string>("template1C");
 
   useEffect(() => {
     const fetchAndProcessData = async () => {
