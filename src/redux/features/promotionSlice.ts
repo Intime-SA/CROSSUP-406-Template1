@@ -1,4 +1,10 @@
-import { Colors, PromotionData } from "@/domain/definitionsTypes";
+import {
+  Colors,
+  Discount,
+  PromotionData,
+  Shortage,
+  Timer,
+} from "@/domain/definitionsTypes";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 interface PromotionState {
@@ -11,6 +17,7 @@ interface PromotionState {
   canModifyQuantity: boolean;
   hasShortageGlobal: boolean;
   hasShortage: boolean;
+  hasShortageUnit: number;
   hasShortageText: number;
   visibilityDescription: boolean;
   quantityProducts: number;
@@ -35,6 +42,7 @@ const initialState: PromotionState = {
   canModifyQuantity: false,
   hasShortageGlobal: false,
   hasShortage: false,
+  hasShortageUnit: 1,
   hasShortageText: 0,
   visibilityDescription: false,
   quantityProducts: 0,
@@ -63,6 +71,20 @@ const promotionSlice = createSlice({
     updateColors: (state, action: PayloadAction<Colors>) => {
       state.colors = action.payload;
     },
+    updateDiscount: (state, action: PayloadAction<Discount>) => {
+      state.discountIsActive = action.payload.isActive;
+      state.discountAmount = action.payload.amount;
+    },
+    updateTimer: (state, action: PayloadAction<Timer>) => {
+      state.timerGlobal = action.payload.isActive;
+      state.amountOfTime = action.payload.amount;
+    },
+    updateShortage: (state, action: PayloadAction<Shortage>) => {
+      state.hasShortage = action.payload.isActive;
+      state.hasShortageText = action.payload.text;
+      state.hasShortageUnit = action.payload.stockAmount;
+      state.hasShortageGlobal = action.payload.isAutomatic;
+    },
   },
 });
 
@@ -71,5 +93,8 @@ export const {
   updateTitleText,
   updateAddToCartButton,
   updateColors,
+  updateDiscount,
+  updateTimer,
+  updateShortage,
 } = promotionSlice.actions;
 export default promotionSlice.reducer;

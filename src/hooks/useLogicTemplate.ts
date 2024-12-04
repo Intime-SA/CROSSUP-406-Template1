@@ -56,12 +56,12 @@ export const useLogicTemplate = () => {
         discountIsActive: data.characteristics.discount.isActive ?? false,
         fixedDiscount: data.characteristics.discount.amount < 1 ? false : true,
         discountAmount: data.characteristics.discount.amount ?? 0,
-        hasShortageGlobal:
+        /* hasShortageGlobal:
           (data.characteristics.shortage.isActive &&
             data.showingPlace === "cart") ??
-          false,
+          false, */
+        hasShortageGlobal: data.characteristics.shortage.isAutomatic ?? false,
         canModifyQuantity: data.canModifyQuantity ?? false,
-        hasShortage: data.characteristics.shortage.isActive ?? false,
         hasShortageText: data.characteristics.shortage.text ?? 0,
         visibilityDescription: true,
         quantityProducts: data.targets?.length ?? 0,

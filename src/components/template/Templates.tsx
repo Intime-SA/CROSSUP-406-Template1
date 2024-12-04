@@ -16,6 +16,9 @@ import { fetchDataFromJson } from "@/app/actions/actions";
 import {
   updateAddToCartButton,
   updateColors,
+  updateDiscount,
+  updateShortage,
+  updateTimer,
   updateTitleText,
 } from "@/redux/features/promotionSlice";
 import { useDispatch, useSelector } from "react-redux";
@@ -134,12 +137,29 @@ export default function SplitViewTemplates() {
           });
           dispatch(updateTitleText(parsedData.payload.text));
           break;
+
+        case "DISCOUNT_CHANGE":
+          console.log("Discount Change", parsedData.payload);
+          dispatch(updateDiscount(parsedData.payload.discount));
+          break;
+
+        case "TIMMER_CHANGE":
+          console.log("Timer Change", parsedData.payload);
+          dispatch(updateTimer(parsedData.payload.timer));
+          break;
+
         case "COLOR_CHANGE":
           console.log("Colors changed:", parsedData.payload);
           dispatch({ type: "SET_COLORS", payload: parsedData.payload.colors });
           dispatch(updateColors(parsedData.payload.colors));
           updateCSSVariables(parsedData.payload.colors);
           break;
+
+        case "SHORTAGE_CHANGE":
+          console.log("Colors changed:", parsedData.payload);
+          dispatch(updateShortage(parsedData.payload.shortage));
+          break;
+
         case "TEXT_BUTTON":
           console.log("Button text changed:", parsedData.payload.text);
           dispatch({

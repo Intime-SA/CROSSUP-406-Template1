@@ -13,6 +13,9 @@ export const useProductSelectors = () => {
 
   // persistencia de screemshot de la offer/sugerencia/promocion
 
+  const hasShortageUnit = useSelector(
+    (state: RootState) => state.promotion.hasShortageUnit
+  );
   const desingType = useSelector(
     (state: RootState) => state.promotion.desingType
   );
@@ -82,5 +85,6 @@ export const useProductSelectors = () => {
     canModifyQuantity,
     selectedVariant,
     addToCartButton,
+    hasShortageUnit,
   };
 };

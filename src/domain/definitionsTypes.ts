@@ -1,7 +1,7 @@
 // interface de escasez
 
 // Interface de descuento de sugerencia
-interface Discount {
+export interface Discount {
   isActive: boolean;
   amount: number;
   initAmount: number;
@@ -12,7 +12,7 @@ interface Discount {
 }
 
 // interface para instanciar un Timer
-interface Timer {
+export interface Timer {
   isActive: boolean;
   amount: number;
 }
@@ -106,14 +106,14 @@ export interface TargetLimit {
   amount: number;
 }
 
-enum TextShortage {
+export enum TextShortage {
   "¡Ultimas unidades!" = 0,
   "¡Quedan Pocas!" = 1,
   "¡Ultima oportunidad!" = 2,
   "Stock limitado" = 3,
 }
 
-interface Shortage {
+export interface Shortage {
   isActive: boolean;
   text: TextShortage;
   isAutomatic: boolean;
