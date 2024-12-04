@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, useCallback, useState, useRef } from "react";
-import { DesignType } from "@/domain/definitionsTypes";
+import { Colors, DesignType } from "@/domain/definitionsTypes";
 import { useDynamicFont } from "@/app/fonts/fonts";
 import { useLogicTemplate } from "@/hooks/useLogicTemplate";
 import { Button } from "@/components/ui/button";
@@ -15,10 +15,12 @@ import ProductView from "../ui-templates/ProductView";
 import { fetchDataFromJson } from "@/app/actions/actions";
 import {
   updateAddToCartButton,
+  updateColors,
   updateTitleText,
 } from "@/redux/features/promotionSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/redux/store";
+import { useProductSelectors } from "@/hooks/useSelectors";
 
 export default function SplitViewTemplates() {
   const { isLoaded } = useDynamicFont();
@@ -44,11 +46,9 @@ export default function SplitViewTemplates() {
   }>({ mobile: null, desktop: null });
 
   const dispatch = useDispatch();
-
   const [receivedDesignType, setReceivedDesignType] = useState<DesignType>(
     DesignType.VERTICAL
   );
-
   const titleText = useSelector(
     (state: RootState) => state.promotion.titleText
   );
@@ -60,75 +60,110 @@ export default function SplitViewTemplates() {
     localStorage.setItem("selectedTemplate", selectedTemplate);
   }, [selectedTemplate]);
 
-  const handleMessage = useCallback((event: MessageEvent) => {
-    let parsedData;
-    if (typeof event.data === "string") {
-      try {
-        parsedData = JSON.parse(event.data);
-      } catch (error) {
-        console.log("Error parsing message:", error);
+  function updateCSSVariables(colors: Colors) {
+    document.documentElement.style.setProperty("--primary-text", colors.text);
+    document.documentElement.style.setProperty(
+      "--border-components",
+      colors.button
+    );
+    document.documentElement.style.setProperty(
+      "--button-text",
+      colors.buttonText
+    );
+  }
+
+  const handleMessage = useCallback(
+    (event: MessageEvent) => {
+      let parsedData;
+      if (typeof event.data === "string") {
+        try {
+          parsedData = JSON.parse(event.data);
+        } catch (error) {
+          console.log("Error parsing message:", error);
+          return;
+        }
+      } else {
+        parsedData = event.data;
+      }
+
+      if (!parsedData || !parsedData.type) {
         return;
       }
-    } else {
-      parsedData = event.data;
-    }
 
-    if (!parsedData || !parsedData.type) {
-      return;
-    }
+      console.log("Received message:", parsedData);
 
-    console.log("Received message:", parsedData); // Log all received messages
+      const source = event.source as Window;
+      let responseMessage = "";
 
-    const source = event.source as Window;
-    let responseMessage = "";
+      switch (parsedData.type) {
+        case "ADD_TO_CART":
+          const { quantity, variant } = parsedData.payload;
+          responseMessage = `type: ADD_TO_CART, payload: "${quantity} of variant ${variant.id} to cart"`;
+          break;
+        case "IGNORE_OFFER":
+          responseMessage = "type: IGNORE_OFFER";
+          break;
+        case "WATCH_MORE":
+          const { productId, productName } = parsedData.payload;
+          responseMessage = `type: WATCH_MORE, payload: "${productName.es}, ID: ${productId}"`;
+          break;
+        case "DESIGN_TYPE":
+          console.log("Design type changed:", parsedData.payload.selectedId);
+          responseMessage = `type: DESIGN_TYPE, payload: selectedId: ${parsedData.payload.selectedId}`;
+          switch (parsedData.payload.selectedId) {
+            case 0:
+              setReceivedDesignType(DesignType.VERTICAL);
+              break;
+            case 1:
+              setReceivedDesignType(DesignType.HORIZONTAL);
+              break;
+            case 2:
+              setReceivedDesignType(DesignType.HISTORY);
+              break;
+            default:
+              console.error(
+                "Unknown design type:",
+                parsedData.payload.selectedId
+              );
+          }
+        case "TEXT_CHANGED":
+          console.log("Text changed:", parsedData.payload.text);
+          dispatch({
+            type: "SET_TITLE_TEXT",
+            payload: parsedData.payload.text,
+          });
+          dispatch(updateTitleText(parsedData.payload.text));
+          break;
+        case "COLOR_CHANGE":
+          console.log("Colors changed:", parsedData.payload);
+          dispatch({ type: "SET_COLORS", payload: parsedData.payload.colors });
+          dispatch(updateColors(parsedData.payload.colors));
+          updateCSSVariables(parsedData.payload.colors);
+          break;
+        case "TEXT_BUTTON":
+          console.log("Button text changed:", parsedData.payload.text);
+          dispatch({
+            type: "SET_ADD_TO_CART_BUTTON_TEXT",
+            payload: parsedData.payload.text,
+          });
+          dispatch(updateAddToCartButton(parsedData.payload.text));
+          break;
+        default:
+          console.error("Unknown message type:", parsedData.type);
+          return;
+      }
 
-    switch (parsedData.type) {
-      case "ADD_TO_CART":
-        const { quantity, variant } = parsedData.payload;
-        responseMessage = `type: ADD_TO_CART, payload: "${quantity} of variant ${variant.id} to cart"`;
-        break;
-      case "IGNORE_OFFER":
-        responseMessage = "type: IGNORE_OFFER";
-        break;
-      case "WATCH_MORE":
-        const { productId, productName } = parsedData.payload;
-        responseMessage = `type: WATCH_MORE, payload: "${productName.es}, ID: ${productId}"`;
-        break;
-      case "DESIGN_TYPE":
-        console.log("Design type changed:", parsedData.payload.selectedId);
-        responseMessage = `type: DESIGN_TYPE, payload: selectedId: ${parsedData.payload.selectedId}`;
-        switch (parsedData.payload.selectedId) {
-          case 0:
-            setReceivedDesignType(DesignType.VERTICAL);
-            break;
-          case 1:
-            setReceivedDesignType(DesignType.HORIZONTAL);
-            break;
-          case 2:
-            setReceivedDesignType(DesignType.HISTORY);
-            break;
-          default:
-            console.error(
-              "Unknown design type:",
-              parsedData.payload.selectedId
-            );
-        }
-      case "TEXT_CHANGED":
-        console.log("Text changed:", parsedData.payload.text);
-        dispatch(updateTitleText(parsedData.payload.text));
-        console.log(titleText);
+      updateResponse(source, responseMessage);
+    },
+    [dispatch]
+  );
 
-      case "TEXT_BUTTON":
-        console.log("Text changed:", parsedData.payload.text);
-        dispatch(updateAddToCartButton(parsedData.payload.text));
-        console.log(titleText);
-      default:
-        console.error("Unknown message type:", parsedData.type);
-        return;
-    }
-
-    updateResponse(source, responseMessage);
-  }, []);
+  useEffect(() => {
+    window.addEventListener("message", handleMessage);
+    return () => {
+      window.removeEventListener("message", handleMessage);
+    };
+  }, [handleMessage]);
 
   const sendMessageChildren = useCallback(async () => {
     try {

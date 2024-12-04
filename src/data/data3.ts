@@ -2,12 +2,43 @@ import { PromotionData } from "@/domain/definitionsTypes";
 
 export const getMockOfferData3 = (): PromotionData => ({
   _id: "67223aac87729c4433dcbc31",
-  colors: {
-    primary: "black",
-    secondary: "grey",
-    font: "Montserrat",
+  characteristics: {
+    colors: {
+      text: "black",
+      buttonText: "black",
+      button: "black",
+      background: "black",
+    },
+    shortage: {
+      isActive: true,
+      text: 0,
+      isAutomatic: false,
+      stockAmount: 0,
+    },
+    designType: 1,
+    discount: {
+      isActive: true,
+      amount: 0.1,
+      initAmount: 0.1,
+      excludedProducts: [],
+      excludedCategories: [],
+      promotionId: "810d9356-9500-4d47-a61d-310978d51d7a",
+      isTestAB: false,
+    },
+    frame: {
+      isActive: false,
+      id: null,
+    },
+    timer: {
+      isActive: true,
+      amount: 300,
+    },
+    text: {
+      content: "¡No te olvides de esto!",
+      button: "Añadir al carrito!",
+      isAIGenerated: false,
+    },
   },
-  desingType: "vertical",
   targets: [
     {
       _id: "64de16e59ffb22f98387cc3c",
@@ -271,58 +302,18 @@ export const getMockOfferData3 = (): PromotionData => ({
   privateName: "pruebaa",
   showingPlace: "cart",
   isActive: true,
-  shortage: {
-    hasShortage: true,
-    text: "Ultimas Unidades",
-  },
   canModifyQuantity: false,
-  discount: {
-    isActive: true,
-    isFixedDiscount: false,
-    amount: 0.1,
-    designType: null,
-    promotionId: "810d9356-9500-4d47-a61d-310978d51d7a",
-  },
-  timer: {
-    hasTimer: true,
-    amountOfTime: 300,
-    designType: "",
-    text: "",
-  },
   autoManagement: {
-    isEnabled: false,
+    isActive: false,
     updatedAt: "2024-10-30T13:54:52.389Z",
-    history: null,
+    history: "",
   },
   updatedAt: "2024-10-30T13:54:52.389Z",
   storeId: "659802e39fca2cdf36d8c605",
-  frame: {
-    hasFrame: false,
-    id: null,
-    props: {
-      _id: "",
-      header: {
-        hasHeader: false,
-        src: {},
-        location: "",
-        relativeTop: "",
-        height: "",
-      },
-      borders: {
-        hasBorders: false,
-        mainColor: "",
-        src: {},
-      },
-      state: false,
-      previewUrl: {},
-      createdAt: "2024-10-30T13:54:52.389Z",
-      updatedAt: "2024-10-30T13:54:52.389Z",
-    },
-  },
   range: {
-    hasRange: false,
-    startRange: null,
-    endRange: null,
+    isActive: false,
+    startRange: "",
+    endRange: "",
   },
   shooters: [
     {
@@ -394,14 +385,18 @@ export const getMockOfferData3 = (): PromotionData => ({
       ],
     },
   ],
-  exceptions: null,
-  isUpsell: false,
-  text: {
-    title: "¡No te olvides de esto!",
-    description: "Aprovecha esta oportunidad exclusiva para vos",
-    buttonAccept: "Añadir al carrito!",
-    buttonIgnore: "Ignorar oferta y seguir comprando",
-    type: "PersonalizedTemplate",
+  exclusions: {
+    shooters: [],
+    targets: [],
   },
+  checkInCart: false,
+  isDraft: false,
+  currentStep: "5",
+  isTestAB: false,
+  targetLimit: {
+    isActive: false,
+    amount: 0,
+  },
+  isUpsell: false,
   createdAt: "2024-10-30T13:54:52.389Z",
 });

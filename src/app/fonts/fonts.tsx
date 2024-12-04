@@ -6,8 +6,9 @@ import { useProductSelectors } from "@/hooks/useSelectors";
 // creacion de hook
 export function useDynamicFont() {
   // traemos state colors
-  const colors = useProductSelectors();
-  const selectedFont = colors.fontFamily as string; // traemos a la font que viaja de la data
+  /*   const colors = useProductSelectors(); */
+  /*   const selectedFont = colors.fontFamily as string; // traemos a la font que viaja de la data */
+  const selectedFont = "Montserrat";
   const [fontLoaded, setFontLoaded] = useState(false); // estado de carga
 
   // una vez que tenemos la selectedFont persistida, generamos la peticion a google para traer la font

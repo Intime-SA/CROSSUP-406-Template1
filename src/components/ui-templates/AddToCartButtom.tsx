@@ -9,7 +9,8 @@ const AddToCartButton: React.FC<AddToCartButtonProps> = ({
   setShowMessage,
 }) => {
   // TRAIGO LOS STATES QUE NECESITO DE REDUX
-  const { selectedVariant, quantity, addToCartButton } = useProductSelectors();
+  const { selectedVariant, quantity, addToCartButton, colors } =
+    useProductSelectors();
 
   // FUNCION PARA AGREGAR AL CARRITO SEGUN EL CONEXTO. SI HAY VARIANTE SELECCIONADA
   // AGREGA AL CARRITO Y SI NO HAY VARIANTE, TIRA MENSAJE.
@@ -23,19 +24,22 @@ const AddToCartButton: React.FC<AddToCartButtonProps> = ({
     }
   };
 
+  console.log("AddToCartButton -> colors", colors);
+
   return (
     <div className="relative">
       <div className="absolute bottom-0 left-0 right-0 p-4 bg-background border-t sm:mb-10">
         <Button
-          className="w-full h-10 bg-[var(--border-components)] hover:bg-[var(--border-components)]/90 text-white rounded-none"
+          className="w-full h-10 bg-[var(--border-components)] hover:bg-[var(--border-components)]/90   rounded-none"
           onClick={handleAddToCart}
           /*           disabled={!selectedVariant || selectedVariant.stock === 0} */
         >
-          <span className="text-base font-medium">
+          {/* <span className=" font-medium text-[var(--primary-text)]">
             {selectedVariant && selectedVariant.stock > 0
               ? addToCartButton
               : addToCartButton}
-          </span>
+          </span> */}
+          <span className="text-[var(--button-text)] ">{addToCartButton}</span>
         </Button>
       </div>
     </div>

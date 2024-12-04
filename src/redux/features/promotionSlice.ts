@@ -1,8 +1,8 @@
-import { ColorsApi, PromotionData } from "@/domain/definitionsTypes";
+import { Colors, PromotionData } from "@/domain/definitionsTypes";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 interface PromotionState {
-  colors: ColorsApi;
+  colors: Colors;
   amountOfTime: number;
   timerGlobal: boolean;
   discountIsActive: boolean;
@@ -11,7 +11,7 @@ interface PromotionState {
   canModifyQuantity: boolean;
   hasShortageGlobal: boolean;
   hasShortage: boolean;
-  hasShortageText: string;
+  hasShortageText: number;
   visibilityDescription: boolean;
   quantityProducts: number;
   titleText: string;
@@ -22,9 +22,10 @@ interface PromotionState {
 
 const initialState: PromotionState = {
   colors: {
-    primary: "black",
-    secondary: "white",
-    font: "Montserrat",
+    text: "",
+    buttonText: "",
+    button: "",
+    background: "",
   },
   amountOfTime: 0,
   timerGlobal: false,
@@ -34,7 +35,7 @@ const initialState: PromotionState = {
   canModifyQuantity: false,
   hasShortageGlobal: false,
   hasShortage: false,
-  hasShortageText: "",
+  hasShortageText: 0,
   visibilityDescription: false,
   quantityProducts: 0,
   titleText: "",
@@ -59,9 +60,16 @@ const promotionSlice = createSlice({
     updateAddToCartButton: (state, action: PayloadAction<string>) => {
       state.addToCartButton = action.payload;
     },
+    updateColors: (state, action: PayloadAction<Colors>) => {
+      state.colors = action.payload;
+    },
   },
 });
 
-export const { updateMultipleStates, updateTitleText, updateAddToCartButton } =
-  promotionSlice.actions;
+export const {
+  updateMultipleStates,
+  updateTitleText,
+  updateAddToCartButton,
+  updateColors,
+} = promotionSlice.actions;
 export default promotionSlice.reducer;

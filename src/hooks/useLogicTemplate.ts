@@ -7,7 +7,6 @@ import {
   TargetProduct,
   MainProduct2,
   PromotionData,
-  Colors,
 } from "@/domain/definitionsTypes";
 import { updateMultipleStates } from "@/redux/features/promotionSlice";
 import { NEW_OFFER } from "@/constants";
@@ -35,24 +34,12 @@ export const useLogicTemplate = () => {
   const [isLoading, setIsLoading] = useState(false);
 
   // persiste el tipo de template a utilizar
-  const [template, setTemplate] = useState("");
+  const [template, setTemplate] = useState(0);
 
   const [titleText, setTitleText] = useState("");
 
   // inicializa dispatch para ejecutar update state de redux.
   const dispatch = useDispatch();
-
-  // update variables globales del global.css
-  const updateCSSVariables = useCallback((colors: Colors) => {
-    document.documentElement.style.setProperty(
-      "--primary-text",
-      colors.primary
-    );
-    document.documentElement.style.setProperty(
-      "--border-components",
-      colors.secondary
-    );
-  }, []);
 
   // procesa data recibida del parent y la mapea para actualizar el state promotionSlice de redux
   const processData = useCallback(
@@ -64,31 +51,28 @@ export const useLogicTemplate = () => {
 
       // states de promotionSlice.ts
       const stateUpdates = {
-        amountOfTime: data.timer?.amountOfTime ?? 0,
-        timerGlobal: data.timer?.hasTimer ?? false,
-        discountIsActive: data.discount?.isActive ?? false,
-        fixedDiscount: data.discount?.isFixedDiscount ?? false,
-        discountAmount: data.discount?.amount ?? 0,
+        amountOfTime: data.characteristics.timer.amount ?? 0,
+        timerGlobal: data.characteristics.timer.isActive ?? false,
+        discountIsActive: data.characteristics.discount.isActive ?? false,
+        fixedDiscount: data.characteristics.discount.amount < 1 ? false : true,
+        discountAmount: data.characteristics.discount.amount ?? 0,
         hasShortageGlobal:
-          (data.shortage?.hasShortage && data.showingPlace === "cart") ?? false,
+          (data.characteristics.shortage.isActive &&
+            data.showingPlace === "cart") ??
+          false,
         canModifyQuantity: data.canModifyQuantity ?? false,
-        hasShortage: data.shortage?.hasShortage ?? false,
-        hasShortageText: data.shortage?.text ?? "",
+        hasShortage: data.characteristics.shortage.isActive ?? false,
+        hasShortageText: data.characteristics.shortage.text ?? 0,
         visibilityDescription: true,
         quantityProducts: data.targets?.length ?? 0,
-        titleText: data.text?.title ?? "",
-        addToCartButton: data.text?.buttonAccept ?? "",
-        designType: data.desingType ?? "",
-        colors: data.colors ?? { primary: "", secondary: "" },
+        titleText: data.characteristics.text.content ?? "",
+        addToCartButton: data.characteristics.text.button ?? "",
+        designType: data.characteristics.designType ?? 0,
+        colors: data.characteristics.colors ?? {},
       };
 
       // dispatch para actualizar state global.
       dispatch(updateMultipleStates(stateUpdates));
-
-      // aplica estado global sobre los colores.
-      if (data.colors) {
-        updateCSSVariables(data.colors);
-      }
 
       // aplica al main product (shooter)
       if (data.shooters && data.shooters.length > 0) {
@@ -101,13 +85,13 @@ export const useLogicTemplate = () => {
       }
 
       // aplica el template segun el desingType
-      if (data.desingType) {
-        setTemplate(data.desingType);
+      if (data.characteristics.designType) {
+        setTemplate(data.characteristics.designType);
       }
 
       // aplica el titleText de la promocion.
-      if (data.text.title) {
-        setTitleText(data.text.title);
+      if (data.characteristics.text.content) {
+        setTitleText(data.characteristics.text.content);
       }
 
       // pasa a true estado para abrir PopUp / Sheet, segun corresponda.
@@ -116,7 +100,7 @@ export const useLogicTemplate = () => {
       // determina que ya se aplico correctamente los estados
       setIsLoading(false);
     },
-    [dispatch, updateCSSVariables]
+    [dispatch]
   );
 
   // funcion para enviar mensaje

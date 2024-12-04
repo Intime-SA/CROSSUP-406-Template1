@@ -1,31 +1,27 @@
 // interface de escasez
-interface Shortage {
-  hasShortage: boolean;
-  text: string;
-}
 
 // Interface de descuento de sugerencia
 interface Discount {
   isActive: boolean;
-  isFixedDiscount: boolean;
   amount: number;
-  designType: string | null;
+  initAmount: number;
+  excludedProducts: string[] | null;
+  excludedCategories: string[] | null;
   promotionId: string | null;
+  isTestAB: boolean;
 }
 
 // interface para instanciar un Timer
 interface Timer {
-  hasTimer: boolean;
-  amountOfTime: number;
-  designType: string;
-  text: string;
+  isActive: boolean;
+  amount: number;
 }
 
 // si la sugerencia fue creada por dueño de tienda o por AI
 interface AutoManagement {
-  isEnabled: boolean;
+  isActive: false;
   updatedAt: string;
-  history: null;
+  history: string | null;
 }
 
 // ?
@@ -56,57 +52,100 @@ interface FrameProps {
 }
 
 // ?
-interface Frame {
-  hasFrame: boolean;
-  id: string | null;
-  props: FrameProps;
-}
 
 // inicio y fin de la oferta. Si endRange es menor a la date.now() es equivalente a que la sugerencia esta activa.
 interface Range {
-  hasRange: boolean;
-  startRange: number | null;
-  endRange: number | null;
+  isActive: boolean;
+  startRange: string | null;
+  endRange: string | null;
 }
 
 // textos de sugerencia
 interface Text {
-  title: string;
-  description: string;
-  buttonAccept: string;
-  buttonIgnore: string;
-  type: string;
+  content: string;
+  button: string;
+  isAIGenerated: boolean;
+}
+
+export interface SuggestionData {
+  data: PromotionData;
+  status: number;
 }
 
 // instancia a todas las interfaces de arriba. Es la estructura de datos que viene de la api de crossUp en donde viene toda la informacion de la sugerencia que se dispara con el shooter.
 export interface PromotionData {
   _id: string;
-  colors: ColorsApi;
-  desingType: string;
-  targets: TargetProduct[];
   privateName: string;
   showingPlace: string;
+  isUpsell: boolean;
   isActive: boolean;
-  shortage: Shortage;
   canModifyQuantity: boolean;
-  discount: Discount;
-  timer: Timer;
-  autoManagement: AutoManagement;
-  updatedAt: string;
   storeId: string;
-  frame: Frame;
+  checkInCart: boolean;
   range: Range;
   shooters: MainProduct2[];
-  exceptions: null;
-  isUpsell: boolean;
-  text: Text;
+  targets: TargetProduct[];
+  autoManagement: AutoManagement;
   createdAt: string;
+  updatedAt: string;
+  isDraft: boolean;
+  currentStep: string;
+  isTestAB: boolean;
+  characteristics: Characteristics;
+  targetLimit: TargetLimit;
+  exclusions: Exclusions;
 }
 
-export interface ColorsApi {
-  primary: string;
-  secondary: string;
-  font: string;
+export interface Exclusions {
+  shooters: string[];
+  targets: string[];
+}
+
+export interface TargetLimit {
+  isActive: boolean;
+  amount: number;
+}
+
+enum TextShortage {
+  "¡Ultimas unidades!" = 0,
+  "¡Quedan Pocas!" = 1,
+  "¡Ultima oportunidad!" = 2,
+  "Stock limitado" = 3,
+}
+
+interface Shortage {
+  isActive: boolean;
+  text: TextShortage;
+  isAutomatic: boolean;
+  stockAmount: number;
+}
+
+interface Frame {
+  isActive: boolean;
+  id: string | null;
+}
+
+export enum DesignType {
+  VERTICAL = 0,
+  HORIZONTAL = 1,
+  HISTORY = 2,
+}
+
+export interface Characteristics {
+  designType: DesignType;
+  text: Text;
+  discount: Discount;
+  shortage: Shortage;
+  timer: Timer;
+  frame: Frame;
+  colors: Colors;
+}
+
+export interface Colors {
+  text: string;
+  buttonText: string;
+  button: string;
+  background: string;
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////
@@ -234,19 +273,6 @@ export interface ProductViewPresentationProps extends ViewProductProps {
   setShowMessage: (state: boolean) => void;
   showMessage: boolean;
   template: string;
-}
-
-// enum para los diferentes tipos de template
-export enum DesignType {
-  VERTICAL = "vertical",
-  HORIZONTAL = "horizontal",
-  HISTORY = "history",
-}
-
-export interface Colors {
-  primary: string;
-  secondary: string;
-  font: string;
 }
 
 export interface QuantitySelectorProps {
