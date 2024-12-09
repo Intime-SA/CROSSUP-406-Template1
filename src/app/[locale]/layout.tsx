@@ -7,16 +7,15 @@ import { ThemeProvider } from "@/components/providers/providers";
 import { FontProvider } from "@/components/providers/fontProvider";
 import { ReduxProvider } from "@/redux/lib-redux/ReduxProvider";
 import { routing } from "@/i18n/routing";
-import { use } from "react";
 import "../globals.css";
 
 type Props = {
   children: ReactNode;
-  params: Promise<{ locale: string }>;
+  params: { locale: string };
 };
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const { locale } = await params;
+  const { locale } = params;
   console.log(locale);
 
   return {
@@ -26,8 +25,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 
-export default function RootLayout({ children, params }: Props) {
-  const { locale } = use(params);
+export default async function RootLayout({ children, params }: Props) {
+  const { locale } = params;
 
   // Validar el `locale`
   if (!routing.locales.includes(locale as "es" | "pt")) {
@@ -35,7 +34,7 @@ export default function RootLayout({ children, params }: Props) {
   }
 
   // Obtener los mensajes de internacionalización
-  const messages = use(getMessages());
+  const messages = await getMessages();
 
   return (
     <html lang={locale} suppressHydrationWarning>
