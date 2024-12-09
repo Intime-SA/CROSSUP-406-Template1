@@ -1,18 +1,17 @@
 import React from "react";
 import Image from "next/image";
-import { formatPrice } from "@/lib/utils";
 import { ProductAddedProps } from "@/domain/definitionsTypes";
-import { useProductSelectors } from "@/hooks/useSelectors";
+/* import { useProductSelectors } from "@/hooks/useSelectors"; */
 import { Check } from "lucide-react";
 
 // componente señalador del shooter
 export const ProductAdded: React.FC<ProductAddedProps> = ({
   onClose,
   closeIconSrc = "/bottomClose.svg",
-  mainProduct,
+  /*   mainProduct, */
 }) => {
   // Mostrar o no mostrar la descripcion
-  const { visibilityDescription } = useProductSelectors();
+  /* const { visibilityDescription } = useProductSelectors(); */
 
   return (
     <div className="w-full bg-white">

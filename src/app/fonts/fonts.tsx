@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { useProductSelectors } from "@/hooks/useSelectors";
 
 // creacion de hook
 export function useDynamicFont() {

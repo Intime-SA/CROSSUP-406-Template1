@@ -23,7 +23,6 @@ import {
 } from "@/redux/features/promotionSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/redux/store";
-import { useProductSelectors } from "@/hooks/useSelectors";
 
 export default function SplitViewTemplates() {
   const { isLoaded } = useDynamicFont();
@@ -47,6 +46,8 @@ export default function SplitViewTemplates() {
     mobile: string | null;
     desktop: string | null;
   }>({ mobile: null, desktop: null });
+
+  console.log(mensajeEnviado, error, respuestas);
 
   const dispatch = useDispatch();
   const [receivedDesignType, setReceivedDesignType] = useState<DesignType>(

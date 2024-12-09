@@ -1,47 +1,47 @@
 "use client";
 
-import React, { useState, useRef } from "react";
-import Image from "next/image";
+import React, { useRef } from "react";
+/* import Image from "next/image";
+import { formatPrice } from "@/lib/utils"; */
 import {
   RecommendedProductsProps,
-  TargetProduct,
+  /* TargetProduct, */
 } from "@/domain/definitionsTypes";
-import { formatPrice } from "@/lib/utils";
 import { CountdownTimer } from "./CountDownTimer";
-import { addToCartHandler } from "@/lib/functions";
+/* import { addToCartHandler } from "@/lib/functions"; */
 import { useProductSelectors } from "@/hooks/useSelectors";
-import { ChevronLeft, ChevronRight, Plus } from "lucide-react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 
 // componente productos recomendados template horizontal
 export default function RecommendedProductsHorizontal({
   products,
-  openModalViewProduct,
-  onClose,
-}: RecommendedProductsProps) {
-  const [clickedProducts, setClickedProducts] = useState<Set<TargetProduct>>(
+}: /*   openModalViewProduct,
+  onClose, */
+RecommendedProductsProps) {
+  /*   const [clickedProducts, setClickedProducts] = useState<Set<TargetProduct>>(
     new Set()
-  );
+  ); */
 
   // localizador de posicion para el carrusel
   const scrollContainerRef = useRef<HTMLDivElement>(null);
 
   // trae states redux glboales de promotion.
   const {
-    quantity,
-    visibilityDescription,
     amountOfTime,
     timerGlobal,
-    discountIsActive,
+    /*     discountIsActive,
+    visibilityDescription,
     discountAmount,
     isFixedDiscount,
-    hasShortage,
+    hasShortage, */
+    /* quantity,
+    canModifyQuantity, */
     hasShortageText,
     hasShortageGlobal,
-    canModifyQuantity,
   } = useProductSelectors();
 
   // metodo para agregar al carrito
-  const handleAddToCartAndClose = (target: TargetProduct) => {
+  /*   const handleAddToCartAndClose = (target: TargetProduct) => {
     if (!target) {
       console.error("Producto no encontrado");
       return;
@@ -55,7 +55,7 @@ export default function RecommendedProductsHorizontal({
       addToCartHandler(variantToAdd, quantity);
       setClickedProducts((prev) => new Set(prev).add(target));
     }
-  };
+  }; */
 
   // metodo para scrollear en horizontal
   const scroll = (direction: "left" | "right") => {

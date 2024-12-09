@@ -41,7 +41,7 @@ interface BorderProps {
 }
 
 // ?
-interface FrameProps {
+export interface FrameProps {
   _id: string;
   header: HeaderProps;
   borders: BorderProps;
@@ -218,7 +218,7 @@ export interface ViewProductProps {
   setIsOpen: (state: boolean) => void;
   isOpen: boolean; // Indica si el modal está abierto
   onClose: () => void;
-  template: string; // Función para cerrar el modal
+  template: DesignType; // Función para cerrar el modal
 }
 
 //
@@ -272,7 +272,7 @@ export interface ProductViewPresentationProps extends ViewProductProps {
   handleAddToCartAndClose: () => void;
   setShowMessage: (state: boolean) => void;
   showMessage: boolean;
-  template: string;
+  template: DesignType;
 }
 
 export interface QuantitySelectorProps {
@@ -323,7 +323,7 @@ export interface SheetContentPropsHorizontal {
   titleText: string;
   isOpen: boolean;
   setIsOpen: (state: boolean) => void;
-  template: string;
+  template: DesignType;
 }
 
 export interface ProductHistoryProps {
@@ -331,7 +331,7 @@ export interface ProductHistoryProps {
   product: TargetProduct;
   setIsOpen: (isOpen: boolean) => void;
   onClose: () => void;
-  template: string;
+  template: DesignType;
 }
 
 export interface CarouselApi {

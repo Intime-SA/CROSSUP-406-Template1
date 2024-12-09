@@ -63,13 +63,13 @@ export const useProductSelectors = () => {
   const addToCartButton = useSelector(
     (state: RootState) => state.promotion.addToCartButton
   );
-  const fontFamily = useSelector(
+  /*   const fontFamily = useSelector(
     (state: RootState) => state.promotion.colors?.font
-  );
+  ); */
 
   // return de states
   return {
-    fontFamily,
+    /*     fontFamily, */
     colors,
     quantity,
     desingType,

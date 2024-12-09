@@ -1,8 +1,6 @@
 import React from "react";
 import { Button } from "@/components/ui/button";
 import { X } from "lucide-react";
-import ProductImage from "./ProductImage";
-import ProductInfo from "./ProductInfo";
 import QuantitySelector from "./QuantitySelector";
 import ColorSelector from "./ColorSelector";
 import SizeSelector from "./SizeSelector";

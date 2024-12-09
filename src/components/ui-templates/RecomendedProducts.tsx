@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import Image from "next/image";
 import {
   RecommendedProductsProps,
   TargetProduct,
@@ -22,7 +21,6 @@ export default function RecommendedProducts({
 
   const {
     quantity,
-    visibilityDescription,
     amountOfTime,
     timerGlobal,
     discountIsActive,

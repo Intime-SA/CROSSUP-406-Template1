@@ -1,6 +1,6 @@
-import { PromotionData } from "@/domain/definitionsTypes";
+/* import { PromotionData } from "@/domain/definitionsTypes"; */
 
-export const getMockOfferData4 = (): PromotionData => ({
+export const getMockOfferData4 = (): any => ({
   _id: "67223aac87729c4433dcbc31",
   colors: {
     primary: "#2a2742",
@@ -596,9 +596,9 @@ export const getMockOfferData4 = (): PromotionData => ({
     text: "",
   },
   autoManagement: {
-    isEnabled: false,
+    isActive: false,
     updatedAt: "2024-10-30T13:54:52.389Z",
-    history: null,
+    history: "",
   },
   updatedAt: "2024-10-30T13:54:52.389Z",
   storeId: "659802e39fca2cdf36d8c605",
@@ -626,9 +626,9 @@ export const getMockOfferData4 = (): PromotionData => ({
     },
   },
   range: {
-    hasRange: false,
-    startRange: null,
-    endRange: null,
+    isActive: false,
+    startRange: "",
+    endRange: "",
   },
   shooters: [
     {
