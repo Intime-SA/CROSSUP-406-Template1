@@ -10,7 +10,8 @@ import {
 } from "@/domain/definitionsTypes";
 import { updateMultipleStates } from "@/redux/features/promotionSlice";
 import { NEW_OFFER } from "@/constants";
-import { fetchDataFromJson } from "@/app/actions/actions";
+/* import { fetchDataFromJson } from "@/app/actions/actions"; */
+import { getMockOfferData3 } from "@/data/data3";
 
 // hook de logica
 export const useLogicTemplate = () => {
@@ -136,7 +137,7 @@ export const useLogicTemplate = () => {
   useEffect(() => {
     const fetchAndProcessData = async () => {
       try {
-        const data: PromotionData = await fetchDataFromJson(selectedTemplate);
+        const data: PromotionData = getMockOfferData3();
         processData(data);
       } catch (error) {
         console.error("Error fetching or processing data:", error);
