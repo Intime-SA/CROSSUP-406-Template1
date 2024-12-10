@@ -12,7 +12,6 @@ import { VerticalTemplate } from "../ui-templates/VerticalTemplate";
 import HorizontalTemplate from "../ui-templates/HorizontalTemplate";
 import HistoryTemplate from "../ui-templates/HistoryTemplate";
 import ProductView from "../ui-templates/ProductView";
-import { fetchDataFromJson } from "@/app/actions/actions";
 import {
   updateAddToCartButton,
   updateColors,
@@ -23,6 +22,7 @@ import {
 } from "@/redux/features/promotionSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/redux/store";
+import { getMockOfferData3 } from "@/data/data3";
 
 export default function SplitViewTemplates() {
   const { isLoaded } = useDynamicFont();
@@ -188,7 +188,7 @@ export default function SplitViewTemplates() {
 
   const sendMessageChildren = useCallback(async () => {
     try {
-      const data: any = await fetchDataFromJson(selectedTemplate); // Assuming fetchDataFromJson is defined elsewhere
+      const data: any = getMockOfferData3(); // Assuming fetchDataFromJson is defined elsewhere
       const dataPayload = JSON.stringify(data);
 
       [mobileIframeRef, desktopIframeRef].forEach((ref) => {

@@ -10,7 +10,6 @@ import {
 } from "@/domain/definitionsTypes";
 import { updateMultipleStates } from "@/redux/features/promotionSlice";
 import { NEW_OFFER } from "@/constants";
-/* import { fetchDataFromJson } from "@/app/actions/actions"; */
 import { getMockOfferData3 } from "@/data/data3";
 
 // hook de logica
