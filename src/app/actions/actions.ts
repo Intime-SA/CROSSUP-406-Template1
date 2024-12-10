@@ -1,7 +1,4 @@
-"use server";
-
-// mock de data API CROSS UP > SUGERENCIA / RECOMENDACION
-import { getMockOfferData } from "@/data/data";
+/* import { getMockOfferData } from "@/data/data";
 import { getMockOfferData2 } from "@/data/data2";
 import { getMockOfferData3 } from "@/data/data3";
 import { getMockOfferData4 } from "@/data/data4";
@@ -32,3 +29,4 @@ export async function fetchDataFromJson(typeTemplate: string) {
     throw new Error("Failed to fetch data");
   }
 }
+ */
