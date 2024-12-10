@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build || exit 0",
+    "build": "next build && next export",
     "start": "next start",
     "lint": "next lint"
   },
@@ -27,6 +27,7 @@
     "lucide-react": "^0.453.0",
     "next": "^15.0.3",
     "next-themes": "^0.3.0",
+    "npx": "^10.2.2",
     "react": "0.0.0-experimental-7283a213-20241206",
     "react-dom": "0.0.0-experimental-7283a213-20241206",
     "react-hot-toast": "^2.4.1",
@@ -41,6 +42,7 @@
     "tailwindcss-animate": "^1.0.7"
   },
   "devDependencies": {
+    "@cloudflare/next-on-pages": "^1.13.7",
     "@testing-library/dom": "^10.4.0",
     "@types/node": "^20",
     "@types/react": "^18.3.12",
