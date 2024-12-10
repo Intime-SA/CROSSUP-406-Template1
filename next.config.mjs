@@ -1,6 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  reactStrictMode: true,
+  output: "export",
   images: {
     domains: [
       "picsum.photos",
@@ -8,23 +8,6 @@ const nextConfig = {
       "acdn.mitiendanube.com",
       "downloads.intercomcdn.com",
     ],
-  },
-  async headers() {
-    return [
-      {
-        source: "/:path*",
-        headers: [
-          {
-            key: "X-Frame-Options",
-            value: "ALLOWALL",
-          },
-          {
-            key: "Content-Security-Policy",
-            value: "frame-ancestors 'self' *",
-          },
-        ],
-      },
-    ];
   },
 };
 
