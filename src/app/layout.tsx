@@ -1,21 +1,28 @@
+import React, { ReactNode } from "react";
 import type { Metadata } from "next";
-import "./globals.css";
-import { ReduxProvider } from "@/redux/lib-redux/ReduxProvider";
+import { Inter } from "next/font/google";
 import { ThemeProvider } from "@/components/providers/providers";
 import { FontProvider } from "@/components/providers/fontProvider";
-import { ReactNode } from "react";
+import { ReduxProvider } from "@/redux/lib-redux/ReduxProvider";
+import "./globals.css";
+
+const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "CrossUp - Templates",
   description:
-    "Desarrollo en codigo de templates para tienda nube, nueva version de producto",
+    "Desarrollo en código de templates para tienda nube, nueva versión de producto",
 };
 
-export default function RootLayout({ children }: { children: ReactNode }) {
+type Props = {
+  children: ReactNode;
+};
+
+export default function RootLayout({ children }: Props) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html>
       <body
-        className={`min-h-screen font-sans bg-background text-foreground font-sans`}
+        className={`min-h-screen font-sans bg-background text-foreground ${inter.className}`}
       >
         <ThemeProvider
           attribute="class"

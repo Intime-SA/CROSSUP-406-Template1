@@ -6,7 +6,7 @@ import { useDynamicFont } from "@/app/fonts/fonts";
 import { useLogicTemplate } from "@/hooks/useLogicTemplate";
 import { Button } from "@/components/ui/button";
 import { templateOptions } from "@/lib/utils";
-import { useTranslations } from "next-intl";
+/* import { useTranslations } from "next-intl"; */
 import { Sheet } from "../ui/sheet";
 import { VerticalTemplate } from "../ui-templates/VerticalTemplate";
 import HorizontalTemplate from "../ui-templates/HorizontalTemplate";
@@ -223,7 +223,7 @@ export default function SplitViewTemplates() {
     }
   }, [isLoaded, isLoading, selectedTemplate, sendMessageChildren]);
 
-  const t = useTranslations("HomePage");
+  /*   const t = useTranslations("HomePage"); */
 
   const updateResponse = useCallback((source: Window, message: string) => {
     if (source === mobileIframeRef.current?.contentWindow) {
@@ -242,7 +242,7 @@ export default function SplitViewTemplates() {
     <div className="flex flex-col h-screen bg-background p-4">
       <div className="flex flex-col gap-4 mb-6">
         <h1 className="text-2xl font-bold">
-          <h1>{t("about")}</h1>
+          {/*           <h1>{t("about")}</h1> */}
         </h1>
         <div className="flex gap-2 flex-wrap">
           {Object.entries(templateOptions).map(([key, { label, type }]) => (

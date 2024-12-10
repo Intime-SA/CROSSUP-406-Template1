@@ -9,7 +9,7 @@ import { useProductView } from "@/hooks/useProductView";
 import { DesignType, ProductHistoryProps } from "@/domain/definitionsTypes";
 import { useProductSelectors } from "@/hooks/useSelectors";
 import { useMediaQuery } from "@/hooks/use-media-query";
-import { useTranslations } from "next-intl";
+/* import { useTranslations } from "next-intl"; */
 
 const ProductHistory: React.FC<ProductHistoryProps> = ({
   product,
@@ -37,7 +37,7 @@ const ProductHistory: React.FC<ProductHistoryProps> = ({
     setIsOpen(false);
   };
   const isMobile = useMediaQuery("(max-width: 767px)");
-  const t = useTranslations("Messages");
+  /*   const t = useTranslations("Messages"); */
   return (
     <div
       style={{
@@ -49,8 +49,6 @@ const ProductHistory: React.FC<ProductHistoryProps> = ({
         <div className="relative flex-grow">
           {template !== DesignType.HISTORY && (
             <Button
-              variant="outline"
-              size="icon"
               className="absolute right-2 -top-4 p-2 rounded-full border border-border bg-background z-50 hover:bg-secondary"
               onClick={onClose}
             >
@@ -82,7 +80,7 @@ const ProductHistory: React.FC<ProductHistoryProps> = ({
                 <div className="w-full">
                   <div className="h-[37px] p-2 bg-[#f9f8ff] rounded-lg shadow border border-[#e3e3e3] flex items-center justify-center">
                     <p className="text-[#2a2742] text-sm font-normal">
-                      {t("sinVariant")}
+                      {/*      {t("sinVariant")} */}
                     </p>
                   </div>
                 </div>
