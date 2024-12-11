@@ -37,7 +37,7 @@ export const ProductAdded: React.FC<ProductAddedProps> = ({
       </div>
       <div className="px-4 sm:px-6 py-4">
         <div className="flex gap-4">
-          {/*           <div className="w-[30%] max-w-[116px]">
+          <div className="w-[30%] max-w-[116px]">
             <Image
               className="border border-[var(--neutrals-disabled)] rounded-sm w-full h-auto"
               src={mainProduct.images[0].src}
@@ -46,10 +46,9 @@ export const ProductAdded: React.FC<ProductAddedProps> = ({
               height={116}
               layout="responsive"
             />
-          </div> */}
-          <div className="w-[73.65px] h-[73.65px] bg-[#f0f0f0]" />
+          </div>
           <div className="flex-1 flex flex-col gap-2">
-            {/*             <span
+            <span
               className={`text-left text-[var(--primary-text)] text-sm font-medium focus:outline-none transition-colors duration-200 ease-in-out hover:text-[#4a4760] ${
                 visibilityDescription ? "line-clamp-3" : ""
               }`}
@@ -58,13 +57,10 @@ export const ProductAdded: React.FC<ProductAddedProps> = ({
               {visibilityDescription &&
                 mainProduct.description.es &&
                 ` + ${mainProduct.description.es}`}
-            </span> */}
-            <div className="w-[158.72px] h-[15.24px] bg-[#f0f0f0]" />
-            <div className="w-[158.72px] h-[15.24px] bg-[#f0f0f0]" />
-            {/*             <div className="text-[var(--primary-text)] text-sm font-semibold">
+            </span>
+            <div className="text-[var(--primary-text)] text-sm font-semibold">
               1 x {formatPrice(mainProduct.variants[0].price)}
-            </div> */}
-            <span className="font-semibold">$ X.XXX,XX</span>
+            </div>
           </div>
         </div>
       </div>

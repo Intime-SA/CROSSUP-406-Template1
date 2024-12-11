@@ -69,7 +69,7 @@ export default function RecommendedProducts({
       {products && products.length > 0 ? (
         products.map((product) => (
           <div key={product.id} className="flex items-center gap-4">
-            {/*             <div className="w-[116px] max-w-[116px]">
+            <div className="w-[116px] max-w-[116px]">
               <Image
                 className="border border-[var(--neutrals-disabled)] rounded-sm"
                 src={product.images[0].src}
@@ -77,9 +77,9 @@ export default function RecommendedProducts({
                 width={116}
                 height={116}
               />
-            </div> */}
-            <div className="w-[73.65px] h-[73.65px] bg-[#f0f0f0]" />
-            {/*             <div className="flex-1 flex flex-col gap-2">
+            </div>
+            {/* <div className="w-[73.65px] h-[73.65px] bg-[#f0f0f0]" /> */}
+            <div className="flex-1 flex flex-col gap-2">
               <button
                 onClick={() => openModalViewProduct(product)}
                 className={`text-left text-sm font-medium focus:outline-none transition-colors duration-200 ease-in-out hover:text-[#4a4760] ${
@@ -135,13 +135,13 @@ export default function RecommendedProducts({
                   </span>
                 )}
               </div>
-            </div> */}
-            <div>
+            </div>
+            {/*             <div>
               <div className="w-[158.72px] h-[15.24px] bg-[#f0f0f0] mb-2" />
 
               <div className="w-[158.72px] h-[15.24px] bg-[#f0f0f0]" />
               <span className="font-semibold">$ X.XXX,XX</span>
-            </div>
+            </div> */}
 
             <AddButton
               product={product}
